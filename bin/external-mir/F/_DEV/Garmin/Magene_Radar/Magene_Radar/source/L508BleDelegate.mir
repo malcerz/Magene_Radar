@@ -1,0 +1,97 @@
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [BluetoothLowEnergy,1,14,32]; ]
+import Toybox.BluetoothLowEnergy;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Lang,2,14,18]; ]
+import Toybox.Lang;
+//! Routes Bluetooth Low Energy callbacks to the L508 manager.
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 5; @symbol_classdef = [L508BleDelegate,5,6,21]; @symbol_extends<0> = [BluetoothLowEnergy,5,30,48]; @symbol_extends<1> = [BleDelegate,5,49,60]; ]
+class L508BleDelegate extends BluetoothLowEnergy.BleDelegate {
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 5; ]
+    <init> {
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 5; ]
+    static
+    <init> {
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 7; @position = 16; @symbol_vardef = [mManager,7,16,24]; @symbol_type<0> = [L508BleManager,7,28,42]; ]
+    private
+    var mManager as L508BleManager;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 9; @symbol_functiondef = [initialize,9,13,23]; @symbol_param<0> = [manager,9,24,31]; @symbol_param<0>_type<0> = [L508BleManager,9,35,49]; ]
+    function initialize(manager as L508BleManager) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_9_51_12_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc" 10 8 ]
+        symbol [ BleDelegate %tmp.2 10 8 19 ];
+        %tmp.2 = getv ? :BleDelegate;
+        symbol [ initialize %tmp.3 10 20 30 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc" 11 8 ]
+        %tmp.4 = lgetv %manager;
+        symbol [ manager %tmp.4 11 19 26 ];
+        symbol [ mManager ? 11 8 16 ];
+        putv self :mManager %tmp.4;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_9_51_12_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 14; @symbol_functiondef = [onProfileRegister,14,13,30]; @symbol_param<0> = [uuid,14,31,35]; @symbol_param<0>_type<0> = [BluetoothLowEnergy,14,39,57]; @symbol_param<0>_type<1> = [Uuid,14,58,62]; @symbol_param<1> = [status,14,64,70]; @symbol_param<1>_type<0> = [BluetoothLowEnergy,14,74,92]; @symbol_param<1>_type<1> = [Status,14,93,99]; ]
+    function onProfileRegister(uuid as BluetoothLowEnergy.Uuid, status as BluetoothLowEnergy.Status) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_14_109_16_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc" 15 8 ]
+        symbol [ mManager %tmp.2 15 8 16 ];
+        %tmp.2 = getv ? :mManager;
+        symbol [ onProfileRegister %tmp.3 15 17 34 ];
+        %tmp.3 = getv function %tmp.2 :onProfileRegister;
+        %tmp.4 = lgetv %uuid;
+        symbol [ uuid %tmp.4 15 35 39 ];
+        %tmp.5 = lgetv %status;
+        symbol [ status %tmp.5 15 41 47 ];
+        invoke %tmp.2 %tmp.3(%tmp.4, %tmp.5);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_14_109_16_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 18; @symbol_functiondef = [onScanResults,18,13,26]; @symbol_param<0> = [scanResults,18,27,38]; @symbol_param<0>_type<0> = [Iterator,18,42,50]; ]
+    function onScanResults(scanResults as Iterator) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_18_60_20_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc" 19 8 ]
+        symbol [ mManager %tmp.2 19 8 16 ];
+        %tmp.2 = getv ? :mManager;
+        symbol [ onScanResults %tmp.3 19 17 30 ];
+        %tmp.3 = getv function %tmp.2 :onScanResults;
+        %tmp.4 = lgetv %scanResults;
+        symbol [ scanResults %tmp.4 19 31 42 ];
+        invoke %tmp.2 %tmp.3(%tmp.4);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_18_60_20_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 22; @symbol_functiondef = [onConnectedStateChanged,22,13,36]; @symbol_param<0> = [device,22,37,43]; @symbol_param<0>_type<0> = [BluetoothLowEnergy,22,47,65]; @symbol_param<0>_type<1> = [Device,22,66,72]; @symbol_param<1> = [state,22,74,79]; @symbol_param<1>_type<0> = [BluetoothLowEnergy,22,83,101]; @symbol_param<1>_type<1> = [ConnectionState,22,102,117]; ]
+    function onConnectedStateChanged(device as BluetoothLowEnergy.Device, state as BluetoothLowEnergy.ConnectionState) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_22_127_24_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc" 23 8 ]
+        symbol [ mManager %tmp.2 23 8 16 ];
+        %tmp.2 = getv ? :mManager;
+        symbol [ onConnectedStateChanged %tmp.3 23 17 40 ];
+        %tmp.3 = getv function %tmp.2 :onConnectedStateChanged;
+        %tmp.4 = lgetv %device;
+        symbol [ device %tmp.4 23 41 47 ];
+        %tmp.5 = lgetv %state;
+        symbol [ state %tmp.5 23 49 54 ];
+        invoke %tmp.2 %tmp.3(%tmp.4, %tmp.5);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_22_127_24_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 26; @symbol_functiondef = [onCharacteristicRead,26,13,33]; @symbol_param<0> = [characteristic,26,34,48]; @symbol_param<0>_type<0> = [BluetoothLowEnergy,26,52,70]; @symbol_param<0>_type<1> = [Characteristic,26,71,85]; @symbol_param<1> = [status,26,87,93]; @symbol_param<1>_type<0> = [BluetoothLowEnergy,26,97,115]; @symbol_param<1>_type<1> = [Status,26,116,122]; @symbol_param<2> = [value,26,124,129]; @symbol_param<2>_type<0> = [ByteArray,26,133,142]; ]
+    function onCharacteristicRead(characteristic as BluetoothLowEnergy.Characteristic, status as BluetoothLowEnergy.Status, value as ByteArray) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_26_152_28_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc" 27 8 ]
+        symbol [ mManager %tmp.2 27 8 16 ];
+        %tmp.2 = getv ? :mManager;
+        symbol [ onCharacteristicRead %tmp.3 27 17 37 ];
+        %tmp.3 = getv function %tmp.2 :onCharacteristicRead;
+        %tmp.4 = lgetv %characteristic;
+        symbol [ characteristic %tmp.4 27 38 52 ];
+        %tmp.5 = lgetv %status;
+        symbol [ status %tmp.5 27 54 60 ];
+        %tmp.6 = lgetv %value;
+        symbol [ value %tmp.6 27 62 67 ];
+        invoke %tmp.2 %tmp.3(%tmp.4, %tmp.5, %tmp.6);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleDelegate_mc_26_152_28_4_stop:
+    }
+}
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleDelegate.mc"; @line = 1; ]
+<init> {
+}

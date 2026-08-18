@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<debugInfo>
+<manifest filename="F:\_DEV\Garmin\Magene_Radar\Magene_Radar\manifest.xml"/>
+<pcToLineNum>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="1" lineNum="5" parent="globals/L508BleDelegate" pc="268435457" symbol="&lt;init&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="2" lineNum="39" parent="globals" pc="268435469" symbol="getApp"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="2" lineNum="40" parent="globals" pc="268435479" symbol="getApp"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="3" lineNum="5" parent="globals/Background" pc="268435490" symbol="&lt;init&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="4" lineNum="10" parent="globals/L508RadarManager" pc="268435502" symbol="&lt;init&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="5" lineNum="5" parent="globals/Magene_RadarApp" pc="268435512" symbol="&lt;init&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="6" lineNum="7" parent="globals/Magene_RadarView" pc="268435524" symbol="&lt;init&gt;"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="7" lineNum="7" parent="globals/Rez" pc="268435536" symbol="&lt;init&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="8" lineNum="8" parent="globals/L508BleManager" pc="268435556" symbol="&lt;init&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="8" lineNum="9" parent="globals/L508BleManager" pc="268435580" symbol="&lt;init&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="8" lineNum="10" parent="globals/L508BleManager" pc="268435604" symbol="&lt;init&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="9" lineNum="26" parent="globals/L508BleDelegate" pc="268435657" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="9" lineNum="27" parent="globals/L508BleDelegate" pc="268435659" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="10" lineNum="22" parent="globals/L508BleDelegate" pc="268435680" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="10" lineNum="23" parent="globals/L508BleDelegate" pc="268435682" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="11" lineNum="9" parent="globals/L508BleDelegate" pc="268435701" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="11" lineNum="10" parent="globals/L508BleDelegate" pc="268435703" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="11" lineNum="11" parent="globals/L508BleDelegate" pc="268435715" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="12" lineNum="14" parent="globals/L508BleDelegate" pc="268435725" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="12" lineNum="15" parent="globals/L508BleDelegate" pc="268435727" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="13" lineNum="18" parent="globals/L508BleDelegate" pc="268435746" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleDelegate.mc" id="13" lineNum="19" parent="globals/L508BleDelegate" pc="268435748" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="14" lineNum="19" parent="globals/Background" pc="268435765" symbol="setColor"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="14" lineNum="20" parent="globals/Background" pc="268435767" symbol="setColor"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="15" lineNum="9" parent="globals/Background" pc="268435777" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="15" lineNum="10" parent="globals/Background" pc="268435780" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="15" lineNum="14" parent="globals/Background" pc="268435798" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="15" lineNum="16" parent="globals/Background" pc="268435814" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="16" lineNum="23" parent="globals/Background" pc="268435827" symbol="draw"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="16" lineNum="24" parent="globals/Background" pc="268435829" symbol="draw"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarBackground.mc" id="16" lineNum="25" parent="globals/Background" pc="268435846" symbol="draw"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="17" lineNum="95" parent="globals/L508RadarManager" pc="268435855" symbol="&lt;globals/L508RadarManager/&lt;&gt;speedKph&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="17" lineNum="96" parent="globals/L508RadarManager" pc="268435857" symbol="&lt;globals/L508RadarManager/&lt;&gt;speedKph&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="17" lineNum="96" parent="globals/L508RadarManager" pc="268435869" symbol="&lt;globals/L508RadarManager/&lt;&gt;speedKph&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="17" lineNum="97" parent="globals/L508RadarManager" pc="268435871" symbol="&lt;globals/L508RadarManager/&lt;&gt;speedKph&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="25" parent="globals/L508RadarManager" pc="268435895" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="26" parent="globals/L508RadarManager" pc="268435898" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="26" parent="globals/L508RadarManager" pc="268435907" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="28" parent="globals/L508RadarManager" pc="268435908" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="28" parent="globals/L508RadarManager" pc="268435924" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="29" parent="globals/L508RadarManager" pc="268435928" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="30" parent="globals/L508RadarManager" pc="268435949" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="32" parent="globals/L508RadarManager" pc="268435952" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="32" parent="globals/L508RadarManager" pc="268435958" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="33" parent="globals/L508RadarManager" pc="268435959" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="34" parent="globals/L508RadarManager" pc="268435980" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="35" parent="globals/L508RadarManager" pc="268435988" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="37" parent="globals/L508RadarManager" pc="268436006" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="37" parent="globals/L508RadarManager" pc="268436026" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="38" parent="globals/L508RadarManager" pc="268436051" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="39" parent="globals/L508RadarManager" pc="268436067" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="40" parent="globals/L508RadarManager" pc="268436074" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="40" parent="globals/L508RadarManager" pc="268436092" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="41" parent="globals/L508RadarManager" pc="268436095" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="42" parent="globals/L508RadarManager" pc="268436103" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="42" parent="globals/L508RadarManager" pc="268436116" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="43" parent="globals/L508RadarManager" pc="268436119" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="44" parent="globals/L508RadarManager" pc="268436131" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="45" parent="globals/L508RadarManager" pc="268436153" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="46" parent="globals/L508RadarManager" pc="268436159" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="47" parent="globals/L508RadarManager" pc="268436198" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="48" parent="globals/L508RadarManager" pc="268436214" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="49" parent="globals/L508RadarManager" pc="268436225" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="52" parent="globals/L508RadarManager" pc="268436297" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="53" parent="globals/L508RadarManager" pc="268436307" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="54" parent="globals/L508RadarManager" pc="268436317" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="55" parent="globals/L508RadarManager" pc="268436326" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="55" parent="globals/L508RadarManager" pc="268436332" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="56" parent="globals/L508RadarManager" pc="268436342" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="57" parent="globals/L508RadarManager" pc="268436359" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="58" parent="globals/L508RadarManager" pc="268436368" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="62" parent="globals/L508RadarManager" pc="268436447" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="63" parent="globals/L508RadarManager" pc="268436450" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="64" parent="globals/L508RadarManager" pc="268436473" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="65" parent="globals/L508RadarManager" pc="268436483" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="66" parent="globals/L508RadarManager" pc="268436495" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="67" parent="globals/L508RadarManager" pc="268436506" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="68" parent="globals/L508RadarManager" pc="268436521" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="69" parent="globals/L508RadarManager" pc="268436528" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="69" parent="globals/L508RadarManager" pc="268436540" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="71" parent="globals/L508RadarManager" pc="268436555" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="74" parent="globals/L508RadarManager" pc="268436581" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="75" parent="globals/L508RadarManager" pc="268436589" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="76" parent="globals/L508RadarManager" pc="268436669" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="18" lineNum="77" parent="globals/L508RadarManager" pc="268436677" symbol="update"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="19" lineNum="99" parent="globals/L508RadarManager" pc="268436736" symbol="getVehicleCount"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="19" lineNum="99" parent="globals/L508RadarManager" pc="268436738" symbol="getVehicleCount"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="81" parent="globals/L508RadarManager" pc="268436744" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="82" parent="globals/L508RadarManager" pc="268436747" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="83" parent="globals/L508RadarManager" pc="268436750" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="84" parent="globals/L508RadarManager" pc="268436757" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="85" parent="globals/L508RadarManager" pc="268436777" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="86" parent="globals/L508RadarManager" pc="268436787" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="87" parent="globals/L508RadarManager" pc="268436799" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="88" parent="globals/L508RadarManager" pc="268436812" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="88" parent="globals/L508RadarManager" pc="268436819" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="89" parent="globals/L508RadarManager" pc="268436825" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="89" parent="globals/L508RadarManager" pc="268436833" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="89" parent="globals/L508RadarManager" pc="268436837" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="20" lineNum="92" parent="globals/L508RadarManager" pc="268436851" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="21" lineNum="100" parent="globals/L508RadarManager" pc="268436854" symbol="getLastSpeed"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="21" lineNum="100" parent="globals/L508RadarManager" pc="268436856" symbol="getLastSpeed"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="22" lineNum="15" parent="globals/L508RadarManager" pc="268436862" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="22" lineNum="17" parent="globals/L508RadarManager" pc="268436865" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="22" lineNum="18" parent="globals/L508RadarManager" pc="268436895" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="22" lineNum="19" parent="globals/L508RadarManager" pc="268436914" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="22" lineNum="20" parent="globals/L508RadarManager" pc="268436918" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508RadarManager.mc" id="22" lineNum="21" parent="globals/L508RadarManager" pc="268436926" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="23" lineNum="15" parent="globals/Magene_RadarApp" pc="268436951" symbol="onStart"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="23" lineNum="16" parent="globals/Magene_RadarApp" pc="268436953" symbol="onStart"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="23" lineNum="17" parent="globals/Magene_RadarApp" pc="268436962" symbol="onStart"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="24" lineNum="33" parent="globals/Magene_RadarApp" pc="268436975" symbol="getInitialView"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="24" lineNum="34" parent="globals/Magene_RadarApp" pc="268436977" symbol="getInitialView"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="25" lineNum="9" parent="globals/Magene_RadarApp" pc="268437003" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="25" lineNum="10" parent="globals/Magene_RadarApp" pc="268437005" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="25" lineNum="11" parent="globals/Magene_RadarApp" pc="268437017" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="26" lineNum="28" parent="globals/Magene_RadarApp" pc="268437043" symbol="getL508BleManager"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="26" lineNum="29" parent="globals/Magene_RadarApp" pc="268437045" symbol="getL508BleManager"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="27" lineNum="22" parent="globals/Magene_RadarApp" pc="268437051" symbol="onStop"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="27" lineNum="23" parent="globals/Magene_RadarApp" pc="268437053" symbol="onStop"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarApp.mc" id="27" lineNum="24" parent="globals/Magene_RadarApp" pc="268437062" symbol="onStop"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="28" lineNum="30" parent="globals/Magene_RadarView" pc="268437075" symbol="compute"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="28" lineNum="31" parent="globals/Magene_RadarView" pc="268437078" symbol="compute"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="28" lineNum="32" parent="globals/Magene_RadarView" pc="268437092" symbol="compute"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="28" lineNum="33" parent="globals/Magene_RadarView" pc="268437098" symbol="compute"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="28" lineNum="34" parent="globals/Magene_RadarView" pc="268437107" symbol="compute"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="28" lineNum="35" parent="globals/Magene_RadarView" pc="268437117" symbol="compute"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="28" lineNum="36" parent="globals/Magene_RadarView" pc="268437123" symbol="compute"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="28" lineNum="37" parent="globals/Magene_RadarView" pc="268437154" symbol="compute"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="28" lineNum="39" parent="globals/Magene_RadarView" pc="268437166" symbol="compute"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="30" lineNum="12" parent="globals/Magene_RadarView" pc="268437183" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="30" lineNum="13" parent="globals/Magene_RadarView" pc="268437185" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="30" lineNum="14" parent="globals/Magene_RadarView" pc="268437197" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="30" lineNum="15" parent="globals/Magene_RadarView" pc="268437209" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="30" lineNum="16" parent="globals/Magene_RadarView" pc="268437234" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="30" lineNum="17" parent="globals/Magene_RadarView" pc="268437246" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="42" parent="globals/Magene_RadarView" pc="268437265" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="43" parent="globals/Magene_RadarView" pc="268437268" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="45" parent="globals/Magene_RadarView" pc="268437276" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="46" parent="globals/Magene_RadarView" pc="268437290" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="48" parent="globals/Magene_RadarView" pc="268437298" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="52" parent="globals/Magene_RadarView" pc="268437316" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="54" parent="globals/Magene_RadarView" pc="268437330" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="55" parent="globals/Magene_RadarView" pc="268437339" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="58" parent="globals/Magene_RadarView" pc="268437348" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="60" parent="globals/Magene_RadarView" pc="268437352" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="61" parent="globals/Magene_RadarView" pc="268437356" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="63" parent="globals/Magene_RadarView" pc="268437359" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="64" parent="globals/Magene_RadarView" pc="268437369" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="65" parent="globals/Magene_RadarView" pc="268437379" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="68" parent="globals/Magene_RadarView" pc="268437389" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="77" parent="globals/Magene_RadarView" pc="268437421" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="85" parent="globals/Magene_RadarView" pc="268437466" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="94" parent="globals/Magene_RadarView" pc="268437492" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="96" parent="globals/Magene_RadarView" pc="268437505" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\Magene_RadarView.mc" id="31" lineNum="104" parent="globals/Magene_RadarView" pc="268437558" symbol="onUpdate"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="158" parent="globals/L508BleManager" pc="268437588" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="159" parent="globals/L508BleManager" pc="268437591" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="160" parent="globals/L508BleManager" pc="268437603" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="161" parent="globals/L508BleManager" pc="268437618" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="162" parent="globals/L508BleManager" pc="268437633" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="163" parent="globals/L508BleManager" pc="268437637" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="164" parent="globals/L508BleManager" pc="268437648" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="165" parent="globals/L508BleManager" pc="268437661" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="166" parent="globals/L508BleManager" pc="268437687" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="167" parent="globals/L508BleManager" pc="268437698" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="32" lineNum="171" parent="globals/L508BleManager" pc="268437711" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="205" parent="globals/L508BleManager" pc="268437719" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="206" parent="globals/L508BleManager" pc="268437721" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="207" parent="globals/L508BleManager" pc="268437730" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="208" parent="globals/L508BleManager" pc="268437748" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="211" parent="globals/L508BleManager" pc="268437749" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="212" parent="globals/L508BleManager" pc="268437774" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="213" parent="globals/L508BleManager" pc="268437783" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="214" parent="globals/L508BleManager" pc="268437801" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="216" parent="globals/L508BleManager" pc="268437802" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="218" parent="globals/L508BleManager" pc="268437820" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="219" parent="globals/L508BleManager" pc="268437845" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="220" parent="globals/L508BleManager" pc="268437854" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="221" parent="globals/L508BleManager" pc="268437872" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="223" parent="globals/L508BleManager" pc="268437873" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="225" parent="globals/L508BleManager" pc="268437891" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="33" lineNum="226" parent="globals/L508BleManager" pc="268437909" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="34" lineNum="64" parent="globals/L508BleManager" pc="268437917" symbol="getBatteryPercent"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="34" lineNum="65" parent="globals/L508BleManager" pc="268437919" symbol="getBatteryPercent"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="68" parent="globals/L508BleManager" pc="268437925" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="69" parent="globals/L508BleManager" pc="268437927" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="70" parent="globals/L508BleManager" pc="268437945" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="73" parent="globals/L508BleManager" pc="268437946" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="74" parent="globals/L508BleManager" pc="268437954" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="75" parent="globals/L508BleManager" pc="268437975" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="76" parent="globals/L508BleManager" pc="268437982" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="77" parent="globals/L508BleManager" pc="268438000" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="80" parent="globals/L508BleManager" pc="268438001" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="35" lineNum="81" parent="globals/L508BleManager" pc="268438009" symbol="onProfileRegister"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="130" parent="globals/L508BleManager" pc="268438017" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="131" parent="globals/L508BleManager" pc="268438020" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="132" parent="globals/L508BleManager" pc="268438028" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="133" parent="globals/L508BleManager" pc="268438048" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="136" parent="globals/L508BleManager" pc="268438049" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="137" parent="globals/L508BleManager" pc="268438070" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="138" parent="globals/L508BleManager" pc="268438097" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="139" parent="globals/L508BleManager" pc="268438105" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="140" parent="globals/L508BleManager" pc="268438123" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="143" parent="globals/L508BleManager" pc="268438124" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="144" parent="globals/L508BleManager" pc="268438130" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="145" parent="globals/L508BleManager" pc="268438145" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="146" parent="globals/L508BleManager" pc="268438153" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="147" parent="globals/L508BleManager" pc="268438174" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="150" parent="globals/L508BleManager" pc="268438175" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="151" parent="globals/L508BleManager" pc="268438182" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="152" parent="globals/L508BleManager" pc="268438191" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="153" parent="globals/L508BleManager" pc="268438218" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="36" lineNum="154" parent="globals/L508BleManager" pc="268438232" symbol="onCharacteristicRead"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="37" lineNum="274" parent="globals/L508BleManager" pc="268438263" symbol="&lt;globals/L508BleManager/&lt;&gt;logScanResult&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="37" lineNum="275" parent="globals/L508BleManager" pc="268438266" symbol="&lt;globals/L508BleManager/&lt;&gt;logScanResult&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="37" lineNum="276" parent="globals/L508BleManager" pc="268438275" symbol="&lt;globals/L508BleManager/&lt;&gt;logScanResult&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="37" lineNum="277" parent="globals/L508BleManager" pc="268438281" symbol="&lt;globals/L508BleManager/&lt;&gt;logScanResult&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="37" lineNum="279" parent="globals/L508BleManager" pc="268438288" symbol="&lt;globals/L508BleManager/&lt;&gt;logScanResult&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="38" lineNum="282" parent="globals/L508BleManager" pc="268438346" symbol="&lt;globals/L508BleManager/&lt;&gt;serviceUuidsToString&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="38" lineNum="283" parent="globals/L508BleManager" pc="268438349" symbol="&lt;globals/L508BleManager/&lt;&gt;serviceUuidsToString&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="38" lineNum="284" parent="globals/L508BleManager" pc="268438356" symbol="&lt;globals/L508BleManager/&lt;&gt;serviceUuidsToString&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="38" lineNum="285" parent="globals/L508BleManager" pc="268438371" symbol="&lt;globals/L508BleManager/&lt;&gt;serviceUuidsToString&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="38" lineNum="286" parent="globals/L508BleManager" pc="268438383" symbol="&lt;globals/L508BleManager/&lt;&gt;serviceUuidsToString&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="38" lineNum="288" parent="globals/L508BleManager" pc="268438393" symbol="&lt;globals/L508BleManager/&lt;&gt;serviceUuidsToString&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="38" lineNum="290" parent="globals/L508BleManager" pc="268438418" symbol="&lt;globals/L508BleManager/&lt;&gt;serviceUuidsToString&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="84" parent="globals/L508BleManager" pc="268438421" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="85" parent="globals/L508BleManager" pc="268438424" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="86" parent="globals/L508BleManager" pc="268438441" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="89" parent="globals/L508BleManager" pc="268438442" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="90" parent="globals/L508BleManager" pc="268438457" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="91" parent="globals/L508BleManager" pc="268438472" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="92" parent="globals/L508BleManager" pc="268438476" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="93" parent="globals/L508BleManager" pc="268438487" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="94" parent="globals/L508BleManager" pc="268438500" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="95" parent="globals/L508BleManager" pc="268438526" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="96" parent="globals/L508BleManager" pc="268438533" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="39" lineNum="97" parent="globals/L508BleManager" pc="268438544" symbol="onScanResults"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="40" lineNum="192" parent="globals/L508BleManager" pc="268438558" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="40" lineNum="193" parent="globals/L508BleManager" pc="268438560" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="40" lineNum="194" parent="globals/L508BleManager" pc="268438568" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="40" lineNum="196" parent="globals/L508BleManager" pc="268438569" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="40" lineNum="197" parent="globals/L508BleManager" pc="268438577" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="40" lineNum="198" parent="globals/L508BleManager" pc="268438595" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="40" lineNum="199" parent="globals/L508BleManager" pc="268438616" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="40" lineNum="200" parent="globals/L508BleManager" pc="268438625" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="40" lineNum="201" parent="globals/L508BleManager" pc="268438633" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="43" parent="globals/L508BleManager" pc="268438652" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="44" parent="globals/L508BleManager" pc="268438654" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="45" parent="globals/L508BleManager" pc="268438670" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="48" parent="globals/L508BleManager" pc="268438671" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="49" parent="globals/L508BleManager" pc="268438689" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="50" parent="globals/L508BleManager" pc="268438707" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="51" parent="globals/L508BleManager" pc="268438733" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="52" parent="globals/L508BleManager" pc="268438751" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="53" parent="globals/L508BleManager" pc="268438759" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="41" lineNum="54" parent="globals/L508BleManager" pc="268438777" symbol="start"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="103" parent="globals/L508BleManager" pc="268438796" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="104" parent="globals/L508BleManager" pc="268438798" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="105" parent="globals/L508BleManager" pc="268438818" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="108" parent="globals/L508BleManager" pc="268438819" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="109" parent="globals/L508BleManager" pc="268438840" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="110" parent="globals/L508BleManager" pc="268438867" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="112" parent="globals/L508BleManager" pc="268438868" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="113" parent="globals/L508BleManager" pc="268438877" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="114" parent="globals/L508BleManager" pc="268438885" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="115" parent="globals/L508BleManager" pc="268438893" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="116" parent="globals/L508BleManager" pc="268438901" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="117" parent="globals/L508BleManager" pc="268438909" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="118" parent="globals/L508BleManager" pc="268438917" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="119" parent="globals/L508BleManager" pc="268438925" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="120" parent="globals/L508BleManager" pc="268438933" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="121" parent="globals/L508BleManager" pc="268438951" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="124" parent="globals/L508BleManager" pc="268438952" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="125" parent="globals/L508BleManager" pc="268438961" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="126" parent="globals/L508BleManager" pc="268438969" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="42" lineNum="127" parent="globals/L508BleManager" pc="268438987" symbol="onConnectedStateChanged"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="43" lineNum="183" parent="globals/L508BleManager" pc="268438995" symbol="&lt;globals/L508BleManager/&lt;&gt;stopScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="43" lineNum="184" parent="globals/L508BleManager" pc="268438997" symbol="&lt;globals/L508BleManager/&lt;&gt;stopScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="43" lineNum="185" parent="globals/L508BleManager" pc="268439006" symbol="&lt;globals/L508BleManager/&lt;&gt;stopScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="43" lineNum="187" parent="globals/L508BleManager" pc="268439007" symbol="&lt;globals/L508BleManager/&lt;&gt;stopScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="43" lineNum="188" parent="globals/L508BleManager" pc="268439025" symbol="&lt;globals/L508BleManager/&lt;&gt;stopScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="43" lineNum="189" parent="globals/L508BleManager" pc="268439039" symbol="&lt;globals/L508BleManager/&lt;&gt;stopScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="44" lineNum="174" parent="globals/L508BleManager" pc="268439048" symbol="&lt;globals/L508BleManager/&lt;&gt;startScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="44" lineNum="175" parent="globals/L508BleManager" pc="268439050" symbol="&lt;globals/L508BleManager/&lt;&gt;startScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="44" lineNum="176" parent="globals/L508BleManager" pc="268439075" symbol="&lt;globals/L508BleManager/&lt;&gt;startScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="44" lineNum="178" parent="globals/L508BleManager" pc="268439076" symbol="&lt;globals/L508BleManager/&lt;&gt;startScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="44" lineNum="179" parent="globals/L508BleManager" pc="268439084" symbol="&lt;globals/L508BleManager/&lt;&gt;startScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="44" lineNum="180" parent="globals/L508BleManager" pc="268439102" symbol="&lt;globals/L508BleManager/&lt;&gt;startScan&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="45" lineNum="57" parent="globals/L508BleManager" pc="268439118" symbol="stop"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="45" lineNum="58" parent="globals/L508BleManager" pc="268439120" symbol="stop"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="45" lineNum="59" parent="globals/L508BleManager" pc="268439128" symbol="stop"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="45" lineNum="60" parent="globals/L508BleManager" pc="268439142" symbol="stop"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="247" parent="globals/L508BleManager" pc="268439151" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="248" parent="globals/L508BleManager" pc="268439154" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="249" parent="globals/L508BleManager" pc="268439182" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="252" parent="globals/L508BleManager" pc="268439183" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="253" parent="globals/L508BleManager" pc="268439190" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="254" parent="globals/L508BleManager" pc="268439198" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="256" parent="globals/L508BleManager" pc="268439215" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="257" parent="globals/L508BleManager" pc="268439224" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="258" parent="globals/L508BleManager" pc="268439228" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="46" lineNum="259" parent="globals/L508BleManager" pc="268439236" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="28" parent="globals/L508BleManager" pc="268439266" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="29" parent="globals/L508BleManager" pc="268439268" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="30" parent="globals/L508BleManager" pc="268439276" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="31" parent="globals/L508BleManager" pc="268439284" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="32" parent="globals/L508BleManager" pc="268439292" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="33" parent="globals/L508BleManager" pc="268439300" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="34" parent="globals/L508BleManager" pc="268439308" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="35" parent="globals/L508BleManager" pc="268439316" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="36" parent="globals/L508BleManager" pc="268439324" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="37" parent="globals/L508BleManager" pc="268439332" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="38" parent="globals/L508BleManager" pc="268439340" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="39" parent="globals/L508BleManager" pc="268439348" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="47" lineNum="40" parent="globals/L508BleManager" pc="268439356" symbol="initialize"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="48" lineNum="230" parent="globals/L508BleManager" pc="268439365" symbol="pollBatteryIfDue"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="48" lineNum="231" parent="globals/L508BleManager" pc="268439368" symbol="pollBatteryIfDue"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="48" lineNum="232" parent="globals/L508BleManager" pc="268439405" symbol="pollBatteryIfDue"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="48" lineNum="235" parent="globals/L508BleManager" pc="268439406" symbol="pollBatteryIfDue"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="48" lineNum="236" parent="globals/L508BleManager" pc="268439418" symbol="pollBatteryIfDue"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="48" lineNum="239" parent="globals/L508BleManager" pc="268439425" symbol="pollBatteryIfDue"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="48" lineNum="240" parent="globals/L508BleManager" pc="268439446" symbol="pollBatteryIfDue"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="48" lineNum="243" parent="globals/L508BleManager" pc="268439447" symbol="pollBatteryIfDue"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="48" lineNum="244" parent="globals/L508BleManager" pc="268439465" symbol="pollBatteryIfDue"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="49" lineNum="263" parent="globals/L508BleManager" pc="268439473" symbol="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="49" lineNum="264" parent="globals/L508BleManager" pc="268439476" symbol="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="49" lineNum="265" parent="globals/L508BleManager" pc="268439485" symbol="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="49" lineNum="266" parent="globals/L508BleManager" pc="268439491" symbol="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="49" lineNum="267" parent="globals/L508BleManager" pc="268439509" symbol="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="49" lineNum="269" parent="globals/L508BleManager" pc="268439511" symbol="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="49" lineNum="270" parent="globals/L508BleManager" pc="268439527" symbol="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;"/>
+<entry filename="F:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\source\\L508BleManager.mc" id="49" lineNum="271" parent="globals/L508BleManager" pc="268439571" symbol="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="50" lineNum="57" parent="globals/Rez/Layouts" pc="268439601" symbol="BottomRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="50" lineNum="58" parent="globals/Rez/Layouts" pc="268439612" symbol="BottomRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="50" lineNum="60" parent="globals/Rez/Layouts" pc="268439636" symbol="BottomRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="50" lineNum="62" parent="globals/Rez/Layouts" pc="268439719" symbol="BottomRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="50" lineNum="64" parent="globals/Rez/Layouts" pc="268439802" symbol="BottomRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="51" lineNum="37" parent="globals/Rez/Layouts" pc="268439822" symbol="TopRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="51" lineNum="38" parent="globals/Rez/Layouts" pc="268439833" symbol="TopRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="51" lineNum="40" parent="globals/Rez/Layouts" pc="268439857" symbol="TopRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="51" lineNum="42" parent="globals/Rez/Layouts" pc="268439940" symbol="TopRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="51" lineNum="44" parent="globals/Rez/Layouts" pc="268440023" symbol="TopRightLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="52" lineNum="47" parent="globals/Rez/Layouts" pc="268440043" symbol="BottomLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="52" lineNum="48" parent="globals/Rez/Layouts" pc="268440054" symbol="BottomLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="52" lineNum="50" parent="globals/Rez/Layouts" pc="268440078" symbol="BottomLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="52" lineNum="52" parent="globals/Rez/Layouts" pc="268440160" symbol="BottomLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="52" lineNum="54" parent="globals/Rez/Layouts" pc="268440242" symbol="BottomLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="53" lineNum="27" parent="globals/Rez/Layouts" pc="268440262" symbol="TopLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="53" lineNum="28" parent="globals/Rez/Layouts" pc="268440273" symbol="TopLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="53" lineNum="30" parent="globals/Rez/Layouts" pc="268440297" symbol="TopLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="53" lineNum="32" parent="globals/Rez/Layouts" pc="268440379" symbol="TopLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="53" lineNum="34" parent="globals/Rez/Layouts" pc="268440461" symbol="TopLeftLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="54" lineNum="13" parent="globals/Rez/Layouts" pc="268440481" symbol="MainLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="54" lineNum="14" parent="globals/Rez/Layouts" pc="268440492" symbol="MainLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="54" lineNum="16" parent="globals/Rez/Layouts" pc="268440501" symbol="MainLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="54" lineNum="18" parent="globals/Rez/Layouts" pc="268440510" symbol="MainLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="54" lineNum="20" parent="globals/Rez/Layouts" pc="268440534" symbol="MainLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="54" lineNum="22" parent="globals/Rez/Layouts" pc="268440641" symbol="MainLayout"/>
+<entry filename="f:\\_DEV\\Garmin\\Magene_Radar\\Magene_Radar\\bin\\gen\\006-B3843-00\\source\\Rez.mcgen" id="54" lineNum="24" parent="globals/Rez/Layouts" pc="268440748" symbol="MainLayout"/>
+</pcToLineNum>
+<symbolTable>
+<entry id="8388639" module="true" symbol="Graphics"/>
+<entry id="20" method="true" symbol="&lt;globals/L508RadarManager/&lt;&gt;speedKph&gt;"/>
+<entry id="33" method="true" symbol="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;"/>
+<entry field="true" id="22" symbol="&lt;globals/Magene_RadarApp/&lt;&gt;mL508BleManager&gt;"/>
+<entry id="9" object="true" symbol="Magene_RadarApp"/>
+<entry id="8388632" method="true" symbol="&lt;init&gt;"/>
+<entry id="34" method="true" symbol="&lt;globals/L508BleManager/&lt;&gt;logScanResult&gt;"/>
+<entry id="10" object="true" symbol="Magene_RadarView"/>
+<entry field="true" id="43" symbol="&lt;globals/L508BleManager/&lt;&gt;mProfileRegistered&gt;"/>
+<entry id="55" method="true" symbol="MainLayout"/>
+<entry field="true" id="42" symbol="&lt;globals/L508BleManager/&lt;&gt;mPairing&gt;"/>
+<entry field="true" id="16" symbol="&lt;globals/L508RadarManager/&lt;&gt;mRadar&gt;"/>
+<entry field="true" id="37" symbol="&lt;globals/L508BleManager/&lt;&gt;mBatteryService&gt;"/>
+<entry field="true" id="45" symbol="&lt;globals/L508BleManager/&lt;&gt;mReadRequested&gt;"/>
+<entry field="true" id="8388611" module="true" symbol="Toybox"/>
+<entry field="true" id="40" symbol="&lt;globals/L508BleManager/&lt;&gt;mDevice&gt;"/>
+<entry field="true" id="39" symbol="&lt;globals/L508BleManager/&lt;&gt;mDelegate&gt;"/>
+<entry id="8391256" method="true" symbol="onScanResults"/>
+<entry field="true" id="58" symbol="AppName"/>
+<entry id="5" module="true" symbol="globals/Rez/Strings"/>
+<entry id="50" method="true" symbol="&lt;globals/L508BleManager/&lt;&gt;startScan&gt;"/>
+<entry id="8388631" module="true" symbol="Activity"/>
+<entry id="8388648" module="true" symbol="WatchUi"/>
+<entry field="true" id="18" symbol="&lt;globals/L508RadarManager/&lt;&gt;mTracks&gt;"/>
+<entry field="true" id="8389138" symbol="label"/>
+<entry id="2" module="true" symbol="globals/Rez"/>
+<entry id="29" method="true" symbol="&lt;globals/L508BleManager/&lt;&gt;connect&gt;"/>
+<entry id="8" object="true" symbol="L508RadarManager"/>
+<entry id="13" method="true" symbol="getLastSpeed"/>
+<entry id="8389410" module="true" symbol="AntPlus"/>
+<entry id="8391259" method="true" symbol="onCharacteristicRead"/>
+<entry id="8389124" method="true" symbol="onUpdate"/>
+<entry field="true" id="8389065" symbol="locY"/>
+<entry field="true" id="8389064" symbol="locX"/>
+<entry field="true" id="11" symbol="&lt;globals/L508BleDelegate/&lt;&gt;mManager&gt;"/>
+<entry id="8388771" module="true" object="true" symbol="Drawables"/>
+<entry id="8389348" symbol="font"/>
+<entry id="8391258" method="true" symbol="onConnectedStateChanged"/>
+<entry id="8389275" method="true" symbol="getApp"/>
+<entry id="4" module="true" symbol="globals/Rez/Layouts"/>
+<entry id="48" method="true" symbol="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;"/>
+<entry id="8389122" method="true" symbol="onLayout"/>
+<entry id="12" method="true" symbol="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;"/>
+<entry field="true" id="38" symbol="&lt;globals/L508BleManager/&lt;&gt;mConnectionState&gt;"/>
+<entry field="true" id="8389063" symbol="identifier"/>
+<entry id="8389349" symbol="justification"/>
+<entry id="8389137" method="true" symbol="compute"/>
+<entry id="31" method="true" symbol="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;"/>
+<entry id="8389131" method="true" symbol="setColor"/>
+<entry id="3" module="true" symbol="globals/Rez/Drawables"/>
+<entry id="8388699" method="true" symbol="stop"/>
+<entry id="56" method="true" symbol="TopLeftLayout"/>
+<entry id="32" method="true" symbol="getBatteryPercent"/>
+<entry field="true" id="17" symbol="&lt;globals/L508RadarManager/&lt;&gt;mReportedData&gt;"/>
+<entry id="51" method="true" symbol="&lt;globals/L508BleManager/&lt;&gt;stopScan&gt;"/>
+<entry id="8388644" module="true" symbol="System"/>
+<entry id="8391257" method="true" symbol="onProfileRegister"/>
+<entry id="8388769" module="true" object="true" symbol="Rez"/>
+<entry id="53" method="true" symbol="BottomLeftLayout"/>
+<entry id="54" method="true" symbol="BottomRightLayout"/>
+<entry id="8388640" module="true" symbol="Lang"/>
+<entry field="true" id="23" symbol="mBattery"/>
+<entry field="true" id="8389130" symbol="mColor"/>
+<entry id="8389068" method="true" symbol="draw"/>
+<entry field="true" id="52" symbol="LauncherIcon"/>
+<entry id="8388610" symbol="statics"/>
+<entry id="7" object="true" symbol="L508BleManager"/>
+<entry field="true" id="15" symbol="&lt;globals/L508RadarManager/&lt;&gt;mLastSpeed&gt;"/>
+<entry id="8389350" module="true" symbol="globals"/>
+<entry field="true" id="46" symbol="&lt;globals/L508BleManager/&lt;&gt;mScanning&gt;"/>
+<entry id="8391334" symbol="uuid"/>
+<entry id="8388770" module="true" object="true" symbol="Strings"/>
+<entry field="true" id="26" symbol="&lt;globals/L508BleManager/&lt;&gt;BATTERY_LEVEL_UUID&gt;"/>
+<entry id="8390146" module="true" object="true" symbol="Background"/>
+<entry id="8391193" module="true" symbol="BluetoothLowEnergy"/>
+<entry id="8388702" method="true" symbol="initialize"/>
+<entry field="true" id="19" symbol="&lt;globals/L508RadarManager/&lt;&gt;mVehicleCount&gt;"/>
+<entry id="8389279" method="true" symbol="onStart"/>
+<entry field="true" id="41" symbol="&lt;globals/L508BleManager/&lt;&gt;mLastBatteryRequestTime&gt;"/>
+<entry id="30" method="true" symbol="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;"/>
+<entry field="true" id="28" symbol="&lt;globals/L508BleManager/&lt;&gt;BATTERY_SERVICE_UUID&gt;"/>
+<entry id="8388641" module="true" symbol="Math"/>
+<entry id="14" method="true" symbol="getVehicleCount"/>
+<entry id="8389280" method="true" symbol="getInitialView"/>
+<entry id="8389281" method="true" symbol="onStop"/>
+<entry field="true" id="36" symbol="&lt;globals/L508BleManager/&lt;&gt;mBatteryPercent&gt;"/>
+<entry field="true" id="8389347" symbol="color"/>
+<entry field="true" id="24" symbol="mRadar"/>
+<entry id="8391341" symbol="characteristics"/>
+<entry field="true" id="35" symbol="&lt;globals/L508BleManager/&lt;&gt;mBatteryLevelCharacteristic&gt;"/>
+<entry field="true" id="44" symbol="&lt;globals/L508BleManager/&lt;&gt;mProfileRegistering&gt;"/>
+<entry id="21" method="true" symbol="getL508BleManager"/>
+<entry id="49" method="true" symbol="&lt;globals/L508BleManager/&lt;&gt;serviceUuidsToString&gt;"/>
+<entry id="47" method="true" symbol="pollBatteryIfDue"/>
+<entry id="25" module="true" symbol="Layouts"/>
+<entry id="8388698" method="true" symbol="start"/>
+<entry field="true" id="27" symbol="&lt;globals/L508BleManager/&lt;&gt;BATTERY_PROFILE&gt;"/>
+<entry id="8390514" method="true" symbol="update"/>
+<entry id="6" object="true" symbol="L508BleDelegate"/>
+<entry id="8388635" module="true" symbol="Application"/>
+<entry id="57" method="true" symbol="TopRightLayout"/>
+</symbolTable>
+<localVars>
+<entry arg="true" endPc="268435679" name="characteristic" stackId="1" startPc="268435657"/>
+<entry arg="true" endPc="268435679" name="status" stackId="2" startPc="268435657"/>
+<entry arg="true" endPc="268435679" name="value" stackId="3" startPc="268435657"/>
+<entry arg="true" endPc="268435700" name="device" stackId="1" startPc="268435680"/>
+<entry arg="true" endPc="268435700" name="state" stackId="2" startPc="268435680"/>
+<entry arg="true" endPc="268435724" name="manager" stackId="1" startPc="268435701"/>
+<entry arg="true" endPc="268435745" name="uuid" stackId="1" startPc="268435725"/>
+<entry arg="true" endPc="268435745" name="status" stackId="2" startPc="268435725"/>
+<entry arg="true" endPc="268435764" name="scanResults" stackId="1" startPc="268435746"/>
+<entry arg="true" endPc="268435776" name="color" stackId="1" startPc="268435765"/>
+<entry endPc="268435825" name="dictionary" stackId="1" startPc="268435780"/>
+<entry arg="true" endPc="268435854" name="dc" stackId="1" startPc="268435827"/>
+<entry arg="true" endPc="268435894" name="relative" stackId="1" startPc="268435855"/>
+<entry arg="true" endPc="268435894" name="rider" stackId="2" startPc="268435855"/>
+<entry arg="true" endPc="268436735" name="info" stackId="1" startPc="268435895"/>
+<entry endPc="268436734" name="targets" stackId="2" startPc="268435898"/>
+<entry endPc="268435950" name="e" stackId="3" startPc="268435924"/>
+<entry endPc="268436050" name="oi" stackId="4" startPc="268436026"/>
+<entry endPc="268436446" name="ti" stackId="5" startPc="268436067"/>
+<entry endPc="268436436" name="target" stackId="6" startPc="268436067"/>
+<entry endPc="268436436" name="range" stackId="7" startPc="268436067"/>
+<entry endPc="268436436" name="match" stackId="8" startPc="268436067"/>
+<entry endPc="268436436" name="speed" stackId="9" startPc="268436067"/>
+<entry endPc="268436436" name="wasClose" stackId="10" startPc="268436297"/>
+<entry endPc="268436734" name="passed" stackId="11" startPc="268435898"/>
+<entry endPc="268436580" name="i" stackId="12" startPc="268436473"/>
+<entry endPc="268436570" name="track" stackId="13" startPc="268436473"/>
+<entry arg="true" endPc="268436853" name="range" stackId="1" startPc="268436744"/>
+<entry endPc="268436850" name="ti" stackId="4" startPc="268436777"/>
+<entry endPc="268436840" name="track" stackId="5" startPc="268436777"/>
+<entry endPc="268436840" name="delta" stackId="6" startPc="268436799"/>
+<entry endPc="268436948" name="e" stackId="1" startPc="268436914"/>
+<entry arg="true" endPc="268436974" name="state" stackId="1" startPc="268436951"/>
+<entry arg="true" endPc="268437074" name="state" stackId="1" startPc="268437051"/>
+<entry arg="true" endPc="268437182" name="info" stackId="1" startPc="268437075"/>
+<entry endPc="268437181" name="manager" stackId="2" startPc="268437078"/>
+<entry endPc="268437165" name="batteryPercent" stackId="3" startPc="268437098"/>
+<entry arg="true" endPc="268437587" name="dc" stackId="1" startPc="268437265"/>
+<entry endPc="268437586" name="bg" stackId="2" startPc="268437268"/>
+<entry endPc="268437586" name="fg" stackId="3" startPc="268437268"/>
+<entry endPc="268437586" name="w" stackId="4" startPc="268437268"/>
+<entry endPc="268437586" name="h" stackId="5" startPc="268437268"/>
+<entry endPc="268437586" name="batteryFont" stackId="6" startPc="268437268"/>
+<entry endPc="268437586" name="valueFont" stackId="7" startPc="268437268"/>
+<entry endPc="268437586" name="labelFont" stackId="8" startPc="268437268"/>
+<entry endPc="268437586" name="batteryY" stackId="9" startPc="268437268"/>
+<entry endPc="268437586" name="valueY" stackId="10" startPc="268437268"/>
+<entry endPc="268437586" name="labelY" stackId="11" startPc="268437268"/>
+<entry endPc="268437586" name="speed" stackId="12" startPc="268437268"/>
+<entry endPc="268437717" name="bondedDevices" stackId="1" startPc="268437591"/>
+<entry endPc="268437710" name="result" stackId="2" startPc="268437618"/>
+<entry arg="true" endPc="268438016" name="uuid" stackId="1" startPc="268437925"/>
+<entry arg="true" endPc="268438016" name="status" stackId="2" startPc="268437925"/>
+<entry arg="true" endPc="268438262" name="characteristic" stackId="1" startPc="268438017"/>
+<entry arg="true" endPc="268438262" name="status" stackId="2" startPc="268438017"/>
+<entry arg="true" endPc="268438262" name="value" stackId="3" startPc="268438017"/>
+<entry endPc="268438261" name="percent" stackId="4" startPc="268438020"/>
+<entry endPc="268438261" name="previousPercent" stackId="5" startPc="268438020"/>
+<entry arg="true" endPc="268438345" name="scanResult" stackId="1" startPc="268438263"/>
+<entry endPc="268438344" name="name" stackId="2" startPc="268438266"/>
+<entry arg="true" endPc="268438420" name="uuids" stackId="1" startPc="268438346"/>
+<entry endPc="268438417" name="uuid" stackId="3" startPc="268438371"/>
+<entry arg="true" endPc="268438557" name="scanResults" stackId="1" startPc="268438421"/>
+<entry endPc="268438556" name="result" stackId="2" startPc="268438457"/>
+<entry arg="true" endPc="268438651" name="scanResult" stackId="1" startPc="268438558"/>
+<entry arg="true" endPc="268438994" name="device" stackId="1" startPc="268438796"/>
+<entry arg="true" endPc="268438994" name="state" stackId="2" startPc="268438796"/>
+<entry endPc="268439263" name="e" stackId="2" startPc="268439224"/>
+<entry endPc="268439471" name="now" stackId="1" startPc="268439368"/>
+<entry endPc="268439471" name="last" stackId="2" startPc="268439368"/>
+<entry arg="true" endPc="268439600" name="scanResult" stackId="1" startPc="268439473"/>
+<entry arg="true" endPc="268439821" name="dc" stackId="1" startPc="268439601"/>
+<entry arg="true" endPc="268440042" name="dc" stackId="1" startPc="268439822"/>
+<entry arg="true" endPc="268440261" name="dc" stackId="1" startPc="268440043"/>
+<entry arg="true" endPc="268440480" name="dc" stackId="1" startPc="268440262"/>
+<entry arg="true" endPc="268440767" name="dc" stackId="1" startPc="268440481"/>
+</localVars>
+<deviceInfo deviceVersion="361e256b74f66f7ba19da23c7ec7c7f06ab33c5c" partNumber="006-B3843-00"/>
+<annotations>
+<annotationEntry annotation="initialized" class="Drawables" module="globals/Rez" symbol="LauncherIcon"/>
+<annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="AppName"/>
+<annotationEntry annotation="initialized" class="Strings" module="globals/Rez" symbol="label"/>
+</annotations>
+<dataEntryOffsetMappings>
+<dataEntry label="globals" offset="58" parentId="" symbolId="globals" type="module"/>
+<dataEntry label="globals/L508BleDelegate" offset="161" parentId="globals" symbolId="L508BleDelegate" type="class"/>
+<dataEntry label="globals/Background" offset="250" parentId="globals" symbolId="Background" type="class"/>
+<dataEntry label="globals/L508RadarManager" offset="321" parentId="globals" symbolId="L508RadarManager" type="class"/>
+<dataEntry label="globals/Magene_RadarApp" offset="455" parentId="globals" symbolId="Magene_RadarApp" type="class"/>
+<dataEntry label="globals/Magene_RadarView" offset="544" parentId="globals" symbolId="Magene_RadarView" type="class"/>
+<dataEntry label="globals/Rez" offset="633" parentId="globals" symbolId="Rez" type="module"/>
+<dataEntry label="globals/L508BleManager" offset="686" parentId="globals" symbolId="L508BleManager" type="class"/>
+<dataEntry label="globals/Rez/Drawables" offset="1018" parentId="Rez" symbolId="Drawables" type="module"/>
+<dataEntry label="globals/Rez/Layouts" offset="1053" parentId="Rez" symbolId="Layouts" type="module"/>
+<dataEntry label="globals/Rez/Strings" offset="1124" parentId="Rez" symbolId="Strings" type="module"/>
+</dataEntryOffsetMappings>
+<functions>
+<functionEntry accessMode="public" endPc="268435468" name="&lt;init&gt;" parent="L508BleDelegate" startPc="268435457">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435489" name="getApp" startPc="268435469">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435501" name="&lt;init&gt;" parent="Background" startPc="268435490">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435511" name="&lt;init&gt;" parent="L508RadarManager" startPc="268435502">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435523" name="&lt;init&gt;" parent="Magene_RadarApp" startPc="268435512">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435535" name="&lt;init&gt;" parent="Magene_RadarView" startPc="268435524">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435555" name="&lt;init&gt;" parent="Rez" startPc="268435536">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435656" name="&lt;init&gt;" parent="L508BleManager" startPc="268435556">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435679" name="onCharacteristicRead" parent="L508BleDelegate" startPc="268435657">
+<param id="characteristic"/>
+<param id="status"/>
+<param id="value"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435700" name="onConnectedStateChanged" parent="L508BleDelegate" startPc="268435680">
+<param id="device"/>
+<param id="state"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435724" name="initialize" parent="L508BleDelegate" startPc="268435701">
+<param id="manager"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435745" name="onProfileRegister" parent="L508BleDelegate" startPc="268435725">
+<param id="uuid"/>
+<param id="status"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435764" name="onScanResults" parent="L508BleDelegate" startPc="268435746">
+<param id="scanResults"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435776" name="setColor" parent="Background" startPc="268435765">
+<param id="color"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435826" name="initialize" parent="Background" startPc="268435777">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268435854" name="draw" parent="Background" startPc="268435827">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268435894" name="&lt;globals/L508RadarManager/&lt;&gt;speedKph&gt;" parent="L508RadarManager" startPc="268435855">
+<param id="relative"/>
+<param id="rider"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436735" name="update" parent="L508RadarManager" startPc="268435895">
+<param id="info"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436743" name="getVehicleCount" parent="L508RadarManager" startPc="268436736">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268436853" name="&lt;globals/L508RadarManager/&lt;&gt;findTrack&gt;" parent="L508RadarManager" startPc="268436744">
+<param id="range"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436861" name="getLastSpeed" parent="L508RadarManager" startPc="268436854">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436950" name="initialize" parent="L508RadarManager" startPc="268436862">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268436974" name="onStart" parent="Magene_RadarApp" startPc="268436951">
+<param id="state"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437002" name="getInitialView" parent="Magene_RadarApp" startPc="268436975">
+<documentation><![CDATA[<div class="description"> Return the initial view of your application here<br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437042" name="initialize" parent="Magene_RadarApp" startPc="268437003">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437050" name="getL508BleManager" parent="Magene_RadarApp" startPc="268437043">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437074" name="onStop" parent="Magene_RadarApp" startPc="268437051">
+<param id="state"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437182" name="compute" parent="Magene_RadarView" startPc="268437075">
+<param id="info"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="onLayout" parent="Magene_RadarView">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437264" name="initialize" parent="Magene_RadarView" startPc="268437183">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437587" name="onUpdate" parent="Magene_RadarView" startPc="268437265">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="&lt;init&gt;" parent="Drawables">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="&lt;init&gt;" parent="Layouts">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" name="&lt;init&gt;" parent="Strings">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268437718" name="&lt;globals/L508BleManager/&lt;&gt;connectBondedL508OrScan&gt;" parent="L508BleManager" startPc="268437588">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268437916" name="&lt;globals/L508BleManager/&lt;&gt;findBatteryCharacteristic&gt;" parent="L508BleManager" startPc="268437719">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268437924" name="getBatteryPercent" parent="L508BleManager" startPc="268437917">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268438016" name="onProfileRegister" parent="L508BleManager" startPc="268437925">
+<param id="uuid"/>
+<param id="status"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268438262" name="onCharacteristicRead" parent="L508BleManager" startPc="268438017">
+<param id="characteristic"/>
+<param id="status"/>
+<param id="value"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268438345" name="&lt;globals/L508BleManager/&lt;&gt;logScanResult&gt;" parent="L508BleManager" startPc="268438263">
+<param id="scanResult"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268438420" name="&lt;globals/L508BleManager/&lt;&gt;serviceUuidsToString&gt;" parent="L508BleManager" startPc="268438346">
+<param id="uuids"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268438557" name="onScanResults" parent="L508BleManager" startPc="268438421">
+<param id="scanResults"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268438651" name="&lt;globals/L508BleManager/&lt;&gt;connect&gt;" parent="L508BleManager" startPc="268438558">
+<param id="scanResult"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268438795" name="start" parent="L508BleManager" startPc="268438652">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268438994" name="onConnectedStateChanged" parent="L508BleManager" startPc="268438796">
+<param id="device"/>
+<param id="state"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268439047" name="&lt;globals/L508BleManager/&lt;&gt;stopScan&gt;" parent="L508BleManager" startPc="268438995">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268439117" name="&lt;globals/L508BleManager/&lt;&gt;startScan&gt;" parent="L508BleManager" startPc="268439048">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268439150" name="stop" parent="L508BleManager" startPc="268439118">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268439265" name="&lt;globals/L508BleManager/&lt;&gt;requestBatteryRead&gt;" parent="L508BleManager" startPc="268439151">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268439364" name="initialize" parent="L508BleManager" startPc="268439266">
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268439472" name="pollBatteryIfDue" parent="L508BleManager" startPc="268439365">
+<documentation><![CDATA[<div class="description"> Called by the Data Field once per compute cycle; it only reads when 60 s elapsed.<br/></div>]]></documentation>
+</functionEntry>
+<functionEntry accessMode="private" endPc="268439600" name="&lt;globals/L508BleManager/&lt;&gt;isL508&gt;" parent="L508BleManager" startPc="268439473">
+<param id="scanResult"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268439821" name="BottomRightLayout" parent="Layouts" startPc="268439601">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268440042" name="TopRightLayout" parent="Layouts" startPc="268439822">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268440261" name="BottomLeftLayout" parent="Layouts" startPc="268440043">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268440480" name="TopLeftLayout" parent="Layouts" startPc="268440262">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+<functionEntry accessMode="public" endPc="268440767" name="MainLayout" parent="Layouts" startPc="268440481">
+<param id="dc"/>
+<documentation/>
+</functionEntry>
+</functions>
+</debugInfo>

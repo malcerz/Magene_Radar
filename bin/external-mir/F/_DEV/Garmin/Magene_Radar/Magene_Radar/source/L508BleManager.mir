@@ -1,0 +1,1714 @@
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [BluetoothLowEnergy,1,14,32]; ]
+import Toybox.BluetoothLowEnergy;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Lang,2,14,18]; ]
+import Toybox.Lang;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [System,3,14,20]; ]
+import Toybox.System;
+//! Minimal BLE lifecycle for a single read of the Magene L508 Battery Level.
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 6; @symbol_classdef = [L508BleManager,6,6,20]; ]
+class L508BleManager {
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 6; ]
+    <init> {
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 8 18 ]
+        symbol [ BluetoothLowEnergy %tmp.1 8 41 59 ];
+        %tmp.1 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ stringToUuid %tmp.2 8 60 72 ];
+        %tmp.2 = getv function %tmp.1 :stringToUuid;
+        %tmp.3 = "0000180f-0000-1000-8000-00805f9b34fb";
+        %tmp.4 = invoke %tmp.1 %tmp.2(%tmp.3);
+        putv self :BATTERY_SERVICE_UUID %tmp.4;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 9 18 ]
+        symbol [ BluetoothLowEnergy %tmp.5 9 39 57 ];
+        %tmp.5 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ stringToUuid %tmp.6 9 58 70 ];
+        %tmp.6 = getv function %tmp.5 :stringToUuid;
+        %tmp.7 = "00002a19-0000-1000-8000-00805f9b34fb";
+        %tmp.8 = invoke %tmp.5 %tmp.6(%tmp.7);
+        putv self :BATTERY_LEVEL_UUID %tmp.8;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 10 18 ]
+        %tmp.9 = newd 2;
+        %tmp.11 = const :uuid;
+        symbol [ uuid %tmp.11 11 9 13 const ];
+        symbol [ BATTERY_SERVICE_UUID %tmp.13 11 17 37 ];
+        %tmp.13 = getv ? :BATTERY_SERVICE_UUID;
+        %tmp.14 = dup %tmp.9;
+        %tmp.15 = aputv %tmp.14 %tmp.11 %tmp.13;
+        %tmp.17 = const :characteristics;
+        symbol [ characteristics %tmp.17 12 9 24 const ];
+        %tmp.18 = newa 1;
+        %tmp.19 = newd 1;
+        %tmp.21 = const :uuid;
+        symbol [ uuid %tmp.21 12 32 36 const ];
+        symbol [ BATTERY_LEVEL_UUID %tmp.23 12 40 58 ];
+        %tmp.23 = getv ? :BATTERY_LEVEL_UUID;
+        %tmp.24 = dup %tmp.19;
+        %tmp.25 = aputv %tmp.24 %tmp.21 %tmp.23;
+        %tmp.26 = dup %tmp.18;
+        %tmp.27 = aputv %tmp.26 0 %tmp.25;
+        %tmp.28 = dup %tmp.15;
+        %tmp.29 = aputv %tmp.28 %tmp.17 %tmp.27;
+        putv self :BATTERY_PROFILE %tmp.29;
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 6; ]
+    static
+    <init> {
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 8; @position = 18; @symbol_constdef = [BATTERY_SERVICE_UUID,8,18,38]; ]
+    private
+    const BATTERY_SERVICE_UUID;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 9; @position = 18; @symbol_constdef = [BATTERY_LEVEL_UUID,9,18,36]; ]
+    private
+    const BATTERY_LEVEL_UUID;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 10; @position = 18; @symbol_constdef = [BATTERY_PROFILE,10,18,33]; ]
+    private
+    const BATTERY_PROFILE;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 15; @position = 16; @symbol_vardef = [mBatteryPercent,15,16,31]; @symbol_type<0> = [Number,15,35,41]; ]
+    private
+    var mBatteryPercent as Number or Null;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 16; @position = 16; @symbol_vardef = [mConnectionState,16,16,32]; @symbol_type<0> = [BluetoothLowEnergy,16,36,54]; @symbol_type<1> = [ConnectionState,16,55,70]; ]
+    private
+    var mConnectionState as BluetoothLowEnergy.ConnectionState;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 17; @position = 16; @symbol_vardef = [mDevice,17,16,23]; @symbol_type<0> = [BluetoothLowEnergy,17,27,45]; @symbol_type<1> = [Device,17,46,52]; ]
+    private
+    var mDevice as BluetoothLowEnergy.Device or Null;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 18; @position = 16; @symbol_vardef = [mBatteryService,18,16,31]; @symbol_type<0> = [BluetoothLowEnergy,18,35,53]; @symbol_type<1> = [Service,18,54,61]; ]
+    private
+    var mBatteryService as BluetoothLowEnergy.Service or Null;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 19; @position = 16; @symbol_vardef = [mBatteryLevelCharacteristic,19,16,43]; @symbol_type<0> = [BluetoothLowEnergy,19,47,65]; @symbol_type<1> = [Characteristic,19,66,80]; ]
+    private
+    var mBatteryLevelCharacteristic as BluetoothLowEnergy.Characteristic or Null;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 20; @position = 16; @symbol_vardef = [mDelegate,20,16,25]; @symbol_type<0> = [L508BleDelegate,20,29,44]; ]
+    private
+    var mDelegate as L508BleDelegate or Null;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 21; @position = 16; @symbol_vardef = [mProfileRegistering,21,16,35]; @symbol_type<0> = [Boolean,21,39,46]; ]
+    private
+    var mProfileRegistering as Boolean;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 22; @position = 16; @symbol_vardef = [mProfileRegistered,22,16,34]; @symbol_type<0> = [Boolean,22,38,45]; ]
+    private
+    var mProfileRegistered as Boolean;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 23; @position = 16; @symbol_vardef = [mScanning,23,16,25]; @symbol_type<0> = [Boolean,23,29,36]; ]
+    private
+    var mScanning as Boolean;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 24; @position = 16; @symbol_vardef = [mPairing,24,16,24]; @symbol_type<0> = [Boolean,24,28,35]; ]
+    private
+    var mPairing as Boolean;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 25; @position = 16; @symbol_vardef = [mReadRequested,25,16,30]; @symbol_type<0> = [Boolean,25,34,41]; ]
+    private
+    var mReadRequested as Boolean;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 26; @position = 16; @symbol_vardef = [mLastBatteryRequestTime,26,16,39]; @symbol_type<0> = [Number,26,43,49]; ]
+    private
+    var mLastBatteryRequestTime as Number or Null;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 28; @symbol_functiondef = [initialize,28,13,23]; ]
+    function initialize() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_28_26_41_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 29 8 ]
+        %tmp.1 = null;
+        symbol [ mBatteryPercent ? 29 8 23 ];
+        putv self :mBatteryPercent %tmp.1;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 30 8 ]
+        symbol [ BluetoothLowEnergy %tmp.2 30 27 45 ];
+        %tmp.2 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ CONNECTION_STATE_DISCONNECTED %tmp.3 30 46 75 ];
+        %tmp.3 = getv %tmp.2 :CONNECTION_STATE_DISCONNECTED;
+        symbol [ mConnectionState ? 30 8 24 ];
+        putv self :mConnectionState %tmp.3;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 31 8 ]
+        %tmp.4 = null;
+        symbol [ mDevice ? 31 8 15 ];
+        putv self :mDevice %tmp.4;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 32 8 ]
+        %tmp.5 = null;
+        symbol [ mBatteryService ? 32 8 23 ];
+        putv self :mBatteryService %tmp.5;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 33 8 ]
+        %tmp.6 = null;
+        symbol [ mBatteryLevelCharacteristic ? 33 8 35 ];
+        putv self :mBatteryLevelCharacteristic %tmp.6;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 34 8 ]
+        %tmp.7 = null;
+        symbol [ mDelegate ? 34 8 17 ];
+        putv self :mDelegate %tmp.7;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 35 8 ]
+        %tmp.8 = false;
+        symbol [ mProfileRegistering ? 35 8 27 ];
+        putv self :mProfileRegistering %tmp.8;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 36 8 ]
+        %tmp.9 = false;
+        symbol [ mProfileRegistered ? 36 8 26 ];
+        putv self :mProfileRegistered %tmp.9;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 37 8 ]
+        %tmp.10 = false;
+        symbol [ mScanning ? 37 8 17 ];
+        putv self :mScanning %tmp.10;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 38 8 ]
+        %tmp.11 = false;
+        symbol [ mPairing ? 38 8 16 ];
+        putv self :mPairing %tmp.11;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 39 8 ]
+        %tmp.12 = false;
+        symbol [ mReadRequested ? 39 8 22 ];
+        putv self :mReadRequested %tmp.12;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 40 8 ]
+        %tmp.13 = null;
+        symbol [ mLastBatteryRequestTime ? 40 8 31 ];
+        putv self :mLastBatteryRequestTime %tmp.13;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_28_26_41_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 43; @symbol_functiondef = [start,43,13,18]; ]
+    function start() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_43_29_55_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 44 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_8_46_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_12_44_35_begin:
+        symbol [ mProfileRegistering %tmp.2 44 12 31 ];
+        %tmp.2 = getv ? :mProfileRegistering;
+        bt %tmp.2 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_8_46_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_35_44_35_false:
+        symbol [ mProfileRegistered %tmp.4 44 35 53 ];
+        %tmp.4 = getv ? :mProfileRegistered;
+        push %tmp.4;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_35_44_35_end:
+        %tmp.5 = phi [%tmp.2 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_12_44_35_begin] [%tmp.4 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_35_44_35_false] [%tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_35_44_35_end];
+        bf %tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_8_46_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_8_46_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_55_46_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 45 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_55_46_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_8_46_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_44_8_46_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 48 8 ]
+        symbol [ System %tmp.6 48 8 14 ];
+        %tmp.6 = getm $.Toybox.System;
+        symbol [ println %tmp.7 48 15 22 ];
+        %tmp.7 = getv function %tmp.6 :println;
+        %tmp.8 = "[L508 BLE] BUILD=TEST4-COMPUTE-POLL60";
+        invoke %tmp.6 %tmp.7(%tmp.8);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 49 8 ]
+        symbol [ System %tmp.9 49 8 14 ];
+        %tmp.9 = getm $.Toybox.System;
+        symbol [ println %tmp.10 49 15 22 ];
+        %tmp.10 = getv function %tmp.9 :println;
+        %tmp.11 = "[L508 BLE] init";
+        invoke %tmp.9 %tmp.10(%tmp.11);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 50 8 ]
+        symbol [ L508BleDelegate %tmp.15 50 24 39 ];
+        %tmp.15 = getv ? :L508BleDelegate;
+        %tmp.16 = self;
+        symbol [ self %tmp.16 50 40 44 ];
+        %tmp.12 = newc %tmp.15 (%tmp.16);
+        symbol [ mDelegate ? 50 8 17 ];
+        putv self :mDelegate %tmp.12;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 51 8 ]
+        symbol [ BluetoothLowEnergy %tmp.17 51 8 26 ];
+        %tmp.17 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ setDelegate %tmp.18 51 27 38 ];
+        %tmp.18 = getv function %tmp.17 :setDelegate;
+        symbol [ mDelegate %tmp.20 51 39 48 ];
+        %tmp.20 = getv ? :mDelegate;
+        %tmp.21 = as %tmp.20 L508BleDelegate;
+        symbol [ L508BleDelegate %tmp.21 51 52 67 ];
+        invoke %tmp.17 %tmp.18(%tmp.21);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 52 8 ]
+        %tmp.22 = true;
+        symbol [ mProfileRegistering ? 52 8 27 ];
+        putv self :mProfileRegistering %tmp.22;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 53 8 ]
+        symbol [ System %tmp.23 53 8 14 ];
+        %tmp.23 = getm $.Toybox.System;
+        symbol [ println %tmp.24 53 15 22 ];
+        %tmp.24 = getv function %tmp.23 :println;
+        %tmp.25 = "[L508 BLE] registering Battery Service profile";
+        invoke %tmp.23 %tmp.24(%tmp.25);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 54 8 ]
+        symbol [ BluetoothLowEnergy %tmp.26 54 8 26 ];
+        %tmp.26 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ registerProfile %tmp.27 54 27 42 ];
+        %tmp.27 = getv function %tmp.26 :registerProfile;
+        symbol [ BATTERY_PROFILE %tmp.29 54 43 58 ];
+        %tmp.29 = getv ? :BATTERY_PROFILE;
+        invoke %tmp.26 %tmp.27(%tmp.29);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_43_29_55_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 57; @symbol_functiondef = [stop,57,13,17]; ]
+    function stop() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_57_28_62_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 58 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_58_8_61_8_if_stmt:
+        symbol [ mScanning %tmp.2 58 12 21 ];
+        %tmp.2 = getv ? :mScanning;
+        bf %tmp.2 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_58_8_61_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_58_8_61_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_58_23_61_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 59 12 ]
+        symbol [ BluetoothLowEnergy %tmp.3 59 12 30 ];
+        %tmp.3 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ setScanState %tmp.4 59 31 43 ];
+        %tmp.4 = getv function %tmp.3 :setScanState;
+        symbol [ BluetoothLowEnergy %tmp.5 59 44 62 ];
+        %tmp.5 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ SCAN_STATE_OFF %tmp.6 59 63 77 ];
+        %tmp.6 = getv %tmp.5 :SCAN_STATE_OFF;
+        invoke %tmp.3 %tmp.4(%tmp.6);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 60 12 ]
+        %tmp.7 = false;
+        symbol [ mScanning ? 60 12 21 ];
+        putv self :mScanning %tmp.7;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_58_23_61_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_58_8_61_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_58_8_61_8_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_57_28_62_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 64; @symbol_functiondef = [getBatteryPercent,64,13,30]; @symbol_return<0> = [Number,64,36,42]; ]
+    function getBatteryPercent() as Number or Null {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_64_44_66_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 65 8 ]
+        symbol [ mBatteryPercent %tmp.2 65 15 30 ];
+        %tmp.2 = getv ? :mBatteryPercent;
+        ret %tmp.2;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_64_44_66_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 68; @symbol_functiondef = [onProfileRegister,68,13,30]; @symbol_param<0> = [uuid,68,31,35]; @symbol_param<0>_type<0> = [BluetoothLowEnergy,68,39,57]; @symbol_param<0>_type<1> = [Uuid,68,58,62]; @symbol_param<1> = [status,68,64,70]; @symbol_param<1>_type<0> = [BluetoothLowEnergy,68,74,92]; @symbol_param<1>_type<1> = [Status,68,93,99]; ]
+    function onProfileRegister(uuid as BluetoothLowEnergy.Uuid, status as BluetoothLowEnergy.Status) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_68_109_82_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 69 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_69_8_71_8_if_stmt:
+        %tmp.1 = lgetv %uuid;
+        symbol [ uuid %tmp.1 69 13 17 ];
+        symbol [ equals %tmp.2 69 18 24 ];
+        %tmp.2 = getv function %tmp.1 :equals;
+        symbol [ BATTERY_SERVICE_UUID %tmp.4 69 25 45 ];
+        %tmp.4 = getv ? :BATTERY_SERVICE_UUID;
+        %tmp.5 = invoke %tmp.1 %tmp.2(%tmp.4);
+        %tmp.6 = not %tmp.5;
+        bf %tmp.6 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_69_8_71_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_69_8_71_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_69_48_71_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 70 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_69_48_71_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_69_8_71_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_69_8_71_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 73 8 ]
+        %tmp.7 = false;
+        symbol [ mProfileRegistering ? 73 8 27 ];
+        putv self :mProfileRegistering %tmp.7;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 74 8 ]
+        symbol [ System %tmp.8 74 8 14 ];
+        %tmp.8 = getm $.Toybox.System;
+        symbol [ println %tmp.9 74 15 22 ];
+        %tmp.9 = getv function %tmp.8 :println;
+        %tmp.10 = "[L508 BLE] profile registered: ";
+        %tmp.11 = lgetv %status;
+        symbol [ status %tmp.11 74 59 65 ];
+        %tmp.12 = add %tmp.10 %tmp.11;
+        invoke %tmp.8 %tmp.9(%tmp.12);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 75 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_75_8_78_8_if_stmt:
+        %tmp.13 = lgetv %status;
+        symbol [ status %tmp.13 75 12 18 ];
+        symbol [ BluetoothLowEnergy %tmp.14 75 22 40 ];
+        %tmp.14 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ STATUS_SUCCESS %tmp.15 75 41 55 ];
+        %tmp.15 = getv %tmp.14 :STATUS_SUCCESS;
+        %tmp.16 = ne %tmp.13 %tmp.15;
+        bf %tmp.16 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_75_8_78_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_75_8_78_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_75_57_78_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 76 12 ]
+        symbol [ System %tmp.17 76 12 18 ];
+        %tmp.17 = getm $.Toybox.System;
+        symbol [ println %tmp.18 76 19 26 ];
+        %tmp.18 = getv function %tmp.17 :println;
+        %tmp.19 = "[L508 BLE] ERROR: Battery Service profile registration failed";
+        invoke %tmp.17 %tmp.18(%tmp.19);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 77 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_75_57_78_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_75_8_78_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_75_8_78_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 80 8 ]
+        %tmp.20 = true;
+        symbol [ mProfileRegistered ? 80 8 26 ];
+        putv self :mProfileRegistered %tmp.20;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 81 8 ]
+        %tmp.21 = self;
+        symbol [ connectBondedL508OrScan %tmp.22 81 8 31 ];
+        %tmp.22 = getv function %tmp.21 :connectBondedL508OrScan;
+        invoke %tmp.21 %tmp.22();
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_68_109_82_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 84; @symbol_functiondef = [onScanResults,84,13,26]; @symbol_param<0> = [scanResults,84,27,38]; @symbol_param<0>_type<0> = [Iterator,84,42,50]; ]
+    function onScanResults(scanResults as Iterator) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_84_60_101_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 85 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_8_87_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_12_85_35_begin:
+        symbol [ mProfileRegistered %tmp.2 85 13 31 ];
+        %tmp.2 = getv ? :mProfileRegistered;
+        %tmp.3 = not %tmp.2;
+        bt %tmp.3 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_8_87_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_35_85_35_false:
+        symbol [ mPairing %tmp.5 85 35 43 ];
+        %tmp.5 = getv ? :mPairing;
+        push %tmp.5;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_35_85_35_end:
+        %tmp.6 = phi [%tmp.3 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_12_85_35_begin] [%tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_35_85_35_false] [%tmp.6 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_35_85_35_end];
+        bf %tmp.6 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_8_87_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_8_87_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_45_87_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 86 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_45_87_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_8_87_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_85_8_87_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 89 8 ]
+        for @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_test @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_incr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_init:
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_begin" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_end" ]
+        %result.1 = local;
+        symbol [ result %result.1 89 17 23 ];
+        %tmp.7 = lgetv %scanResults;
+        symbol [ scanResults %tmp.7 89 26 37 ];
+        symbol [ next %tmp.8 89 38 42 ];
+        %tmp.8 = getv function %tmp.7 :next;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        lputv %result.1 %tmp.9;
+        symbol [ result %result.1 89 17 23 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_test:
+        %tmp.10 = lgetv %result.1;
+        symbol [ result %tmp.10 89 46 52 ];
+        %tmp.11 = null;
+        %tmp.12 = ne %tmp.10 %tmp.11;
+        bf %tmp.12 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_91_100_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 90 12 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_90_12_99_12_if_stmt:
+        %tmp.13 = lgetv %result.1;
+        symbol [ result %tmp.13 90 16 22 ];
+        %tmp.14 = as %tmp.13 { (!Null) };
+        symbol [ BluetoothLowEnergy %tmp.15 90 34 52 ];
+        %tmp.15 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ ScanResult %tmp.16 90 53 63 ];
+        %tmp.16 = getv %tmp.15 :ScanResult;
+        %tmp.17 = isa %tmp.14 %tmp.16;
+        bf %tmp.17 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_90_12_99_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_90_12_99_12_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_90_65_99_12_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 91 16 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_90_65_99_12_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_90_65_99_12_stop" ]
+        %scanResult.2 = local;
+        symbol [ scanResult %scanResult.2 91 20 30 ];
+        %tmp.18 = lgetv %result.1;
+        symbol [ result %tmp.18 91 33 39 ];
+        %tmp.19 = as %tmp.18 { (BluetoothLowEnergy.ScanResult) && (!Null) };
+        %tmp.20 = as %tmp.19 BluetoothLowEnergy.ScanResult;
+        symbol [ BluetoothLowEnergy %tmp.20 91 43 61 ];
+        symbol [ ScanResult %tmp.20 91 62 72 ];
+        lputv %scanResult.2 %tmp.20;
+        symbol [ scanResult %scanResult.2 91 20 30 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 92 16 ]
+        %tmp.21 = self;
+        symbol [ logScanResult %tmp.22 92 16 29 ];
+        %tmp.22 = getv function %tmp.21 :logScanResult;
+        %tmp.23 = lgetv %scanResult.2;
+        symbol [ scanResult %tmp.23 92 30 40 ];
+        invoke %tmp.21 %tmp.22(%tmp.23);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 93 16 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_93_16_98_16_if_stmt:
+        %tmp.24 = self;
+        symbol [ isL508 %tmp.25 93 20 26 ];
+        %tmp.25 = getv function %tmp.24 :isL508;
+        %tmp.26 = lgetv %scanResult.2;
+        symbol [ scanResult %tmp.26 93 27 37 ];
+        %tmp.27 = invoke %tmp.24 %tmp.25(%tmp.26);
+        bf %tmp.27 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_93_16_98_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_93_16_98_16_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_93_40_98_16_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 94 20 ]
+        symbol [ System %tmp.28 94 20 26 ];
+        %tmp.28 = getm $.Toybox.System;
+        symbol [ println %tmp.29 94 27 34 ];
+        %tmp.29 = getv function %tmp.28 :println;
+        %tmp.30 = "[L508 BLE] L508 candidate found: ";
+        %tmp.31 = lgetv %scanResult.2;
+        symbol [ scanResult %tmp.31 94 73 83 ];
+        symbol [ getDeviceName %tmp.32 94 84 97 ];
+        %tmp.32 = getv function %tmp.31 :getDeviceName;
+        %tmp.33 = invoke %tmp.31 %tmp.32();
+        %tmp.34 = add %tmp.30 %tmp.33;
+        invoke %tmp.28 %tmp.29(%tmp.34);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 95 20 ]
+        %tmp.35 = self;
+        symbol [ stopScan %tmp.36 95 20 28 ];
+        %tmp.36 = getv function %tmp.35 :stopScan;
+        invoke %tmp.35 %tmp.36();
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 96 20 ]
+        %tmp.37 = self;
+        symbol [ connect %tmp.38 96 20 27 ];
+        %tmp.38 = getv function %tmp.37 :connect;
+        %tmp.39 = lgetv %scanResult.2;
+        symbol [ scanResult %tmp.39 96 28 38 ];
+        invoke %tmp.37 %tmp.38(%tmp.39);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 97 20 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_93_40_98_16_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_93_16_98_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_93_16_98_16_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_90_65_99_12_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_90_12_99_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_90_12_99_12_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_91_100_8_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_incr:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 89 ]
+        %tmp.40 = lgetv %scanResults;
+        symbol [ scanResults %tmp.40 89 71 82 ];
+        symbol [ next %tmp.41 89 83 87 ];
+        %tmp.41 = getv function %tmp.40 :next;
+        %tmp.42 = invoke %tmp.40 %tmp.41();
+        lputv %result.1 %tmp.42;
+        symbol [ result %result.1 89 62 68 ];
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_test;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_89_8_100_8_for_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_84_60_101_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 103; @symbol_functiondef = [onConnectedStateChanged,103,13,36]; @symbol_param<0> = [device,103,37,43]; @symbol_param<0>_type<0> = [BluetoothLowEnergy,103,47,65]; @symbol_param<0>_type<1> = [Device,103,66,72]; @symbol_param<1> = [state,103,74,79]; @symbol_param<1>_type<0> = [BluetoothLowEnergy,103,83,101]; @symbol_param<1>_type<1> = [ConnectionState,103,102,117]; ]
+    function onConnectedStateChanged(device as BluetoothLowEnergy.Device, state as BluetoothLowEnergy.ConnectionState) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_103_127_128_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 104 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_8_106_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_12_104_42_begin:
+        symbol [ mDevice %tmp.2 104 12 19 ];
+        %tmp.2 = getv ? :mDevice;
+        %tmp.3 = null;
+        %tmp.4 = ne %tmp.2 %tmp.3;
+        bf %tmp.4 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_8_106_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_31_104_42_true:
+        symbol [ mDevice %tmp.6 104 31 38 ];
+        %tmp.6 = getv ? :mDevice;
+        %tmp.7 = as %tmp.6 { (!Null) };
+        %tmp.8 = lgetv %device;
+        symbol [ device %tmp.8 104 42 48 ];
+        %tmp.9 = ne %tmp.7 %tmp.8;
+        push %tmp.9;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_31_104_42_end:
+        %tmp.10 = phi [%tmp.4 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_12_104_42_begin] [%tmp.9 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_31_104_42_true] [%tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_31_104_42_end];
+        bf %tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_8_106_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_8_106_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_50_106_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 105 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_50_106_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_8_106_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_104_8_106_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 108 8 ]
+        symbol [ System %tmp.11 108 8 14 ];
+        %tmp.11 = getm $.Toybox.System;
+        symbol [ println %tmp.12 108 15 22 ];
+        %tmp.12 = getv function %tmp.11 :println;
+        %tmp.13 = "[L508 BLE] connection state=";
+        %tmp.14 = lgetv %state;
+        symbol [ state %tmp.14 108 56 61 ];
+        %tmp.15 = add %tmp.13 %tmp.14;
+        invoke %tmp.11 %tmp.12(%tmp.15);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 109 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_8_111_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_12_109_139_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_12_109_109_begin:
+        symbol [ mConnectionState %tmp.17 109 12 28 ];
+        %tmp.17 = getv ? :mConnectionState;
+        symbol [ BluetoothLowEnergy %tmp.18 109 32 50 ];
+        %tmp.18 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ CONNECTION_STATE_CONNECTED %tmp.19 109 51 77 ];
+        %tmp.19 = getv %tmp.18 :CONNECTION_STATE_CONNECTED;
+        %tmp.20 = eq %tmp.17 %tmp.19;
+        bf %tmp.20 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_8_111_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_81_109_109_true:
+        %tmp.21 = lgetv %state;
+        symbol [ state %tmp.21 109 81 86 ];
+        symbol [ BluetoothLowEnergy %tmp.22 109 90 108 ];
+        %tmp.22 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ CONNECTION_STATE_CONNECTED %tmp.23 109 109 135 ];
+        %tmp.23 = getv %tmp.22 :CONNECTION_STATE_CONNECTED;
+        %tmp.24 = eq %tmp.21 %tmp.23;
+        push %tmp.24;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_81_109_109_end:
+        %tmp.25 = phi [%tmp.20 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_12_109_109_begin] [%tmp.24 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_81_109_109_true] [%tmp.25 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_81_109_109_end];
+        bf %tmp.25 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_8_111_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_139_109_139_true:
+        symbol [ mReadRequested %tmp.27 109 139 153 ];
+        %tmp.27 = getv ? :mReadRequested;
+        push %tmp.27;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_139_109_139_end:
+        %tmp.28 = phi [%tmp.25 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_12_109_139_begin] [%tmp.27 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_139_109_139_true] [%tmp.28 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_139_109_139_end];
+        bf %tmp.28 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_8_111_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_8_111_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_155_111_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 110 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_155_111_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_8_111_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_109_8_111_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 112 8 ]
+        %tmp.29 = lgetv %state;
+        symbol [ state %tmp.29 112 27 32 ];
+        symbol [ mConnectionState ? 112 8 24 ];
+        putv self :mConnectionState %tmp.29;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 113 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_113_8_122_8_if_stmt:
+        %tmp.30 = lgetv %state;
+        symbol [ state %tmp.30 113 12 17 ];
+        symbol [ BluetoothLowEnergy %tmp.31 113 21 39 ];
+        %tmp.31 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ CONNECTION_STATE_CONNECTED %tmp.32 113 40 66 ];
+        %tmp.32 = getv %tmp.31 :CONNECTION_STATE_CONNECTED;
+        %tmp.33 = ne %tmp.30 %tmp.32;
+        bf %tmp.33 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_113_8_122_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_113_8_122_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_113_68_122_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 114 12 ]
+        %tmp.34 = null;
+        symbol [ mBatteryPercent ? 114 12 27 ];
+        putv self :mBatteryPercent %tmp.34;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 115 12 ]
+        %tmp.35 = null;
+        symbol [ mDevice ? 115 12 19 ];
+        putv self :mDevice %tmp.35;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 116 12 ]
+        %tmp.36 = null;
+        symbol [ mBatteryService ? 116 12 27 ];
+        putv self :mBatteryService %tmp.36;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 117 12 ]
+        %tmp.37 = null;
+        symbol [ mBatteryLevelCharacteristic ? 117 12 39 ];
+        putv self :mBatteryLevelCharacteristic %tmp.37;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 118 12 ]
+        %tmp.38 = false;
+        symbol [ mReadRequested ? 118 12 26 ];
+        putv self :mReadRequested %tmp.38;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 119 12 ]
+        %tmp.39 = false;
+        symbol [ mPairing ? 119 12 20 ];
+        putv self :mPairing %tmp.39;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 120 12 ]
+        symbol [ System %tmp.40 120 12 18 ];
+        %tmp.40 = getm $.Toybox.System;
+        symbol [ println %tmp.41 120 19 26 ];
+        %tmp.41 = getv function %tmp.40 :println;
+        %tmp.42 = "[L508 BLE] disconnected";
+        invoke %tmp.40 %tmp.41(%tmp.42);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 121 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_113_68_122_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_113_8_122_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_113_8_122_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 124 8 ]
+        %tmp.43 = lgetv %device;
+        symbol [ device %tmp.43 124 18 24 ];
+        symbol [ mDevice ? 124 8 15 ];
+        putv self :mDevice %tmp.43;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 125 8 ]
+        %tmp.44 = false;
+        symbol [ mPairing ? 125 8 16 ];
+        putv self :mPairing %tmp.44;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 126 8 ]
+        symbol [ System %tmp.45 126 8 14 ];
+        %tmp.45 = getm $.Toybox.System;
+        symbol [ println %tmp.46 126 15 22 ];
+        %tmp.46 = getv function %tmp.45 :println;
+        %tmp.47 = "[L508 BLE] connected";
+        invoke %tmp.45 %tmp.46(%tmp.47);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 127 8 ]
+        %tmp.48 = self;
+        symbol [ findBatteryCharacteristic %tmp.49 127 8 33 ];
+        %tmp.49 = getv function %tmp.48 :findBatteryCharacteristic;
+        invoke %tmp.48 %tmp.49();
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_103_127_128_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 130; @symbol_functiondef = [onCharacteristicRead,130,13,33]; @symbol_param<0> = [characteristic,130,34,48]; @symbol_param<0>_type<0> = [BluetoothLowEnergy,130,52,70]; @symbol_param<0>_type<1> = [Characteristic,130,71,85]; @symbol_param<1> = [status,130,87,93]; @symbol_param<1>_type<0> = [BluetoothLowEnergy,130,97,115]; @symbol_param<1>_type<1> = [Status,130,116,122]; @symbol_param<2> = [value,130,124,129]; @symbol_param<2>_type<0> = [ByteArray,130,133,142]; ]
+    function onCharacteristicRead(characteristic as BluetoothLowEnergy.Characteristic, status as BluetoothLowEnergy.Status, value as ByteArray or Null) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_130_153_156_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 131 8 ]
+        %tmp.1 = false;
+        symbol [ mReadRequested ? 131 8 22 ];
+        putv self :mReadRequested %tmp.1;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 132 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_8_134_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_12_132_69_begin:
+        symbol [ mBatteryLevelCharacteristic %tmp.3 132 12 39 ];
+        %tmp.3 = getv ? :mBatteryLevelCharacteristic;
+        %tmp.4 = null;
+        %tmp.5 = eq %tmp.3 %tmp.4;
+        bt %tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_8_134_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_51_132_69_false:
+        %tmp.6 = lgetv %characteristic;
+        symbol [ characteristic %tmp.6 132 51 65 ];
+        symbol [ mBatteryLevelCharacteristic %tmp.8 132 69 96 ];
+        %tmp.8 = getv ? :mBatteryLevelCharacteristic;
+        %tmp.9 = as %tmp.8 { (!Null) };
+        %tmp.10 = ne %tmp.6 %tmp.9;
+        push %tmp.10;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_51_132_69_end:
+        %tmp.11 = phi [%tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_12_132_69_begin] [%tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_51_132_69_false] [%tmp.11 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_51_132_69_end];
+        bf %tmp.11 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_8_134_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_8_134_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_98_134_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 133 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_98_134_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_8_134_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_132_8_134_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 136 8 ]
+        symbol [ System %tmp.12 136 8 14 ];
+        %tmp.12 = getm $.Toybox.System;
+        symbol [ println %tmp.13 136 15 22 ];
+        %tmp.13 = getv function %tmp.12 :println;
+        %tmp.14 = "[L508 BLE] battery read status=";
+        %tmp.15 = lgetv %status;
+        symbol [ status %tmp.15 136 59 65 ];
+        %tmp.16 = add %tmp.14 %tmp.15;
+        invoke %tmp.12 %tmp.13(%tmp.16);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 137 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_8_141_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_12_137_91_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_12_137_68_begin:
+        %tmp.17 = lgetv %status;
+        symbol [ status %tmp.17 137 12 18 ];
+        symbol [ BluetoothLowEnergy %tmp.18 137 22 40 ];
+        %tmp.18 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ STATUS_SUCCESS %tmp.19 137 41 55 ];
+        %tmp.19 = getv %tmp.18 :STATUS_SUCCESS;
+        %tmp.20 = ne %tmp.17 %tmp.19;
+        bt %tmp.20 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_8_141_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_59_137_68_false:
+        %tmp.21 = lgetv %value;
+        symbol [ value %tmp.21 137 59 64 ];
+        %tmp.22 = null;
+        %tmp.23 = eq %tmp.21 %tmp.22;
+        push %tmp.23;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_59_137_68_end:
+        %tmp.24 = phi [%tmp.20 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_12_137_68_begin] [%tmp.23 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_59_137_68_false] [%tmp.24 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_59_137_68_end];
+        bt %tmp.24 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_8_141_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_76_137_91_false:
+        %tmp.25 = lgetv %value;
+        symbol [ value %tmp.25 137 76 81 ];
+        %tmp.26 = as %tmp.25 { (!Null) };
+        symbol [ size %tmp.27 137 82 86 ];
+        %tmp.27 = getv function %tmp.26 :size;
+        %tmp.28 = invoke %tmp.26 %tmp.27();
+        %tmp.29 = 1;
+        %tmp.30 = lt %tmp.28 %tmp.29;
+        push %tmp.30;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_76_137_91_end:
+        %tmp.31 = phi [%tmp.24 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_12_137_91_begin] [%tmp.30 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_76_137_91_false] [%tmp.31 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_76_137_91_end];
+        bf %tmp.31 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_8_141_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_8_141_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_94_141_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 138 12 ]
+        %tmp.32 = null;
+        symbol [ mBatteryPercent ? 138 12 27 ];
+        putv self :mBatteryPercent %tmp.32;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 139 12 ]
+        symbol [ System %tmp.33 139 12 18 ];
+        %tmp.33 = getm $.Toybox.System;
+        symbol [ println %tmp.34 139 19 26 ];
+        %tmp.34 = getv function %tmp.33 :println;
+        %tmp.35 = "[L508 BLE] ERROR: invalid battery read";
+        invoke %tmp.33 %tmp.34(%tmp.35);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 140 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_94_141_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_8_141_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_137_8_141_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 143 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_130_153_156_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_130_153_156_4_stop" ]
+        %percent.1 = local;
+        symbol [ percent %percent.1 143 12 19 ];
+        %tmp.36 = lgetv %value;
+        symbol [ value %tmp.36 143 22 27 ];
+        %tmp.37 = 0;
+        %tmp.38 = agetv %tmp.36 %tmp.37;
+        lputv %percent.1 %tmp.38;
+        symbol [ percent %percent.1 143 12 19 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 144 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_8_148_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_12_144_37_begin:
+        %tmp.39 = lgetv %percent.1;
+        symbol [ percent %tmp.39 144 12 19 ];
+        %tmp.40 = 0;
+        %tmp.41 = lt %tmp.39 %tmp.40;
+        bt %tmp.41 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_8_148_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_27_144_37_false:
+        %tmp.42 = lgetv %percent.1;
+        symbol [ percent %tmp.42 144 27 34 ];
+        %tmp.43 = 100;
+        %tmp.44 = gt %tmp.42 %tmp.43;
+        push %tmp.44;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_27_144_37_end:
+        %tmp.45 = phi [%tmp.41 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_12_144_37_begin] [%tmp.44 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_27_144_37_false] [%tmp.45 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_27_144_37_end];
+        bf %tmp.45 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_8_148_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_8_148_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_42_148_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 145 12 ]
+        %tmp.46 = null;
+        symbol [ mBatteryPercent ? 145 12 27 ];
+        putv self :mBatteryPercent %tmp.46;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 146 12 ]
+        symbol [ System %tmp.47 146 12 18 ];
+        %tmp.47 = getm $.Toybox.System;
+        symbol [ println %tmp.48 146 19 26 ];
+        %tmp.48 = getv function %tmp.47 :println;
+        %tmp.49 = "[L508 BLE] ERROR: battery value out of range=";
+        %tmp.50 = lgetv %percent.1;
+        symbol [ percent %tmp.50 146 77 84 ];
+        %tmp.51 = add %tmp.49 %tmp.50;
+        invoke %tmp.47 %tmp.48(%tmp.51);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 147 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_42_148_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_8_148_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_144_8_148_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 150 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_130_153_156_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_130_153_156_4_stop" ]
+        %previousPercent.2 = local;
+        symbol [ previousPercent %previousPercent.2 150 12 27 ];
+        symbol [ mBatteryPercent %tmp.53 150 30 45 ];
+        %tmp.53 = getv ? :mBatteryPercent;
+        lputv %previousPercent.2 %tmp.53;
+        symbol [ previousPercent %previousPercent.2 150 12 27 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 151 8 ]
+        %tmp.54 = lgetv %percent.1;
+        symbol [ percent %tmp.54 151 26 33 ];
+        symbol [ mBatteryPercent ? 151 8 23 ];
+        putv self :mBatteryPercent %tmp.54;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 152 8 ]
+        symbol [ System %tmp.55 152 8 14 ];
+        %tmp.55 = getm $.Toybox.System;
+        symbol [ println %tmp.56 152 15 22 ];
+        %tmp.56 = getv function %tmp.55 :println;
+        %tmp.57 = "[L508 BLE] battery=";
+        %tmp.58 = lgetv %percent.1;
+        symbol [ percent %tmp.58 152 47 54 ];
+        %tmp.59 = add %tmp.57 %tmp.58;
+        %tmp.60 = "%";
+        %tmp.61 = add %tmp.59 %tmp.60;
+        invoke %tmp.55 %tmp.56(%tmp.61);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 153 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_8_155_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_12_153_58_begin:
+        %tmp.62 = lgetv %previousPercent.2;
+        symbol [ previousPercent %tmp.62 153 12 27 ];
+        %tmp.63 = null;
+        %tmp.64 = ne %tmp.62 %tmp.63;
+        bf %tmp.64 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_8_155_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_39_153_58_true:
+        %tmp.65 = lgetv %previousPercent.2;
+        symbol [ previousPercent %tmp.65 153 39 54 ];
+        %tmp.66 = as %tmp.65 { (!Null) };
+        %tmp.67 = lgetv %percent.1;
+        symbol [ percent %tmp.67 153 58 65 ];
+        %tmp.68 = ne %tmp.66 %tmp.67;
+        push %tmp.68;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_39_153_58_end:
+        %tmp.69 = phi [%tmp.64 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_12_153_58_begin] [%tmp.68 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_39_153_58_true] [%tmp.69 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_39_153_58_end];
+        bf %tmp.69 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_8_155_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_8_155_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_67_155_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 154 12 ]
+        symbol [ System %tmp.70 154 12 18 ];
+        %tmp.70 = getm $.Toybox.System;
+        symbol [ println %tmp.71 154 19 26 ];
+        %tmp.71 = getv function %tmp.70 :println;
+        %tmp.72 = "[L508 BLE] battery changed: ";
+        %tmp.73 = lgetv %previousPercent.2;
+        symbol [ previousPercent %tmp.73 154 60 75 ];
+        %tmp.74 = as %tmp.73 { (!Null) };
+        %tmp.75 = add %tmp.72 %tmp.74;
+        %tmp.76 = " -> ";
+        %tmp.77 = add %tmp.75 %tmp.76;
+        %tmp.78 = lgetv %percent.1;
+        symbol [ percent %tmp.78 154 87 94 ];
+        %tmp.79 = add %tmp.77 %tmp.78;
+        invoke %tmp.70 %tmp.71(%tmp.79);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_67_155_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_8_155_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_153_8_155_8_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_130_153_156_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 158; @symbol_functiondef = [connectBondedL508OrScan,158,21,44]; ]
+    private
+    function connectBondedL508OrScan() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_158_55_172_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 159 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_158_55_172_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_158_55_172_4_stop" ]
+        %bondedDevices.1 = local;
+        symbol [ bondedDevices %bondedDevices.1 159 12 25 ];
+        symbol [ BluetoothLowEnergy %tmp.1 159 28 46 ];
+        %tmp.1 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ getBondedDevices %tmp.2 159 47 63 ];
+        %tmp.2 = getv function %tmp.1 :getBondedDevices;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %bondedDevices.1 %tmp.3;
+        symbol [ bondedDevices %bondedDevices.1 159 12 25 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 160 8 ]
+        for @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_test @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_incr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_init:
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_begin" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_end" ]
+        %result.2 = local;
+        symbol [ result %result.2 160 17 23 ];
+        %tmp.4 = lgetv %bondedDevices.1;
+        symbol [ bondedDevices %tmp.4 160 26 39 ];
+        symbol [ next %tmp.5 160 40 44 ];
+        %tmp.5 = getv function %tmp.4 :next;
+        %tmp.6 = invoke %tmp.4 %tmp.5();
+        lputv %result.2 %tmp.6;
+        symbol [ result %result.2 160 17 23 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_test:
+        %tmp.7 = lgetv %result.2;
+        symbol [ result %tmp.7 160 48 54 ];
+        %tmp.8 = null;
+        %tmp.9 = ne %tmp.7 %tmp.8;
+        bf %tmp.9 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_95_170_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 161 12 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_161_12_169_12_if_stmt:
+        %tmp.10 = lgetv %result.2;
+        symbol [ result %tmp.10 161 16 22 ];
+        %tmp.11 = as %tmp.10 { (!Null) };
+        symbol [ BluetoothLowEnergy %tmp.12 161 34 52 ];
+        %tmp.12 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ ScanResult %tmp.13 161 53 63 ];
+        %tmp.13 = getv %tmp.12 :ScanResult;
+        %tmp.14 = isa %tmp.11 %tmp.13;
+        bf %tmp.14 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_161_12_169_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_161_12_169_12_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_161_65_169_12_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 162 16 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_161_65_169_12_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_161_65_169_12_stop" ]
+        %scanResult.3 = local;
+        symbol [ scanResult %scanResult.3 162 20 30 ];
+        %tmp.15 = lgetv %result.2;
+        symbol [ result %tmp.15 162 33 39 ];
+        %tmp.16 = as %tmp.15 { (BluetoothLowEnergy.ScanResult) && (!Null) };
+        %tmp.17 = as %tmp.16 BluetoothLowEnergy.ScanResult;
+        symbol [ BluetoothLowEnergy %tmp.17 162 43 61 ];
+        symbol [ ScanResult %tmp.17 162 62 72 ];
+        lputv %scanResult.3 %tmp.17;
+        symbol [ scanResult %scanResult.3 162 20 30 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 163 16 ]
+        %tmp.18 = self;
+        symbol [ logScanResult %tmp.19 163 16 29 ];
+        %tmp.19 = getv function %tmp.18 :logScanResult;
+        %tmp.20 = lgetv %scanResult.3;
+        symbol [ scanResult %tmp.20 163 30 40 ];
+        invoke %tmp.18 %tmp.19(%tmp.20);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 164 16 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_164_16_168_16_if_stmt:
+        %tmp.21 = self;
+        symbol [ isL508 %tmp.22 164 20 26 ];
+        %tmp.22 = getv function %tmp.21 :isL508;
+        %tmp.23 = lgetv %scanResult.3;
+        symbol [ scanResult %tmp.23 164 27 37 ];
+        %tmp.24 = invoke %tmp.21 %tmp.22(%tmp.23);
+        bf %tmp.24 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_164_16_168_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_164_16_168_16_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_164_40_168_16_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 165 20 ]
+        symbol [ System %tmp.25 165 20 26 ];
+        %tmp.25 = getm $.Toybox.System;
+        symbol [ println %tmp.26 165 27 34 ];
+        %tmp.26 = getv function %tmp.25 :println;
+        %tmp.27 = "[L508 BLE] bonded L508 candidate found: ";
+        %tmp.28 = lgetv %scanResult.3;
+        symbol [ scanResult %tmp.28 165 80 90 ];
+        symbol [ getDeviceName %tmp.29 165 91 104 ];
+        %tmp.29 = getv function %tmp.28 :getDeviceName;
+        %tmp.30 = invoke %tmp.28 %tmp.29();
+        %tmp.31 = add %tmp.27 %tmp.30;
+        invoke %tmp.25 %tmp.26(%tmp.31);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 166 20 ]
+        %tmp.32 = self;
+        symbol [ connect %tmp.33 166 20 27 ];
+        %tmp.33 = getv function %tmp.32 :connect;
+        %tmp.34 = lgetv %scanResult.3;
+        symbol [ scanResult %tmp.34 166 28 38 ];
+        invoke %tmp.32 %tmp.33(%tmp.34);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 167 20 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_164_40_168_16_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_164_16_168_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_164_16_168_16_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_161_65_169_12_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_161_12_169_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_161_12_169_12_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_95_170_8_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_incr:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 160 ]
+        %tmp.35 = lgetv %bondedDevices.1;
+        symbol [ bondedDevices %tmp.35 160 73 86 ];
+        symbol [ next %tmp.36 160 87 91 ];
+        %tmp.36 = getv function %tmp.35 :next;
+        %tmp.37 = invoke %tmp.35 %tmp.36();
+        lputv %result.2 %tmp.37;
+        symbol [ result %result.2 160 64 70 ];
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_test;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_160_8_170_8_for_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 171 8 ]
+        %tmp.38 = self;
+        symbol [ startScan %tmp.39 171 8 17 ];
+        %tmp.39 = getv function %tmp.38 :startScan;
+        invoke %tmp.38 %tmp.39();
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_158_55_172_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 174; @symbol_functiondef = [startScan,174,21,30]; ]
+    private
+    function startScan() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_174_41_181_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 175 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_8_177_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_12_175_38_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_12_175_25_begin:
+        symbol [ mScanning %tmp.2 175 12 21 ];
+        %tmp.2 = getv ? :mScanning;
+        bt %tmp.2 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_8_177_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_25_175_25_false:
+        symbol [ mPairing %tmp.4 175 25 33 ];
+        %tmp.4 = getv ? :mPairing;
+        push %tmp.4;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_25_175_25_end:
+        %tmp.5 = phi [%tmp.2 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_12_175_25_begin] [%tmp.4 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_25_175_25_false] [%tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_25_175_25_end];
+        bt %tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_8_177_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_37_175_38_false:
+        symbol [ mProfileRegistered %tmp.7 175 38 56 ];
+        %tmp.7 = getv ? :mProfileRegistered;
+        %tmp.8 = not %tmp.7;
+        push %tmp.8;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_37_175_38_end:
+        %tmp.9 = phi [%tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_12_175_38_begin] [%tmp.8 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_37_175_38_false] [%tmp.9 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_37_175_38_end];
+        bf %tmp.9 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_8_177_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_8_177_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_58_177_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 176 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_58_177_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_8_177_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_175_8_177_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 178 8 ]
+        %tmp.10 = true;
+        symbol [ mScanning ? 178 8 17 ];
+        putv self :mScanning %tmp.10;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 179 8 ]
+        symbol [ System %tmp.11 179 8 14 ];
+        %tmp.11 = getm $.Toybox.System;
+        symbol [ println %tmp.12 179 15 22 ];
+        %tmp.12 = getv function %tmp.11 :println;
+        %tmp.13 = "[L508 BLE] scan started";
+        invoke %tmp.11 %tmp.12(%tmp.13);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 180 8 ]
+        symbol [ BluetoothLowEnergy %tmp.14 180 8 26 ];
+        %tmp.14 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ setScanState %tmp.15 180 27 39 ];
+        %tmp.15 = getv function %tmp.14 :setScanState;
+        symbol [ BluetoothLowEnergy %tmp.16 180 40 58 ];
+        %tmp.16 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ SCAN_STATE_SCANNING %tmp.17 180 59 78 ];
+        %tmp.17 = getv %tmp.16 :SCAN_STATE_SCANNING;
+        invoke %tmp.14 %tmp.15(%tmp.17);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_174_41_181_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 183; @symbol_functiondef = [stopScan,183,21,29]; ]
+    private
+    function stopScan() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_183_40_190_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 184 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_184_8_186_8_if_stmt:
+        symbol [ mScanning %tmp.2 184 13 22 ];
+        %tmp.2 = getv ? :mScanning;
+        %tmp.3 = not %tmp.2;
+        bf %tmp.3 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_184_8_186_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_184_8_186_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_184_24_186_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 185 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_184_24_186_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_184_8_186_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_184_8_186_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 187 8 ]
+        symbol [ System %tmp.4 187 8 14 ];
+        %tmp.4 = getm $.Toybox.System;
+        symbol [ println %tmp.5 187 15 22 ];
+        %tmp.5 = getv function %tmp.4 :println;
+        %tmp.6 = "[L508 BLE] stopping scan";
+        invoke %tmp.4 %tmp.5(%tmp.6);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 188 8 ]
+        symbol [ BluetoothLowEnergy %tmp.7 188 8 26 ];
+        %tmp.7 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ setScanState %tmp.8 188 27 39 ];
+        %tmp.8 = getv function %tmp.7 :setScanState;
+        symbol [ BluetoothLowEnergy %tmp.9 188 40 58 ];
+        %tmp.9 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ SCAN_STATE_OFF %tmp.10 188 59 73 ];
+        %tmp.10 = getv %tmp.9 :SCAN_STATE_OFF;
+        invoke %tmp.7 %tmp.8(%tmp.10);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 189 8 ]
+        %tmp.11 = false;
+        symbol [ mScanning ? 189 8 17 ];
+        putv self :mScanning %tmp.11;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_183_40_190_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 192; @symbol_functiondef = [connect,192,21,28]; @symbol_param<0> = [scanResult,192,29,39]; @symbol_param<0>_type<0> = [BluetoothLowEnergy,192,43,61]; @symbol_param<0>_type<1> = [ScanResult,192,62,72]; ]
+    private
+    function connect(scanResult as BluetoothLowEnergy.ScanResult) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_192_82_203_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 193 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_193_8_195_8_if_stmt:
+        symbol [ mPairing %tmp.2 193 12 20 ];
+        %tmp.2 = getv ? :mPairing;
+        bf %tmp.2 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_193_8_195_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_193_8_195_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_193_22_195_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 194 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_193_22_195_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_193_8_195_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_193_8_195_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 196 8 ]
+        %tmp.3 = true;
+        symbol [ mPairing ? 196 8 16 ];
+        putv self :mPairing %tmp.3;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 197 8 ]
+        symbol [ System %tmp.4 197 8 14 ];
+        %tmp.4 = getm $.Toybox.System;
+        symbol [ println %tmp.5 197 15 22 ];
+        %tmp.5 = getv function %tmp.4 :println;
+        %tmp.6 = "[L508 BLE] connecting";
+        invoke %tmp.4 %tmp.5(%tmp.6);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 198 8 ]
+        symbol [ BluetoothLowEnergy %tmp.7 198 18 36 ];
+        %tmp.7 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ pairDevice %tmp.8 198 37 47 ];
+        %tmp.8 = getv function %tmp.7 :pairDevice;
+        %tmp.9 = lgetv %scanResult;
+        symbol [ scanResult %tmp.9 198 48 58 ];
+        %tmp.10 = invoke %tmp.7 %tmp.8(%tmp.9);
+        symbol [ mDevice ? 198 8 15 ];
+        putv self :mDevice %tmp.10;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 199 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_199_8_202_8_if_stmt:
+        symbol [ mDevice %tmp.12 199 12 19 ];
+        %tmp.12 = getv ? :mDevice;
+        %tmp.13 = null;
+        %tmp.14 = eq %tmp.12 %tmp.13;
+        bf %tmp.14 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_199_8_202_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_199_8_202_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_199_29_202_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 200 12 ]
+        %tmp.15 = false;
+        symbol [ mPairing ? 200 12 20 ];
+        putv self :mPairing %tmp.15;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 201 12 ]
+        symbol [ System %tmp.16 201 12 18 ];
+        %tmp.16 = getm $.Toybox.System;
+        symbol [ println %tmp.17 201 19 26 ];
+        %tmp.17 = getv function %tmp.16 :println;
+        %tmp.18 = "[L508 BLE] ERROR: pairDevice returned null";
+        invoke %tmp.16 %tmp.17(%tmp.18);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_199_29_202_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_199_8_202_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_199_8_202_8_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_192_82_203_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 205; @symbol_functiondef = [findBatteryCharacteristic,205,21,46]; ]
+    private
+    function findBatteryCharacteristic() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_205_57_227_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 206 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_206_8_209_8_if_stmt:
+        symbol [ mDevice %tmp.2 206 12 19 ];
+        %tmp.2 = getv ? :mDevice;
+        %tmp.3 = null;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_206_8_209_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_206_8_209_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_206_29_209_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 207 12 ]
+        symbol [ System %tmp.5 207 12 18 ];
+        %tmp.5 = getm $.Toybox.System;
+        symbol [ println %tmp.6 207 19 26 ];
+        %tmp.6 = getv function %tmp.5 :println;
+        %tmp.7 = "[L508 BLE] ERROR: connected callback without device";
+        invoke %tmp.5 %tmp.6(%tmp.7);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 208 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_206_29_209_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_206_8_209_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_206_8_209_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 211 8 ]
+        symbol [ mDevice %tmp.9 211 26 33 ];
+        %tmp.9 = getv ? :mDevice;
+        symbol [ getService %tmp.10 211 34 44 ];
+        %tmp.10 = getv function %tmp.9 :getService;
+        symbol [ BATTERY_SERVICE_UUID %tmp.12 211 45 65 ];
+        %tmp.12 = getv ? :BATTERY_SERVICE_UUID;
+        %tmp.13 = invoke %tmp.9 %tmp.10(%tmp.12);
+        symbol [ mBatteryService ? 211 8 23 ];
+        putv self :mBatteryService %tmp.13;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 212 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_212_8_215_8_if_stmt:
+        symbol [ mBatteryService %tmp.15 212 12 27 ];
+        %tmp.15 = getv ? :mBatteryService;
+        %tmp.16 = null;
+        %tmp.17 = eq %tmp.15 %tmp.16;
+        bf %tmp.17 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_212_8_215_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_212_8_215_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_212_37_215_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 213 12 ]
+        symbol [ System %tmp.18 213 12 18 ];
+        %tmp.18 = getm $.Toybox.System;
+        symbol [ println %tmp.19 213 19 26 ];
+        %tmp.19 = getv function %tmp.18 :println;
+        %tmp.20 = "[L508 BLE] ERROR: Battery Service not found";
+        invoke %tmp.18 %tmp.19(%tmp.20);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 214 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_212_37_215_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_212_8_215_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_212_8_215_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 216 8 ]
+        symbol [ System %tmp.21 216 8 14 ];
+        %tmp.21 = getm $.Toybox.System;
+        symbol [ println %tmp.22 216 15 22 ];
+        %tmp.22 = getv function %tmp.21 :println;
+        %tmp.23 = "[L508 BLE] Battery Service found";
+        invoke %tmp.21 %tmp.22(%tmp.23);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 218 8 ]
+        symbol [ mBatteryService %tmp.25 218 38 53 ];
+        %tmp.25 = getv ? :mBatteryService;
+        symbol [ getCharacteristic %tmp.26 218 54 71 ];
+        %tmp.26 = getv function %tmp.25 :getCharacteristic;
+        symbol [ BATTERY_LEVEL_UUID %tmp.28 218 72 90 ];
+        %tmp.28 = getv ? :BATTERY_LEVEL_UUID;
+        %tmp.29 = invoke %tmp.25 %tmp.26(%tmp.28);
+        symbol [ mBatteryLevelCharacteristic ? 218 8 35 ];
+        putv self :mBatteryLevelCharacteristic %tmp.29;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 219 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_219_8_222_8_if_stmt:
+        symbol [ mBatteryLevelCharacteristic %tmp.31 219 12 39 ];
+        %tmp.31 = getv ? :mBatteryLevelCharacteristic;
+        %tmp.32 = null;
+        %tmp.33 = eq %tmp.31 %tmp.32;
+        bf %tmp.33 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_219_8_222_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_219_8_222_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_219_49_222_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 220 12 ]
+        symbol [ System %tmp.34 220 12 18 ];
+        %tmp.34 = getm $.Toybox.System;
+        symbol [ println %tmp.35 220 19 26 ];
+        %tmp.35 = getv function %tmp.34 :println;
+        %tmp.36 = "[L508 BLE] ERROR: Battery Level characteristic not found";
+        invoke %tmp.34 %tmp.35(%tmp.36);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 221 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_219_49_222_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_219_8_222_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_219_8_222_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 223 8 ]
+        symbol [ System %tmp.37 223 8 14 ];
+        %tmp.37 = getm $.Toybox.System;
+        symbol [ println %tmp.38 223 15 22 ];
+        %tmp.38 = getv function %tmp.37 :println;
+        %tmp.39 = "[L508 BLE] Battery Level characteristic found";
+        invoke %tmp.37 %tmp.38(%tmp.39);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 225 8 ]
+        symbol [ System %tmp.40 225 8 14 ];
+        %tmp.40 = getm $.Toybox.System;
+        symbol [ println %tmp.41 225 15 22 ];
+        %tmp.41 = getv function %tmp.40 :println;
+        %tmp.42 = "[L508 BLE] requesting battery";
+        invoke %tmp.40 %tmp.41(%tmp.42);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 226 8 ]
+        %tmp.43 = self;
+        symbol [ requestBatteryRead %tmp.44 226 8 26 ];
+        %tmp.44 = getv function %tmp.43 :requestBatteryRead;
+        invoke %tmp.43 %tmp.44();
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_205_57_227_4_stop:
+    }
+    //! Called by the Data Field once per compute cycle; it only reads when 60 s elapsed.
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 230; @symbol_functiondef = [pollBatteryIfDue,230,13,29]; ]
+    function pollBatteryIfDue() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_230_40_245_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 231 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_8_233_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_12_231_165_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_12_231_120_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_12_231_112_begin:
+        symbol [ mConnectionState %tmp.2 231 12 28 ];
+        %tmp.2 = getv ? :mConnectionState;
+        symbol [ BluetoothLowEnergy %tmp.3 231 32 50 ];
+        %tmp.3 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ CONNECTION_STATE_CONNECTED %tmp.4 231 51 77 ];
+        %tmp.4 = getv %tmp.3 :CONNECTION_STATE_CONNECTED;
+        %tmp.5 = ne %tmp.2 %tmp.4;
+        bt %tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_8_233_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_81_231_112_false:
+        symbol [ mBatteryLevelCharacteristic %tmp.7 231 81 108 ];
+        %tmp.7 = getv ? :mBatteryLevelCharacteristic;
+        %tmp.8 = null;
+        %tmp.9 = eq %tmp.7 %tmp.8;
+        push %tmp.9;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_81_231_112_end:
+        %tmp.10 = phi [%tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_12_231_112_begin] [%tmp.9 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_81_231_112_false] [%tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_81_231_112_end];
+        bt %tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_8_233_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_120_231_120_false:
+        symbol [ mReadRequested %tmp.12 231 120 134 ];
+        %tmp.12 = getv ? :mReadRequested;
+        push %tmp.12;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_120_231_120_end:
+        %tmp.13 = phi [%tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_12_231_120_begin] [%tmp.12 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_120_231_120_false] [%tmp.13 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_120_231_120_end];
+        bt %tmp.13 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_8_233_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_138_231_165_false:
+        symbol [ mLastBatteryRequestTime %tmp.15 231 138 161 ];
+        %tmp.15 = getv ? :mLastBatteryRequestTime;
+        %tmp.16 = null;
+        %tmp.17 = eq %tmp.15 %tmp.16;
+        push %tmp.17;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_138_231_165_end:
+        %tmp.18 = phi [%tmp.13 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_12_231_165_begin] [%tmp.17 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_138_231_165_false] [%tmp.18 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_138_231_165_end];
+        bf %tmp.18 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_8_233_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_8_233_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_171_233_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 232 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_171_233_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_8_233_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_231_8_233_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 235 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_230_40_245_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_230_40_245_4_stop" ]
+        %now.1 = local;
+        symbol [ now %now.1 235 12 15 ];
+        symbol [ System %tmp.19 235 18 24 ];
+        %tmp.19 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.20 235 25 33 ];
+        %tmp.20 = getv function %tmp.19 :getTimer;
+        %tmp.21 = invoke %tmp.19 %tmp.20();
+        lputv %now.1 %tmp.21;
+        symbol [ now %now.1 235 12 15 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 236 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_230_40_245_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_230_40_245_4_stop" ]
+        %last.2 = local;
+        symbol [ last %last.2 236 12 16 ];
+        symbol [ mLastBatteryRequestTime %tmp.23 236 19 42 ];
+        %tmp.23 = getv ? :mLastBatteryRequestTime;
+        %tmp.24 = as %tmp.23 Number;
+        symbol [ Number %tmp.24 236 46 52 ];
+        lputv %last.2 %tmp.24;
+        symbol [ last %last.2 236 12 16 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 239 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_8_241_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_12_239_40_begin:
+        %tmp.25 = lgetv %now.1;
+        symbol [ now %tmp.25 239 12 15 ];
+        %tmp.26 = lgetv %last.2;
+        symbol [ last %tmp.26 239 19 23 ];
+        %tmp.27 = gte %tmp.25 %tmp.26;
+        bf %tmp.27 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_8_241_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_27_239_40_true:
+        %tmp.28 = lgetv %now.1;
+        symbol [ now %tmp.28 239 27 30 ];
+        %tmp.29 = lgetv %last.2;
+        symbol [ last %tmp.29 239 33 37 ];
+        %tmp.30 = sub %tmp.28 %tmp.29;
+        %tmp.31 = 60000;
+        %tmp.32 = lt %tmp.30 %tmp.31;
+        push %tmp.32;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_27_239_40_end:
+        %tmp.33 = phi [%tmp.27 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_12_239_40_begin] [%tmp.32 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_27_239_40_true] [%tmp.33 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_27_239_40_end];
+        bf %tmp.33 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_8_241_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_8_241_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_47_241_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 240 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_47_241_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_8_241_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_239_8_241_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 243 8 ]
+        symbol [ System %tmp.34 243 8 14 ];
+        %tmp.34 = getm $.Toybox.System;
+        symbol [ println %tmp.35 243 15 22 ];
+        %tmp.35 = getv function %tmp.34 :println;
+        %tmp.36 = "[L508 BLE] periodic battery read";
+        invoke %tmp.34 %tmp.35(%tmp.36);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 244 8 ]
+        %tmp.37 = self;
+        symbol [ requestBatteryRead %tmp.38 244 8 26 ];
+        %tmp.38 = getv function %tmp.37 :requestBatteryRead;
+        invoke %tmp.37 %tmp.38();
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_230_40_245_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 247; @symbol_functiondef = [requestBatteryRead,247,21,39]; ]
+    private
+    function requestBatteryRead() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_247_50_261_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 248 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_8_250_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_12_248_120_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_12_248_112_begin:
+        symbol [ mConnectionState %tmp.2 248 12 28 ];
+        %tmp.2 = getv ? :mConnectionState;
+        symbol [ BluetoothLowEnergy %tmp.3 248 32 50 ];
+        %tmp.3 = getm $.Toybox.BluetoothLowEnergy;
+        symbol [ CONNECTION_STATE_CONNECTED %tmp.4 248 51 77 ];
+        %tmp.4 = getv %tmp.3 :CONNECTION_STATE_CONNECTED;
+        %tmp.5 = ne %tmp.2 %tmp.4;
+        bt %tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_8_250_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_81_248_112_false:
+        symbol [ mBatteryLevelCharacteristic %tmp.7 248 81 108 ];
+        %tmp.7 = getv ? :mBatteryLevelCharacteristic;
+        %tmp.8 = null;
+        %tmp.9 = eq %tmp.7 %tmp.8;
+        push %tmp.9;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_81_248_112_end:
+        %tmp.10 = phi [%tmp.5 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_12_248_112_begin] [%tmp.9 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_81_248_112_false] [%tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_81_248_112_end];
+        bt %tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_8_250_8_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_120_248_120_false:
+        symbol [ mReadRequested %tmp.12 248 120 134 ];
+        %tmp.12 = getv ? :mReadRequested;
+        push %tmp.12;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_120_248_120_end:
+        %tmp.13 = phi [%tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_12_248_120_begin] [%tmp.12 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_120_248_120_false] [%tmp.13 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_120_248_120_end];
+        bf %tmp.13 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_8_250_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_8_250_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_136_250_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 249 12 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_136_250_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_8_250_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_248_8_250_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 252 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_247_50_261_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_247_50_261_4_stop" ]
+        %characteristic.1 = local;
+        symbol [ characteristic %characteristic.1 252 12 26 ];
+        symbol [ mBatteryLevelCharacteristic %tmp.15 252 29 56 ];
+        %tmp.15 = getv ? :mBatteryLevelCharacteristic;
+        %tmp.16 = as %tmp.15 BluetoothLowEnergy.Characteristic;
+        symbol [ BluetoothLowEnergy %tmp.16 252 60 78 ];
+        symbol [ Characteristic %tmp.16 252 79 93 ];
+        lputv %characteristic.1 %tmp.16;
+        symbol [ characteristic %characteristic.1 252 12 26 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 253 8 ]
+        %tmp.17 = true;
+        symbol [ mReadRequested ? 253 8 22 ];
+        putv self :mReadRequested %tmp.17;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 254 8 ]
+        symbol [ System %tmp.18 254 34 40 ];
+        %tmp.18 = getm $.Toybox.System;
+        symbol [ getTimer %tmp.19 254 41 49 ];
+        %tmp.19 = getv function %tmp.18 :getTimer;
+        %tmp.20 = invoke %tmp.18 %tmp.19();
+        symbol [ mLastBatteryRequestTime ? 254 8 31 ];
+        putv self :mLastBatteryRequestTime %tmp.20;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 255 8 ]
+        try @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_beginTry @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_endTry @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_catch @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_finally;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_beginTry:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_12_257_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 256 12 ]
+        %tmp.21 = lgetv %characteristic.1;
+        symbol [ characteristic %tmp.21 256 12 26 ];
+        symbol [ requestRead %tmp.22 256 27 38 ];
+        %tmp.22 = getv function %tmp.21 :requestRead;
+        invoke %tmp.21 %tmp.22();
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_12_257_8_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_endTry:
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_finally;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_catch:
+        %tmp.23 = exception;
+        push %tmp.23;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 257 10 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_catch" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_257_10_260_8_end" ]
+        %e.2 = local;
+        symbol [ e %e.2 257 17 18 ];
+        %tmp.24 = dup %tmp.23;
+        lputv %e.2 %tmp.24;
+        symbol [ e %e.2 257 17 18 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_257_20_260_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 258 12 ]
+        %tmp.25 = false;
+        symbol [ mReadRequested ? 258 12 26 ];
+        putv self :mReadRequested %tmp.25;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 259 12 ]
+        symbol [ System %tmp.26 259 12 18 ];
+        %tmp.26 = getm $.Toybox.System;
+        symbol [ println %tmp.27 259 19 26 ];
+        %tmp.27 = getv function %tmp.26 :println;
+        %tmp.28 = "[L508 BLE] ERROR: requestRead failed: ";
+        %tmp.29 = lgetv %e.2;
+        symbol [ e %tmp.29 259 70 71 ];
+        symbol [ getErrorMessage %tmp.30 259 72 87 ];
+        %tmp.30 = getv function %tmp.29 :getErrorMessage;
+        %tmp.31 = invoke %tmp.29 %tmp.30();
+        %tmp.32 = add %tmp.28 %tmp.31;
+        invoke %tmp.26 %tmp.27(%tmp.32);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_257_20_260_8_stop:
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_finally;
+        pop;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_257_10_260_8_end:
+        try @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_catch @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_257_10_260_8_end @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_257_10_260_8_end @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_finally;
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_finally;
+        throw %tmp.23;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_finally:
+        jsrret;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_255_8_260_8_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_247_50_261_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 263; @symbol_functiondef = [isL508,263,21,27]; @symbol_param<0> = [scanResult,263,28,38]; @symbol_param<0>_type<0> = [BluetoothLowEnergy,263,42,60]; @symbol_param<0>_type<1> = [ScanResult,263,61,71]; @symbol_return<0> = [Boolean,263,76,83]; ]
+    private
+    function isL508(scanResult as BluetoothLowEnergy.ScanResult) as Boolean {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_263_84_272_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 264 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_263_84_272_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_263_84_272_4_stop" ]
+        %name.1 = local;
+        symbol [ name %name.1 264 12 16 ];
+        %tmp.1 = lgetv %scanResult;
+        symbol [ scanResult %tmp.1 264 19 29 ];
+        symbol [ getDeviceName %tmp.2 264 30 43 ];
+        %tmp.2 = getv function %tmp.1 :getDeviceName;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %name.1 %tmp.3;
+        symbol [ name %name.1 264 12 16 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 265 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_265_8_268_8_if_stmt:
+        %tmp.4 = lgetv %name.1;
+        symbol [ name %tmp.4 265 12 16 ];
+        %tmp.5 = null;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        bf %tmp.6 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_265_8_268_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_265_8_268_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_265_26_268_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 266 12 ]
+        symbol [ System %tmp.7 266 12 18 ];
+        %tmp.7 = getm $.Toybox.System;
+        symbol [ println %tmp.8 266 19 26 ];
+        %tmp.8 = getv function %tmp.7 :println;
+        %tmp.9 = "[L508 BLE] CHECK name=[<no name>] len=0 exact=false";
+        invoke %tmp.7 %tmp.8(%tmp.9);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 267 12 ]
+        %tmp.10 = false;
+        ret %tmp.10;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_265_26_268_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_265_8_268_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_265_8_268_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 269 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_263_84_272_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_263_84_272_4_stop" ]
+        %exact.2 = local;
+        symbol [ exact %exact.2 269 12 17 ];
+        %tmp.11 = lgetv %name.1;
+        symbol [ name %tmp.11 269 20 24 ];
+        symbol [ equals %tmp.12 269 25 31 ];
+        %tmp.12 = getv function %tmp.11 :equals;
+        %tmp.13 = "19813-5";
+        %tmp.14 = invoke %tmp.11 %tmp.12(%tmp.13);
+        lputv %exact.2 %tmp.14;
+        symbol [ exact %exact.2 269 12 17 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 270 8 ]
+        symbol [ System %tmp.15 270 8 14 ];
+        %tmp.15 = getm $.Toybox.System;
+        symbol [ println %tmp.16 270 15 22 ];
+        %tmp.16 = getv function %tmp.15 :println;
+        %tmp.17 = "[L508 BLE] CHECK name=[";
+        %tmp.18 = lgetv %name.1;
+        symbol [ name %tmp.18 270 51 55 ];
+        %tmp.19 = add %tmp.17 %tmp.18;
+        %tmp.20 = "] len=";
+        %tmp.21 = add %tmp.19 %tmp.20;
+        %tmp.22 = lgetv %name.1;
+        symbol [ name %tmp.22 270 69 73 ];
+        symbol [ length %tmp.23 270 74 80 ];
+        %tmp.23 = getv function %tmp.22 :length;
+        %tmp.24 = invoke %tmp.22 %tmp.23();
+        %tmp.25 = add %tmp.21 %tmp.24;
+        %tmp.26 = " exact=";
+        %tmp.27 = add %tmp.25 %tmp.26;
+        %tmp.28 = lgetv %exact.2;
+        symbol [ exact %tmp.28 270 97 102 ];
+        %tmp.29 = add %tmp.27 %tmp.28;
+        invoke %tmp.15 %tmp.16(%tmp.29);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 271 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_271_15_271_55_begin:
+        %tmp.30 = lgetv %exact.2;
+        symbol [ exact %tmp.30 271 15 20 ];
+        %tmp.31 = dup %tmp.30;
+        bt %tmp.31 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_271_24_271_55_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_271_24_271_55_false:
+        %tmp.32 = lgetv %name.1;
+        symbol [ name %tmp.32 271 24 28 ];
+        symbol [ toUpper %tmp.33 271 29 36 ];
+        %tmp.33 = getv function %tmp.32 :toUpper;
+        %tmp.34 = invoke %tmp.32 %tmp.33();
+        symbol [ find %tmp.35 271 39 43 ];
+        %tmp.35 = getv function %tmp.34 :find;
+        %tmp.36 = "L508";
+        %tmp.37 = invoke %tmp.34 %tmp.35(%tmp.36);
+        %tmp.38 = null;
+        %tmp.39 = ne %tmp.37 %tmp.38;
+        %tmp.40 = or %tmp.30 %tmp.39;
+        push %tmp.40;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_271_24_271_55_end:
+        %tmp.41 = phi [%tmp.31 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_271_15_271_55_begin] [%tmp.40 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_271_24_271_55_false] [%tmp.41 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_271_24_271_55_end];
+        ret %tmp.41;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_263_84_272_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 274; @symbol_functiondef = [logScanResult,274,21,34]; @symbol_param<0> = [scanResult,274,35,45]; @symbol_param<0>_type<0> = [BluetoothLowEnergy,274,49,67]; @symbol_param<0>_type<1> = [ScanResult,274,68,78]; ]
+    private
+    function logScanResult(scanResult as BluetoothLowEnergy.ScanResult) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_274_88_280_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 275 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_274_88_280_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_274_88_280_4_stop" ]
+        %name.1 = local;
+        symbol [ name %name.1 275 12 16 ];
+        %tmp.1 = lgetv %scanResult;
+        symbol [ scanResult %tmp.1 275 19 29 ];
+        symbol [ getDeviceName %tmp.2 275 30 43 ];
+        %tmp.2 = getv function %tmp.1 :getDeviceName;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %name.1 %tmp.3;
+        symbol [ name %name.1 275 12 16 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 276 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_276_8_278_8_if_stmt:
+        %tmp.4 = lgetv %name.1;
+        symbol [ name %tmp.4 276 12 16 ];
+        %tmp.5 = null;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        bf %tmp.6 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_276_8_278_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_276_8_278_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_276_26_278_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 277 12 ]
+        %tmp.7 = "<no name>";
+        lputv %name.1 %tmp.7;
+        symbol [ name %name.1 277 12 16 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_276_26_278_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_276_8_278_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_276_8_278_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 279 8 ]
+        symbol [ System %tmp.8 279 8 14 ];
+        %tmp.8 = getm $.Toybox.System;
+        symbol [ println %tmp.9 279 15 22 ];
+        %tmp.9 = getv function %tmp.8 :println;
+        %tmp.10 = "[L508 BLE] found: ";
+        %tmp.11 = lgetv %name.1;
+        symbol [ name %tmp.11 279 46 50 ];
+        %tmp.12 = add %tmp.10 %tmp.11;
+        %tmp.13 = " RSSI=";
+        %tmp.14 = add %tmp.12 %tmp.13;
+        %tmp.15 = lgetv %scanResult;
+        symbol [ scanResult %tmp.15 279 64 74 ];
+        symbol [ getRssi %tmp.16 279 75 82 ];
+        %tmp.16 = getv function %tmp.15 :getRssi;
+        %tmp.17 = invoke %tmp.15 %tmp.16();
+        %tmp.18 = add %tmp.14 %tmp.17;
+        %tmp.19 = " services=";
+        %tmp.20 = add %tmp.18 %tmp.19;
+        %tmp.21 = self;
+        symbol [ serviceUuidsToString %tmp.22 279 102 122 ];
+        %tmp.22 = getv function %tmp.21 :serviceUuidsToString;
+        %tmp.23 = lgetv %scanResult;
+        symbol [ scanResult %tmp.23 279 123 133 ];
+        symbol [ getServiceUuids %tmp.24 279 134 149 ];
+        %tmp.24 = getv function %tmp.23 :getServiceUuids;
+        %tmp.25 = invoke %tmp.23 %tmp.24();
+        %tmp.26 = invoke %tmp.21 %tmp.22(%tmp.25);
+        %tmp.27 = add %tmp.20 %tmp.26;
+        invoke %tmp.8 %tmp.9(%tmp.27);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_274_88_280_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 282; @symbol_functiondef = [serviceUuidsToString,282,21,41]; @symbol_param<0> = [uuids,282,42,47]; @symbol_param<0>_type<0> = [Iterator,282,51,59]; @symbol_return<0> = [String,282,64,70]; ]
+    private
+    function serviceUuidsToString(uuids as Iterator) as String {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_282_71_291_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 283 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_282_71_291_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_282_71_291_4_stop" ]
+        %result.1 = local;
+        symbol [ result %result.1 283 12 18 ];
+        %tmp.1 = "";
+        lputv %result.1 %tmp.1;
+        symbol [ result %result.1 283 12 18 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 284 8 ]
+        for @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_test @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_incr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_init:
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_begin" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_end" ]
+        %uuid.2 = local;
+        symbol [ uuid %uuid.2 284 17 21 ];
+        %tmp.2 = lgetv %uuids;
+        symbol [ uuids %tmp.2 284 24 29 ];
+        symbol [ next %tmp.3 284 30 34 ];
+        %tmp.3 = getv function %tmp.2 :next;
+        %tmp.4 = invoke %tmp.2 %tmp.3();
+        lputv %uuid.2 %tmp.4;
+        symbol [ uuid %uuid.2 284 17 21 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_test:
+        %tmp.5 = lgetv %uuid.2;
+        symbol [ uuid %tmp.5 284 38 42 ];
+        %tmp.6 = null;
+        %tmp.7 = ne %tmp.5 %tmp.6;
+        bf %tmp.7 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_73_289_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 285 12 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_285_12_287_12_if_stmt:
+        %tmp.8 = lgetv %result.1;
+        symbol [ result %tmp.8 285 16 22 ];
+        symbol [ length %tmp.9 285 23 29 ];
+        %tmp.9 = getv function %tmp.8 :length;
+        %tmp.10 = invoke %tmp.8 %tmp.9();
+        %tmp.11 = 0;
+        %tmp.12 = gt %tmp.10 %tmp.11;
+        bf %tmp.12 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_285_12_287_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_285_12_287_12_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_285_37_287_12_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 286 16 ]
+        %tmp.13 = lgetv %result.1;
+        symbol [ result %tmp.13 286 16 22 ];
+        %tmp.14 = ",";
+        %tmp.15 = add %tmp.13 %tmp.14;
+        lputv %result.1 %tmp.15;
+        symbol [ result %result.1 286 16 22 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_285_37_287_12_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_285_12_287_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_285_12_287_12_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 288 12 ]
+        %tmp.16 = lgetv %result.1;
+        symbol [ result %tmp.16 288 12 18 ];
+        %tmp.17 = lgetv %uuid.2;
+        symbol [ uuid %tmp.17 288 22 26 ];
+        %tmp.18 = as %tmp.17 { (!Null) };
+        symbol [ toString %tmp.19 288 27 35 ];
+        %tmp.19 = getv function %tmp.18 :toString;
+        %tmp.20 = invoke %tmp.18 %tmp.19();
+        %tmp.21 = add %tmp.16 %tmp.20;
+        lputv %result.1 %tmp.21;
+        symbol [ result %result.1 288 12 18 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_73_289_8_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_incr:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 284 ]
+        %tmp.22 = lgetv %uuids;
+        symbol [ uuids %tmp.22 284 59 64 ];
+        symbol [ next %tmp.23 284 65 69 ];
+        %tmp.23 = getv function %tmp.22 :next;
+        %tmp.24 = invoke %tmp.22 %tmp.23();
+        lputv %uuid.2 %tmp.24;
+        symbol [ uuid %uuid.2 284 52 56 ];
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_test;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_284_8_289_8_for_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc" 290 8 ]
+        %tmp.25 = lgetv %result.1;
+        symbol [ result %tmp.25 290 15 21 ];
+        ret %tmp.25;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508BleManager_mc_282_71_291_4_stop:
+    }
+}
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508BleManager.mc"; @line = 1; ]
+<init> {
+}

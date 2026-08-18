@@ -1,0 +1,1025 @@
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [AntPlus,1,14,21]; ]
+import Toybox.AntPlus;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [System,2,14,20]; ]
+import Toybox.System;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [Math,3,14,18]; ]
+import Toybox.Math;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 4; @symbol_importdef<0> = [Toybox,4,7,13]; @symbol_importdef<1> = [Lang,4,14,18]; ]
+import Toybox.Lang;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 6; @symbol_classdef = [L508RadarManager,6,6,22]; ]
+class L508RadarManager {
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 6; ]
+    <init> {
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 10 16 ]
+        %tmp.1 = newa 0;
+        putv self :mTracks %tmp.1;
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 6; ]
+    static
+    <init> {
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 7; @position = 10; @symbol_constdef = [PASS_DISTANCE_METERS,7,10,30]; ]
+    const PASS_DISTANCE_METERS = 10.0;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 8; @position = 10; @symbol_constdef = [MATCH_DISTANCE_METERS,8,10,31]; ]
+    const MATCH_DISTANCE_METERS = 20.0;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 9; @position = 16; @symbol_vardef = [mRadar,9,16,22]; ]
+    private
+    var mRadar;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 10; @position = 16; @symbol_vardef = [mTracks,10,16,23]; @symbol_type<0> = [Lang,10,27,31]; @symbol_type<1> = [Array,10,32,37]; @symbol_type<2> = [Lang,10,38,42]; @symbol_type<3> = [Dictionary,10,43,53]; ]
+    private
+    var mTracks as Lang.Array<Lang.Dictionary>;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 11; @position = 16; @symbol_vardef = [mVehicleCount,11,16,29]; @symbol_type<0> = [Lang,11,33,37]; @symbol_type<1> = [Number,11,38,44]; ]
+    private
+    var mVehicleCount as Lang.Number = 0;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 12; @position = 16; @symbol_vardef = [mLastSpeed,12,16,26]; @symbol_type<0> = [Lang,12,30,34]; @symbol_type<1> = [Number,12,35,41]; ]
+    private
+    var mLastSpeed as Lang.Number or Null = null;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 13; @position = 16; @symbol_vardef = [mReportedData,13,16,29]; @symbol_type<0> = [Lang,13,33,37]; @symbol_type<1> = [Boolean,13,38,45]; ]
+    private
+    var mReportedData as Lang.Boolean = false;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 15; @symbol_functiondef = [initialize,15,13,23]; ]
+    function initialize() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_15_26_23_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 16 8 ]
+        try @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_beginTry @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_endTry @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_catch @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_finally;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_beginTry:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_12_19_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 17 12 ]
+        symbol [ AntPlus %tmp.3 17 25 32 ];
+        %tmp.3 = getm $.Toybox.AntPlus;
+        symbol [ BikeRadar %tmp.4 17 33 42 ];
+        %tmp.4 = getv function ? %tmp.3 :BikeRadar;
+        %tmp.5 = null;
+        %tmp.1 = newc %tmp.4 (%tmp.5);
+        symbol [ mRadar ? 17 12 18 ];
+        putv self :mRadar %tmp.1;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 18 12 ]
+        symbol [ System %tmp.6 18 12 18 ];
+        %tmp.6 = getm $.Toybox.System;
+        symbol [ println %tmp.7 18 19 26 ];
+        %tmp.7 = getv function %tmp.6 :println;
+        %tmp.8 = "[L508 ANT] BikeRadar initialized";
+        invoke %tmp.6 %tmp.7(%tmp.8);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_12_19_8_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_endTry:
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_finally;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_catch:
+        %tmp.9 = exception;
+        push %tmp.9;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 19 10 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_catch" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_19_10_22_8_end" ]
+        %e.1 = local;
+        symbol [ e %e.1 19 17 18 ];
+        %tmp.10 = dup %tmp.9;
+        lputv %e.1 %tmp.10;
+        symbol [ e %e.1 19 17 18 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_19_20_22_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 20 12 ]
+        %tmp.11 = null;
+        symbol [ mRadar ? 20 12 18 ];
+        putv self :mRadar %tmp.11;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 21 12 ]
+        symbol [ System %tmp.12 21 12 18 ];
+        %tmp.12 = getm $.Toybox.System;
+        symbol [ println %tmp.13 21 19 26 ];
+        %tmp.13 = getv function %tmp.12 :println;
+        %tmp.14 = "[L508 ANT] BikeRadar init error=";
+        %tmp.15 = lgetv %e.1;
+        symbol [ e %tmp.15 21 64 65 ];
+        %tmp.16 = add %tmp.14 %tmp.15;
+        invoke %tmp.12 %tmp.13(%tmp.16);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_19_20_22_8_stop:
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_finally;
+        pop;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_19_10_22_8_end:
+        try @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_catch @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_19_10_22_8_end @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_19_10_22_8_end @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_finally;
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_finally;
+        throw %tmp.9;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_finally:
+        jsrret;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_16_8_22_8_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_15_26_23_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 25; @symbol_functiondef = [update,25,13,19]; @symbol_param<0> = [info,25,20,24]; ]
+    function update(info) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_25_34_79_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 26 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_26_8_26_38_if_stmt:
+        symbol [ mRadar %tmp.2 26 12 18 ];
+        %tmp.2 = getv ? :mRadar;
+        %tmp.3 = null;
+        %tmp.4 = eq %tmp.2 %tmp.3;
+        bf %tmp.4 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_26_8_26_38_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_26_8_26_38_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_26_28_26_38_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 26 30 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_26_28_26_38_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_26_8_26_38_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_26_8_26_38_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 27 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_25_34_79_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_25_34_79_4_stop" ]
+        %targets.1 = local;
+        symbol [ targets %targets.1 27 12 19 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 28 8 ]
+        try @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_beginTry @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_endTry @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_catch @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_finally;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_beginTry:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_12_28_47_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 28 14 ]
+        symbol [ mRadar %tmp.6 28 24 30 ];
+        %tmp.6 = getv ? :mRadar;
+        symbol [ getRadarInfo %tmp.7 28 31 43 ];
+        %tmp.7 = getv function %tmp.6 :getRadarInfo;
+        %tmp.8 = invoke %tmp.6 %tmp.7();
+        lputv %targets.1 %tmp.8;
+        symbol [ targets %targets.1 28 14 21 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_12_28_47_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_endTry:
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_finally;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_catch:
+        %tmp.9 = exception;
+        push %tmp.9;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 28 49 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_catch" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_49_31_8_end" ]
+        %e.2 = local;
+        symbol [ e %e.2 28 56 57 ];
+        %tmp.10 = dup %tmp.9;
+        lputv %e.2 %tmp.10;
+        symbol [ e %e.2 28 56 57 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_59_31_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 29 12 ]
+        symbol [ System %tmp.11 29 12 18 ];
+        %tmp.11 = getm $.Toybox.System;
+        symbol [ println %tmp.12 29 19 26 ];
+        %tmp.12 = getv function %tmp.11 :println;
+        %tmp.13 = "[L508 ANT] getRadarInfo error=";
+        %tmp.14 = lgetv %e.2;
+        symbol [ e %tmp.14 29 62 63 ];
+        %tmp.15 = add %tmp.13 %tmp.14;
+        invoke %tmp.11 %tmp.12(%tmp.15);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 30 12 ]
+        pop;
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_finally;
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_59_31_8_stop:
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_finally;
+        pop;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_49_31_8_end:
+        try @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_catch @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_49_31_8_end @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_49_31_8_end @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_finally;
+        jsr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_finally;
+        throw %tmp.9;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_finally:
+        jsrret;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_28_8_31_8_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 32 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_32_8_32_39_if_stmt:
+        %tmp.16 = lgetv %targets.1;
+        symbol [ targets %tmp.16 32 12 19 ];
+        %tmp.17 = null;
+        %tmp.18 = eq %tmp.16 %tmp.17;
+        bf %tmp.18 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_32_8_32_39_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_32_8_32_39_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_32_29_32_39_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 32 31 ]
+        ret ?;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_32_29_32_39_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_32_8_32_39_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_32_8_32_39_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 33 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_8_36_8_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_12_33_35_begin:
+        %tmp.19 = lgetv %targets.1;
+        symbol [ targets %tmp.19 33 12 19 ];
+        symbol [ size %tmp.20 33 20 24 ];
+        %tmp.20 = getv function %tmp.19 :size;
+        %tmp.21 = invoke %tmp.19 %tmp.20();
+        %tmp.22 = 0;
+        %tmp.23 = gt %tmp.21 %tmp.22;
+        bf %tmp.23 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_8_36_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_34_33_35_true:
+        symbol [ mReportedData %tmp.25 33 35 48 ];
+        %tmp.25 = getv ? :mReportedData;
+        %tmp.26 = not %tmp.25;
+        push %tmp.26;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_34_33_35_end:
+        %tmp.27 = phi [%tmp.23 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_12_33_35_begin] [%tmp.26 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_34_33_35_true] [%tmp.27 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_34_33_35_end];
+        bf %tmp.27 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_8_36_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_8_36_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_50_36_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 34 12 ]
+        %tmp.28 = true;
+        symbol [ mReportedData ? 34 12 25 ];
+        putv self :mReportedData %tmp.28;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 35 12 ]
+        symbol [ System %tmp.29 35 12 18 ];
+        %tmp.29 = getm $.Toybox.System;
+        symbol [ println %tmp.30 35 19 26 ];
+        %tmp.30 = getv function %tmp.29 :println;
+        %tmp.31 = "[L508 ANT] first radar data received";
+        invoke %tmp.29 %tmp.30(%tmp.31);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_50_36_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_8_36_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_33_8_36_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 37 8 ]
+        for @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_test @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_incr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_init:
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_begin" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_end" ]
+        %oi.3 = local;
+        symbol [ oi %oi.3 37 17 19 ];
+        %tmp.32 = 0;
+        lputv %oi.3 %tmp.32;
+        symbol [ oi %oi.3 37 17 19 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_test:
+        %tmp.33 = lgetv %oi.3;
+        symbol [ oi %tmp.33 37 25 27 ];
+        symbol [ mTracks %tmp.35 37 30 37 ];
+        %tmp.35 = getv ? :mTracks;
+        symbol [ size %tmp.36 37 38 42 ];
+        %tmp.36 = getv function %tmp.35 :size;
+        %tmp.37 = invoke %tmp.35 %tmp.36();
+        %tmp.38 = lt %tmp.33 %tmp.37;
+        bf %tmp.38 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_52_37_83_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 37 54 ]
+        symbol [ mTracks %tmp.39 37 54 61 ];
+        %tmp.39 = getv self :mTracks;
+        %tmp.40 = lgetv %oi.3;
+        symbol [ oi %tmp.40 37 62 64 ];
+        %tmp.41 = agetv %tmp.39 %tmp.40;
+        %tmp.42 = false;
+        %tmp.43 = "seen";
+        aputv %tmp.41 %tmp.43 %tmp.42;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_52_37_83_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_incr:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 37 ]
+        %tmp.46 = lgetv %oi.3;
+        symbol [ oi %tmp.46 37 46 48 ];
+        %tmp.47 = add %tmp.46 1;
+        lputv %oi.3 %tmp.47;
+        symbol [ oi %oi.3 37 46 48 ];
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_test;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_37_8_37_83_for_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 38 8 ]
+        for @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_test @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_incr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_init:
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_begin" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_end" ]
+        %ti.4 = local;
+        symbol [ ti %ti.4 38 17 19 ];
+        %tmp.48 = 0;
+        lputv %ti.4 %tmp.48;
+        symbol [ ti %ti.4 38 17 19 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_test:
+        %tmp.49 = lgetv %ti.4;
+        symbol [ ti %tmp.49 38 25 27 ];
+        %tmp.50 = lgetv %targets.1;
+        symbol [ targets %tmp.50 38 30 37 ];
+        symbol [ size %tmp.51 38 38 42 ];
+        %tmp.51 = getv function %tmp.50 :size;
+        %tmp.52 = invoke %tmp.50 %tmp.51();
+        %tmp.53 = lt %tmp.49 %tmp.52;
+        bf %tmp.53 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 39 12 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_stop" ]
+        %target.5 = local;
+        symbol [ target %target.5 39 16 22 ];
+        %tmp.54 = lgetv %targets.1;
+        symbol [ targets %tmp.54 39 25 32 ];
+        %tmp.55 = lgetv %ti.4;
+        symbol [ ti %tmp.55 39 33 35 ];
+        %tmp.56 = agetv %tmp.54 %tmp.55;
+        lputv %target.5 %tmp.56;
+        symbol [ target %target.5 39 16 22 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 40 12 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_12_40_95_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_16_40_59_begin:
+        %tmp.57 = lgetv %target.5;
+        symbol [ target %tmp.57 40 16 22 ];
+        %tmp.58 = null;
+        %tmp.59 = eq %tmp.57 %tmp.58;
+        bt %tmp.59 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_12_40_95_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_34_40_59_false:
+        %tmp.60 = lgetv %target.5;
+        symbol [ target %tmp.60 40 34 40 ];
+        %tmp.61 = as %tmp.60 { (!Null) };
+        symbol [ threat %tmp.62 40 41 47 ];
+        %tmp.62 = getv %tmp.61 :threat;
+        symbol [ AntPlus %tmp.63 40 51 58 ];
+        %tmp.63 = getm $.Toybox.AntPlus;
+        symbol [ THREAT_LEVEL_NO_THREAT %tmp.64 40 59 81 ];
+        %tmp.64 = getv %tmp.63 :THREAT_LEVEL_NO_THREAT;
+        %tmp.65 = eq %tmp.62 %tmp.64;
+        push %tmp.65;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_34_40_59_end:
+        %tmp.66 = phi [%tmp.59 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_16_40_59_begin] [%tmp.65 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_34_40_59_false] [%tmp.66 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_34_40_59_end];
+        bf %tmp.66 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_12_40_95_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_12_40_95_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_83_40_95_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 40 85 ]
+        goto break @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_incr;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_83_40_95_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_12_40_95_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_40_12_40_95_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 41 12 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_stop" ]
+        %range.6 = local;
+        symbol [ range %range.6 41 16 21 ];
+        %tmp.67 = lgetv %target.5;
+        symbol [ target %tmp.67 41 24 30 ];
+        symbol [ range %tmp.68 41 31 36 ];
+        %tmp.68 = getv %tmp.67 :range;
+        lputv %range.6 %tmp.68;
+        symbol [ range %range.6 41 16 21 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 42 12 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_12_42_56_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_16_42_41_begin:
+        %tmp.69 = lgetv %range.6;
+        symbol [ range %tmp.69 42 16 21 ];
+        %tmp.70 = null;
+        %tmp.71 = eq %tmp.69 %tmp.70;
+        bt %tmp.71 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_12_42_56_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_33_42_41_false:
+        %tmp.72 = lgetv %range.6;
+        symbol [ range %tmp.72 42 33 38 ];
+        %tmp.73 = as %tmp.72 { (!Null) };
+        %tmp.74 = 0;
+        %tmp.75 = lt %tmp.73 %tmp.74;
+        push %tmp.75;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_33_42_41_end:
+        %tmp.76 = phi [%tmp.71 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_16_42_41_begin] [%tmp.75 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_33_42_41_false] [%tmp.76 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_33_42_41_end];
+        bf %tmp.76 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_12_42_56_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_12_42_56_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_44_42_56_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 42 46 ]
+        goto break @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_incr;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_44_42_56_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_12_42_56_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_42_12_42_56_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 43 12 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_stop" ]
+        %match.7 = local;
+        symbol [ match %match.7 43 16 21 ];
+        %tmp.77 = self;
+        symbol [ findTrack %tmp.78 43 24 33 ];
+        %tmp.78 = getv function %tmp.77 :findTrack;
+        %tmp.79 = lgetv %range.6;
+        symbol [ range %tmp.79 43 34 39 ];
+        %tmp.80 = invoke %tmp.77 %tmp.78(%tmp.79);
+        lputv %match.7 %tmp.80;
+        symbol [ match %match.7 43 16 21 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 44 12 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_stop" ]
+        %speed.8 = local;
+        symbol [ speed %speed.8 44 16 21 ];
+        %tmp.81 = self;
+        symbol [ speedKph %tmp.82 44 24 32 ];
+        %tmp.82 = getv function %tmp.81 :speedKph;
+        %tmp.83 = lgetv %target.5;
+        symbol [ target %tmp.83 44 33 39 ];
+        symbol [ speed %tmp.84 44 40 45 ];
+        %tmp.84 = getv %tmp.83 :speed;
+        %tmp.85 = lgetv %info;
+        symbol [ info %tmp.85 44 47 51 ];
+        symbol [ currentSpeed %tmp.86 44 52 64 ];
+        %tmp.86 = getv %tmp.85 :currentSpeed;
+        %tmp.87 = invoke %tmp.81 %tmp.82(%tmp.84, %tmp.86);
+        lputv %speed.8 %tmp.87;
+        symbol [ speed %speed.8 44 16 21 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 45 12 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_45_12_60_12_if_stmt:
+        %tmp.88 = lgetv %match.7;
+        symbol [ match %tmp.88 45 16 21 ];
+        %tmp.89 = null;
+        %tmp.90 = eq %tmp.88 %tmp.89;
+        bf %tmp.90 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_45_12_60_12_if_else_false;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_45_12_60_12_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_45_31_51_12_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 46 16 ]
+        %tmp.91 = newd 4;
+        %tmp.92 = "range";
+        %tmp.93 = lgetv %range.6;
+        symbol [ range %tmp.93 46 36 41 ];
+        %tmp.94 = dup %tmp.91;
+        %tmp.95 = aputv %tmp.94 %tmp.92 %tmp.93;
+        %tmp.96 = "close";
+        %tmp.97 = lgetv %range.6;
+        symbol [ range %tmp.97 46 55 60 ];
+        symbol [ PASS_DISTANCE_METERS %tmp.99 46 64 84 ];
+        %tmp.99 = getv ? :PASS_DISTANCE_METERS;
+        %tmp.100 = lte %tmp.97 %tmp.99;
+        %tmp.101 = dup %tmp.95;
+        %tmp.102 = aputv %tmp.101 %tmp.96 %tmp.100;
+        %tmp.103 = "speed";
+        %tmp.104 = lgetv %speed.8;
+        symbol [ speed %tmp.104 46 98 103 ];
+        %tmp.105 = dup %tmp.102;
+        %tmp.106 = aputv %tmp.105 %tmp.103 %tmp.104;
+        %tmp.107 = "seen";
+        %tmp.108 = true;
+        %tmp.109 = dup %tmp.106;
+        %tmp.110 = aputv %tmp.109 %tmp.107 %tmp.108;
+        lputv %match.7 %tmp.110;
+        symbol [ match %match.7 46 16 21 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 47 16 ]
+        symbol [ mTracks %tmp.112 47 16 23 ];
+        %tmp.112 = getv ? :mTracks;
+        symbol [ add %tmp.113 47 24 27 ];
+        %tmp.113 = getv function %tmp.112 :add;
+        %tmp.114 = lgetv %match.7;
+        symbol [ match %tmp.114 47 28 33 ];
+        invoke %tmp.112 %tmp.113(%tmp.114);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 48 16 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_48_16_50_16_if_stmt:
+        %tmp.115 = lgetv %range.6;
+        symbol [ range %tmp.115 48 20 25 ];
+        symbol [ PASS_DISTANCE_METERS %tmp.117 48 29 49 ];
+        %tmp.117 = getv ? :PASS_DISTANCE_METERS;
+        %tmp.118 = lte %tmp.115 %tmp.117;
+        bf %tmp.118 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_48_16_50_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_48_16_50_16_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_48_51_50_16_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 49 20 ]
+        symbol [ System %tmp.119 49 20 26 ];
+        %tmp.119 = getm $.Toybox.System;
+        symbol [ println %tmp.120 49 27 34 ];
+        %tmp.120 = getv function %tmp.119 :println;
+        %tmp.121 = "[L508 ANT] target close range=";
+        %tmp.122 = lgetv %range.6;
+        symbol [ range %tmp.122 49 70 75 ];
+        symbol [ format %tmp.123 49 76 82 ];
+        %tmp.123 = getv function %tmp.122 :format;
+        %tmp.124 = "%.1f";
+        %tmp.125 = invoke %tmp.122 %tmp.123(%tmp.124);
+        %tmp.126 = add %tmp.121 %tmp.125;
+        %tmp.127 = " speed=";
+        %tmp.128 = add %tmp.126 %tmp.127;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_begin:
+        %tmp.129 = lgetv %speed.8;
+        symbol [ speed %tmp.129 49 106 111 ];
+        %tmp.130 = null;
+        %tmp.131 = eq %tmp.129 %tmp.130;
+        bf %tmp.131 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_else_false;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_true:
+        %tmp.132 = "--";
+        push %tmp.132;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_else_false:
+        %tmp.133 = lgetv %speed.8;
+        symbol [ speed %tmp.133 49 129 134 ];
+        %tmp.134 = as %tmp.133 { (!Null) };
+        symbol [ format %tmp.135 49 135 141 ];
+        %tmp.135 = getv function %tmp.134 :format;
+        %tmp.136 = "%d";
+        %tmp.137 = invoke %tmp.134 %tmp.135(%tmp.136);
+        push %tmp.137;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_end:
+        %tmp.138 = phi [%tmp.131 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_begin] [%tmp.132 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_true] [%tmp.137 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_else_false] [%tmp.138 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_49_106_49_146_end];
+        %tmp.139 = add %tmp.128 %tmp.138;
+        invoke %tmp.119 %tmp.120(%tmp.139);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_48_51_50_16_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_48_16_50_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_48_16_50_16_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_45_31_51_12_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_45_12_60_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_45_12_60_12_if_else_false:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_51_19_60_12_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 52 16 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_51_19_60_12_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_51_19_60_12_stop" ]
+        %wasClose.9 = local;
+        symbol [ wasClose %wasClose.9 52 20 28 ];
+        %tmp.140 = lgetv %match.7;
+        symbol [ match %tmp.140 52 31 36 ];
+        %tmp.141 = as %tmp.140 { (!Null) };
+        %tmp.142 = "close";
+        %tmp.143 = agetv %tmp.141 %tmp.142;
+        lputv %wasClose.9 %tmp.143;
+        symbol [ wasClose %wasClose.9 52 20 28 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 53 16 ]
+        %tmp.144 = lgetv %match.7;
+        symbol [ match %tmp.144 53 16 21 ];
+        %tmp.145 = as %tmp.144 { (!Null) };
+        %tmp.146 = lgetv %range.6;
+        symbol [ range %tmp.146 53 33 38 ];
+        %tmp.147 = "range";
+        aputv %tmp.145 %tmp.147 %tmp.146;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 54 16 ]
+        %tmp.148 = lgetv %match.7;
+        symbol [ match %tmp.148 54 16 21 ];
+        %tmp.149 = as %tmp.148 { (!Null) };
+        %tmp.150 = true;
+        %tmp.151 = "seen";
+        aputv %tmp.149 %tmp.151 %tmp.150;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 55 16 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_55_16_55_61_if_stmt:
+        %tmp.152 = lgetv %speed.8;
+        symbol [ speed %tmp.152 55 20 25 ];
+        %tmp.153 = null;
+        %tmp.154 = ne %tmp.152 %tmp.153;
+        bf %tmp.154 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_55_16_55_61_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_55_16_55_61_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_55_35_55_61_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 55 37 ]
+        %tmp.155 = lgetv %match.7;
+        symbol [ match %tmp.155 55 37 42 ];
+        %tmp.156 = as %tmp.155 { (!Null) };
+        %tmp.157 = lgetv %speed.8;
+        symbol [ speed %tmp.157 55 54 59 ];
+        %tmp.158 = as %tmp.157 { (!Null) };
+        %tmp.159 = "speed";
+        aputv %tmp.156 %tmp.159 %tmp.158;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_55_35_55_61_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_55_16_55_61_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_55_16_55_61_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 56 16 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_16_59_16_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_20_56_42_begin:
+        %tmp.160 = lgetv %wasClose.9;
+        symbol [ wasClose %tmp.160 56 21 29 ];
+        %tmp.161 = not %tmp.160;
+        bf %tmp.161 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_16_59_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_33_56_42_true:
+        %tmp.162 = lgetv %range.6;
+        symbol [ range %tmp.162 56 33 38 ];
+        symbol [ PASS_DISTANCE_METERS %tmp.164 56 42 62 ];
+        %tmp.164 = getv ? :PASS_DISTANCE_METERS;
+        %tmp.165 = lte %tmp.162 %tmp.164;
+        push %tmp.165;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_33_56_42_end:
+        %tmp.166 = phi [%tmp.161 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_20_56_42_begin] [%tmp.165 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_33_56_42_true] [%tmp.166 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_33_56_42_end];
+        bf %tmp.166 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_16_59_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_16_59_16_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_64_59_16_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 57 20 ]
+        %tmp.167 = lgetv %match.7;
+        symbol [ match %tmp.167 57 20 25 ];
+        %tmp.168 = as %tmp.167 { (!Null) };
+        %tmp.169 = true;
+        %tmp.170 = "close";
+        aputv %tmp.168 %tmp.170 %tmp.169;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 58 20 ]
+        symbol [ System %tmp.171 58 20 26 ];
+        %tmp.171 = getm $.Toybox.System;
+        symbol [ println %tmp.172 58 27 34 ];
+        %tmp.172 = getv function %tmp.171 :println;
+        %tmp.173 = "[L508 ANT] target close range=";
+        %tmp.174 = lgetv %range.6;
+        symbol [ range %tmp.174 58 70 75 ];
+        symbol [ format %tmp.175 58 76 82 ];
+        %tmp.175 = getv function %tmp.174 :format;
+        %tmp.176 = "%.1f";
+        %tmp.177 = invoke %tmp.174 %tmp.175(%tmp.176);
+        %tmp.178 = add %tmp.173 %tmp.177;
+        %tmp.179 = " speed=";
+        %tmp.180 = add %tmp.178 %tmp.179;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_begin:
+        %tmp.181 = lgetv %speed.8;
+        symbol [ speed %tmp.181 58 106 111 ];
+        %tmp.182 = null;
+        %tmp.183 = eq %tmp.181 %tmp.182;
+        bf %tmp.183 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_else_false;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_true:
+        %tmp.184 = "--";
+        push %tmp.184;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_else_false:
+        %tmp.185 = lgetv %speed.8;
+        symbol [ speed %tmp.185 58 129 134 ];
+        %tmp.186 = as %tmp.185 { (!Null) };
+        symbol [ format %tmp.187 58 135 141 ];
+        %tmp.187 = getv function %tmp.186 :format;
+        %tmp.188 = "%d";
+        %tmp.189 = invoke %tmp.186 %tmp.187(%tmp.188);
+        push %tmp.189;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_end:
+        %tmp.190 = phi [%tmp.183 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_begin] [%tmp.184 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_true] [%tmp.189 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_else_false] [%tmp.190 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_58_106_58_146_end];
+        %tmp.191 = add %tmp.180 %tmp.190;
+        invoke %tmp.171 %tmp.172(%tmp.191);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_64_59_16_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_16_59_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_56_16_59_16_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_51_19_60_12_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_45_12_60_12_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_52_61_8_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_incr:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 38 ]
+        %tmp.194 = lgetv %ti.4;
+        symbol [ ti %tmp.194 38 46 48 ];
+        %tmp.195 = add %tmp.194 1;
+        lputv %ti.4 %tmp.195;
+        symbol [ ti %ti.4 38 46 48 ];
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_test;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_38_8_61_8_for_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 62 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_25_34_79_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_25_34_79_4_stop" ]
+        %passed.10 = local;
+        symbol [ passed %passed.10 62 12 18 ];
+        %tmp.196 = 0;
+        lputv %passed.10 %tmp.196;
+        symbol [ passed %passed.10 62 12 18 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 63 8 ]
+        for @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_test @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_incr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_init:
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_begin" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_end" ]
+        %i.11 = local;
+        symbol [ i %i.11 63 17 18 ];
+        symbol [ mTracks %tmp.198 63 21 28 ];
+        %tmp.198 = getv ? :mTracks;
+        symbol [ size %tmp.199 63 29 33 ];
+        %tmp.199 = getv function %tmp.198 :size;
+        %tmp.200 = invoke %tmp.198 %tmp.199();
+        %tmp.201 = 1;
+        %tmp.202 = sub %tmp.200 %tmp.201;
+        lputv %i.11 %tmp.202;
+        symbol [ i %i.11 63 17 18 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_test:
+        %tmp.203 = lgetv %i.11;
+        symbol [ i %tmp.203 63 41 42 ];
+        %tmp.204 = 0;
+        %tmp.205 = gte %tmp.203 %tmp.204;
+        bf %tmp.205 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_54_73_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 64 12 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_54_73_8_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_54_73_8_stop" ]
+        %track.12 = local;
+        symbol [ track %track.12 64 16 21 ];
+        symbol [ mTracks %tmp.207 64 24 31 ];
+        %tmp.207 = getv ? :mTracks;
+        %tmp.208 = lgetv %i.11;
+        symbol [ i %tmp.208 64 32 33 ];
+        %tmp.209 = agetv %tmp.207 %tmp.208;
+        lputv %track.12 %tmp.209;
+        symbol [ track %track.12 64 16 21 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 65 12 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_65_12_72_12_if_stmt:
+        %tmp.210 = lgetv %track.12;
+        symbol [ track %tmp.210 65 17 22 ];
+        %tmp.211 = "seen";
+        %tmp.212 = agetv %tmp.210 %tmp.211;
+        %tmp.213 = not %tmp.212;
+        bf %tmp.213 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_65_12_72_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_65_12_72_12_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_65_32_72_12_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 66 16 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_66_16_70_16_if_stmt:
+        %tmp.214 = lgetv %track.12;
+        symbol [ track %tmp.214 66 20 25 ];
+        %tmp.215 = "close";
+        %tmp.216 = agetv %tmp.214 %tmp.215;
+        bf %tmp.216 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_66_16_70_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_66_16_70_16_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_66_36_70_16_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 67 20 ]
+        symbol [ mVehicleCount %tmp.217 67 20 33 ];
+        %tmp.217 = getv self :mVehicleCount;
+        %tmp.218 = 1;
+        %tmp.219 = add %tmp.217 %tmp.218;
+        symbol [ mVehicleCount ? 67 20 33 ];
+        putv self :mVehicleCount dup %tmp.219;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 68 20 ]
+        %tmp.220 = lgetv %passed.10;
+        symbol [ passed %tmp.220 68 20 26 ];
+        %tmp.221 = 1;
+        %tmp.222 = add %tmp.220 %tmp.221;
+        lputv %passed.10 %tmp.222;
+        symbol [ passed %passed.10 68 20 26 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 69 20 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_69_20_69_79_if_stmt:
+        %tmp.223 = lgetv %track.12;
+        symbol [ track %tmp.223 69 24 29 ];
+        %tmp.224 = "speed";
+        %tmp.225 = agetv %tmp.223 %tmp.224;
+        %tmp.226 = null;
+        %tmp.227 = ne %tmp.225 %tmp.226;
+        bf %tmp.227 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_69_20_69_79_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_69_20_69_79_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_69_48_69_79_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 69 50 ]
+        %tmp.228 = lgetv %track.12;
+        symbol [ track %tmp.228 69 63 68 ];
+        %tmp.229 = "speed";
+        %tmp.230 = agetv %tmp.228 %tmp.229;
+        symbol [ mLastSpeed ? 69 50 60 ];
+        putv self :mLastSpeed %tmp.230;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_69_48_69_79_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_69_20_69_79_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_69_20_69_79_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_66_36_70_16_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_66_16_70_16_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_66_16_70_16_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 71 16 ]
+        symbol [ mTracks %tmp.232 71 16 23 ];
+        %tmp.232 = getv ? :mTracks;
+        symbol [ remove %tmp.233 71 24 30 ];
+        %tmp.233 = getv function %tmp.232 :remove;
+        %tmp.234 = lgetv %track.12;
+        symbol [ track %tmp.234 71 31 36 ];
+        invoke %tmp.232 %tmp.233(%tmp.234);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_65_32_72_12_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_65_12_72_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_65_12_72_12_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_54_73_8_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_incr:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 63 ]
+        %tmp.237 = lgetv %i.11;
+        symbol [ i %tmp.237 63 49 50 ];
+        %tmp.238 = sub %tmp.237 1;
+        lputv %i.11 %tmp.238;
+        symbol [ i %i.11 63 49 50 ];
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_test;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_63_8_73_8_for_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 74 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_74_8_78_8_if_stmt:
+        %tmp.239 = lgetv %passed.10;
+        symbol [ passed %tmp.239 74 12 18 ];
+        %tmp.240 = 1;
+        %tmp.241 = eq %tmp.239 %tmp.240;
+        bf %tmp.241 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_74_8_78_8_if_false;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_74_8_78_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_74_25_76_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 75 12 ]
+        symbol [ System %tmp.242 75 12 18 ];
+        %tmp.242 = getm $.Toybox.System;
+        symbol [ println %tmp.243 75 19 26 ];
+        %tmp.243 = getv function %tmp.242 :println;
+        %tmp.244 = "[L508 ANT] vehicle passed count=";
+        symbol [ mVehicleCount %tmp.246 75 64 77 ];
+        %tmp.246 = getv ? :mVehicleCount;
+        symbol [ format %tmp.247 75 78 84 ];
+        %tmp.247 = getv function %tmp.246 :format;
+        %tmp.248 = "%d";
+        %tmp.249 = invoke %tmp.246 %tmp.247(%tmp.248);
+        %tmp.250 = add %tmp.244 %tmp.249;
+        %tmp.251 = " speed=";
+        %tmp.252 = add %tmp.250 %tmp.251;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_begin:
+        symbol [ mLastSpeed %tmp.254 75 106 116 ];
+        %tmp.254 = getv ? :mLastSpeed;
+        %tmp.255 = null;
+        %tmp.256 = eq %tmp.254 %tmp.255;
+        bf %tmp.256 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_else_false;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_true:
+        %tmp.257 = "--";
+        push %tmp.257;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_else_false:
+        symbol [ mLastSpeed %tmp.259 75 134 144 ];
+        %tmp.259 = getv ? :mLastSpeed;
+        %tmp.260 = as %tmp.259 { (!Null) };
+        symbol [ format %tmp.261 75 145 151 ];
+        %tmp.261 = getv function %tmp.260 :format;
+        %tmp.262 = "%d";
+        %tmp.263 = invoke %tmp.260 %tmp.261(%tmp.262);
+        push %tmp.263;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_end:
+        %tmp.264 = phi [%tmp.256 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_begin] [%tmp.257 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_true] [%tmp.263 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_else_false] [%tmp.264 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_75_106_75_156_end];
+        %tmp.265 = add %tmp.252 %tmp.264;
+        invoke %tmp.242 %tmp.243(%tmp.265);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_74_25_76_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_74_8_78_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_74_8_78_8_if_false:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 76 15 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_76_15_78_8_if_stmt:
+        %tmp.266 = lgetv %passed.10;
+        symbol [ passed %tmp.266 76 19 25 ];
+        %tmp.267 = 1;
+        %tmp.268 = gt %tmp.266 %tmp.267;
+        bf %tmp.268 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_76_15_78_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_76_15_78_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_76_31_78_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 77 12 ]
+        symbol [ System %tmp.269 77 12 18 ];
+        %tmp.269 = getm $.Toybox.System;
+        symbol [ println %tmp.270 77 19 26 ];
+        %tmp.270 = getv function %tmp.269 :println;
+        %tmp.271 = "[L508 ANT] vehicles passed +";
+        %tmp.272 = lgetv %passed.10;
+        symbol [ passed %tmp.272 77 60 66 ];
+        symbol [ format %tmp.273 77 67 73 ];
+        %tmp.273 = getv function %tmp.272 :format;
+        %tmp.274 = "%d";
+        %tmp.275 = invoke %tmp.272 %tmp.273(%tmp.274);
+        %tmp.276 = add %tmp.271 %tmp.275;
+        %tmp.277 = " total=";
+        %tmp.278 = add %tmp.276 %tmp.277;
+        symbol [ mVehicleCount %tmp.280 77 94 107 ];
+        %tmp.280 = getv ? :mVehicleCount;
+        symbol [ format %tmp.281 77 108 114 ];
+        %tmp.281 = getv function %tmp.280 :format;
+        %tmp.282 = "%d";
+        %tmp.283 = invoke %tmp.280 %tmp.281(%tmp.282);
+        %tmp.284 = add %tmp.278 %tmp.283;
+        invoke %tmp.269 %tmp.270(%tmp.284);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_76_31_78_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_76_15_78_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_76_15_78_8_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_74_8_78_8_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_25_34_79_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 81; @symbol_functiondef = [findTrack,81,21,30]; @symbol_param<0> = [range,81,31,36]; ]
+    private
+    function findTrack(range) {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_81_38_93_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 82 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_81_38_93_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_81_38_93_4_stop" ]
+        %best.1 = local;
+        symbol [ best %best.1 82 12 16 ];
+        %tmp.1 = null;
+        lputv %best.1 %tmp.1;
+        symbol [ best %best.1 82 12 16 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 83 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_81_38_93_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_81_38_93_4_stop" ]
+        %distance.2 = local;
+        symbol [ distance %distance.2 83 12 20 ];
+        symbol [ MATCH_DISTANCE_METERS %tmp.3 83 23 44 ];
+        %tmp.3 = getv ? :MATCH_DISTANCE_METERS;
+        lputv %distance.2 %tmp.3;
+        symbol [ distance %distance.2 83 12 20 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 84 8 ]
+        for @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_test @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_incr @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_init:
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_begin" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_end" ]
+        %ti.3 = local;
+        symbol [ ti %ti.3 84 17 19 ];
+        %tmp.4 = 0;
+        lputv %ti.3 %tmp.4;
+        symbol [ ti %ti.3 84 17 19 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_test:
+        %tmp.5 = lgetv %ti.3;
+        symbol [ ti %tmp.5 84 25 27 ];
+        symbol [ mTracks %tmp.7 84 30 37 ];
+        %tmp.7 = getv ? :mTracks;
+        symbol [ size %tmp.8 84 38 42 ];
+        %tmp.8 = getv function %tmp.7 :size;
+        %tmp.9 = invoke %tmp.7 %tmp.8();
+        %tmp.10 = lt %tmp.5 %tmp.9;
+        bf %tmp.10 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_begin:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_52_91_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 85 12 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_52_91_8_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_52_91_8_stop" ]
+        %track.4 = local;
+        symbol [ track %track.4 85 16 21 ];
+        symbol [ mTracks %tmp.12 85 24 31 ];
+        %tmp.12 = getv ? :mTracks;
+        %tmp.13 = lgetv %ti.3;
+        symbol [ ti %tmp.13 85 32 34 ];
+        %tmp.14 = agetv %tmp.12 %tmp.13;
+        lputv %track.4 %tmp.14;
+        symbol [ track %track.4 85 16 21 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 86 12 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_86_12_90_12_if_stmt:
+        %tmp.15 = lgetv %track.4;
+        symbol [ track %tmp.15 86 17 22 ];
+        %tmp.16 = "seen";
+        %tmp.17 = agetv %tmp.15 %tmp.16;
+        %tmp.18 = not %tmp.17;
+        bf %tmp.18 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_86_12_90_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_86_12_90_12_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_86_32_90_12_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 87 16 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_86_32_90_12_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_86_32_90_12_stop" ]
+        %delta.5 = local;
+        symbol [ delta %delta.5 87 20 25 ];
+        %tmp.19 = lgetv %track.4;
+        symbol [ track %tmp.19 87 28 33 ];
+        %tmp.20 = "range";
+        %tmp.21 = agetv %tmp.19 %tmp.20;
+        %tmp.22 = lgetv %range;
+        symbol [ range %tmp.22 87 45 50 ];
+        %tmp.23 = sub %tmp.21 %tmp.22;
+        lputv %delta.5 %tmp.23;
+        symbol [ delta %delta.5 87 20 25 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 88 16 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_88_16_88_49_if_stmt:
+        %tmp.24 = lgetv %delta.5;
+        symbol [ delta %tmp.24 88 20 25 ];
+        %tmp.25 = 0;
+        %tmp.26 = lt %tmp.24 %tmp.25;
+        bf %tmp.26 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_88_16_88_49_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_88_16_88_49_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_88_31_88_49_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 88 33 ]
+        %tmp.27 = lgetv %delta.5;
+        symbol [ delta %tmp.27 88 42 47 ];
+        %tmp.28 = sub 0 %tmp.27;
+        lputv %delta.5 %tmp.28;
+        symbol [ delta %delta.5 88 33 38 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_88_31_88_49_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_88_16_88_49_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_88_16_88_49_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 89 16 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_89_16_89_72_if_stmt:
+        %tmp.29 = lgetv %delta.5;
+        symbol [ delta %tmp.29 89 20 25 ];
+        %tmp.30 = lgetv %distance.2;
+        symbol [ distance %tmp.30 89 28 36 ];
+        %tmp.31 = lt %tmp.29 %tmp.30;
+        bf %tmp.31 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_89_16_89_72_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_89_16_89_72_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_89_38_89_72_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 89 40 ]
+        %tmp.32 = lgetv %delta.5;
+        symbol [ delta %tmp.32 89 51 56 ];
+        lputv %distance.2 %tmp.32;
+        symbol [ distance %distance.2 89 40 48 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 89 58 ]
+        %tmp.33 = lgetv %track.4;
+        symbol [ track %tmp.33 89 65 70 ];
+        lputv %best.1 %tmp.33;
+        symbol [ best %best.1 89 58 62 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_89_38_89_72_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_89_16_89_72_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_89_16_89_72_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_86_32_90_12_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_86_12_90_12_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_86_12_90_12_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_52_91_8_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_incr:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 84 ]
+        %tmp.36 = lgetv %ti.3;
+        symbol [ ti %tmp.36 84 46 48 ];
+        %tmp.37 = add %tmp.36 1;
+        lputv %ti.3 %tmp.37;
+        symbol [ ti %ti.3 84 46 48 ];
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_test;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_84_8_91_8_for_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 92 8 ]
+        %tmp.38 = lgetv %best.1;
+        symbol [ best %tmp.38 92 15 19 ];
+        ret %tmp.38;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_81_38_93_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 95; @symbol_functiondef = [speedKph,95,21,29]; @symbol_param<0> = [relative,95,30,38]; @symbol_param<1> = [rider,95,40,45]; ]
+    private
+    function speedKph(relative, rider) {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_95_47_98_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 96 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_8_96_62_if_stmt:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_12_96_41_begin:
+        %tmp.1 = lgetv %relative;
+        symbol [ relative %tmp.1 96 12 20 ];
+        %tmp.2 = null;
+        %tmp.3 = eq %tmp.1 %tmp.2;
+        bt %tmp.3 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_8_96_62_if_true;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_32_96_41_false:
+        %tmp.4 = lgetv %rider;
+        symbol [ rider %tmp.4 96 32 37 ];
+        %tmp.5 = null;
+        %tmp.6 = eq %tmp.4 %tmp.5;
+        push %tmp.6;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_32_96_41_end:
+        %tmp.7 = phi [%tmp.3 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_12_96_41_begin] [%tmp.6 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_32_96_41_false] [%tmp.7 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_32_96_41_end];
+        bf %tmp.7 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_8_96_62_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_8_96_62_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_47_96_62_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 96 49 ]
+        %tmp.8 = null;
+        ret %tmp.8;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_47_96_62_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_8_96_62_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_96_8_96_62_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 97 8 ]
+        symbol [ Math %tmp.9 97 15 19 ];
+        %tmp.9 = getm $.Toybox.Math;
+        symbol [ round %tmp.10 97 20 25 ];
+        %tmp.10 = getv function %tmp.9 :round;
+        %tmp.11 = lgetv %relative;
+        symbol [ relative %tmp.11 97 27 35 ];
+        %tmp.12 = lgetv %rider;
+        symbol [ rider %tmp.12 97 38 43 ];
+        %tmp.13 = add %tmp.11 %tmp.12;
+        %tmp.14 = 3.6;
+        %tmp.15 = mul %tmp.13 %tmp.14;
+        %tmp.16 = invoke %tmp.9 %tmp.10(%tmp.15);
+        ret %tmp.16;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_95_47_98_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 99; @symbol_functiondef = [getVehicleCount,99,13,28]; @symbol_return<0> = [Lang,99,34,38]; @symbol_return<1> = [Number,99,39,45]; ]
+    function getVehicleCount() as Lang.Number {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_99_46_99_70_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 99 48 ]
+        symbol [ mVehicleCount %tmp.2 99 55 68 ];
+        %tmp.2 = getv ? :mVehicleCount;
+        ret %tmp.2;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_99_46_99_70_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 100; @symbol_functiondef = [getLastSpeed,100,13,25]; @symbol_return<0> = [Lang,100,31,35]; @symbol_return<1> = [Number,100,36,42]; ]
+    function getLastSpeed() as Lang.Number or Null {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_100_44_100_65_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc" 100 46 ]
+        symbol [ mLastSpeed %tmp.2 100 53 63 ];
+        %tmp.2 = getv ? :mLastSpeed;
+        ret %tmp.2;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_L508RadarManager_mc_100_44_100_65_stop:
+    }
+}
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\L508RadarManager.mc"; @line = 1; ]
+<init> {
+}

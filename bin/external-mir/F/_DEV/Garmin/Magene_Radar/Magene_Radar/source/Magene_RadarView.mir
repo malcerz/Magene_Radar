@@ -1,0 +1,450 @@
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 1; @symbol_importdef<0> = [Toybox,1,7,13]; @symbol_importdef<1> = [Activity,1,14,22]; ]
+import Toybox.Activity;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 2; @symbol_importdef<0> = [Toybox,2,7,13]; @symbol_importdef<1> = [Graphics,2,14,22]; ]
+import Toybox.Graphics;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 3; @symbol_importdef<0> = [Toybox,3,7,13]; @symbol_importdef<1> = [Lang,3,14,18]; ]
+import Toybox.Lang;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 4; @symbol_importdef<0> = [Toybox,4,7,13]; @symbol_importdef<1> = [System,4,14,20]; ]
+import Toybox.System;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 5; @symbol_importdef<0> = [Toybox,5,7,13]; @symbol_importdef<1> = [WatchUi,5,14,21]; ]
+import Toybox.WatchUi;
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 7; @symbol_classdef = [Magene_RadarView,7,6,22]; @symbol_extends<0> = [WatchUi,7,31,38]; @symbol_extends<1> = [DataField,7,39,48]; ]
+class Magene_RadarView extends WatchUi.DataField {
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 7; ]
+    <init> {
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 7; ]
+    static
+    <init> {
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 9; @position = 15; @symbol_vardef = [mBattery,9,15,23]; @symbol_type<0> = [String,9,27,33]; ]
+    protected
+    var mBattery as String;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 10; @position = 15; @symbol_vardef = [mRadar,10,15,21]; @symbol_type<0> = [L508RadarManager,10,25,41]; ]
+    protected
+    var mRadar as L508RadarManager;
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 12; @symbol_functiondef = [initialize,12,13,23]; ]
+    function initialize() as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_12_26_18_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 13 8 ]
+        symbol [ DataField %tmp.2 13 8 17 ];
+        %tmp.2 = getv ? :DataField;
+        symbol [ initialize %tmp.3 13 18 28 ];
+        %tmp.3 = getv function %tmp.2 :initialize;
+        invoke %tmp.2 %tmp.3();
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 14 8 ]
+        %tmp.4 = "--%";
+        symbol [ mBattery ? 14 8 16 ];
+        putv self :mBattery %tmp.4;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 15 8 ]
+        symbol [ L508RadarManager %tmp.8 15 21 37 ];
+        %tmp.8 = getv ? :L508RadarManager;
+        %tmp.5 = newc %tmp.8 ();
+        symbol [ mRadar ? 15 8 14 ];
+        putv self :mRadar %tmp.5;
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 16 8 ]
+        symbol [ mRadar %tmp.10 16 8 14 ];
+        %tmp.10 = getv ? :mRadar;
+        symbol [ initialize %tmp.11 16 15 25 ];
+        %tmp.11 = getv function %tmp.10 :initialize;
+        invoke %tmp.10 %tmp.11();
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 17 8 ]
+        symbol [ System %tmp.12 17 8 14 ];
+        %tmp.12 = getm $.Toybox.System;
+        symbol [ println %tmp.13 17 15 22 ];
+        %tmp.13 = getv function %tmp.12 :println;
+        %tmp.14 = "[L508] BUILD=TEST5-RADAR-DATA";
+        invoke %tmp.12 %tmp.13(%tmp.14);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_12_26_18_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 22; @symbol_functiondef = [onLayout,22,13,21]; @symbol_param<0> = [dc,22,22,24]; @symbol_param<0>_type<0> = [Dc,22,28,30]; ]
+    function onLayout(dc as Dc) as Void {
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 30; @symbol_functiondef = [compute,30,13,20]; @symbol_param<0> = [info,30,21,25]; @symbol_param<0>_type<0> = [Activity,30,29,37]; @symbol_param<0>_type<1> = [Info,30,38,42]; ]
+    function compute(info as Activity.Info) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_30_52_40_4_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 31 8 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_30_52_40_4_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_30_52_40_4_stop" ]
+        %manager.1 = local;
+        symbol [ manager %manager.1 31 12 19 ];
+        %tmp.1 = self;
+        symbol [ getApp %tmp.2 31 22 28 ];
+        %tmp.2 = getv function %tmp.1 :getApp;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        symbol [ getL508BleManager %tmp.4 31 31 48 ];
+        %tmp.4 = getv function %tmp.3 :getL508BleManager;
+        %tmp.5 = invoke %tmp.3 %tmp.4();
+        lputv %manager.1 %tmp.5;
+        symbol [ manager %manager.1 31 12 19 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 32 8 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_32_8_38_8_if_stmt:
+        %tmp.6 = lgetv %manager.1;
+        symbol [ manager %tmp.6 32 12 19 ];
+        %tmp.7 = null;
+        %tmp.8 = ne %tmp.6 %tmp.7;
+        bf %tmp.8 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_32_8_38_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_32_8_38_8_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_32_29_38_8_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 33 12 ]
+        %tmp.9 = lgetv %manager.1;
+        symbol [ manager %tmp.9 33 12 19 ];
+        %tmp.10 = as %tmp.9 { (!Null) };
+        symbol [ pollBatteryIfDue %tmp.11 33 20 36 ];
+        %tmp.11 = getv function %tmp.10 :pollBatteryIfDue;
+        invoke %tmp.10 %tmp.11();
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 34 12 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_32_29_38_8_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_32_29_38_8_stop" ]
+        %batteryPercent.2 = local;
+        symbol [ batteryPercent %batteryPercent.2 34 16 30 ];
+        %tmp.12 = lgetv %manager.1;
+        symbol [ manager %tmp.12 34 33 40 ];
+        %tmp.13 = as %tmp.12 { (!Null) };
+        symbol [ getBatteryPercent %tmp.14 34 41 58 ];
+        %tmp.14 = getv function %tmp.13 :getBatteryPercent;
+        %tmp.15 = invoke %tmp.13 %tmp.14();
+        lputv %batteryPercent.2 %tmp.15;
+        symbol [ batteryPercent %batteryPercent.2 34 16 30 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 35 12 ]
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_35_12_37_39_if_stmt:
+        %tmp.16 = lgetv %batteryPercent.2;
+        symbol [ batteryPercent %tmp.16 35 16 30 ];
+        %tmp.17 = null;
+        %tmp.18 = ne %tmp.16 %tmp.17;
+        bf %tmp.18 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_35_12_37_39_if_else_false;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_35_12_37_39_if_true:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_35_40_37_12_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 36 16 ]
+        %tmp.19 = lgetv %batteryPercent.2;
+        symbol [ batteryPercent %tmp.19 36 27 41 ];
+        %tmp.20 = as %tmp.19 { (!Null) };
+        symbol [ format %tmp.21 36 42 48 ];
+        %tmp.21 = getv function %tmp.20 :format;
+        %tmp.22 = "%d";
+        %tmp.23 = invoke %tmp.20 %tmp.21(%tmp.22);
+        %tmp.24 = "%";
+        %tmp.25 = add %tmp.23 %tmp.24;
+        symbol [ mBattery ? 36 16 24 ];
+        putv self :mBattery %tmp.25;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_35_40_37_12_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_35_12_37_39_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_35_12_37_39_if_else_false:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_37_19_37_39_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 37 21 ]
+        %tmp.26 = "--%";
+        symbol [ mBattery ? 37 21 29 ];
+        putv self :mBattery %tmp.26;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_37_19_37_39_stop:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_35_12_37_39_if_end:
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_32_29_38_8_stop:
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_32_8_38_8_if_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_32_8_38_8_if_end:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 39 8 ]
+        symbol [ mRadar %tmp.28 39 8 14 ];
+        %tmp.28 = getv ? :mRadar;
+        symbol [ update %tmp.29 39 15 21 ];
+        %tmp.29 = getv function %tmp.28 :update;
+        %tmp.30 = lgetv %info;
+        symbol [ info %tmp.30 39 22 26 ];
+        invoke %tmp.28 %tmp.29(%tmp.30);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_30_52_40_4_stop:
+    }
+    [ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 42; @symbol_functiondef = [onUpdate,42,9,17]; @symbol_param<0> = [dc,42,18,20]; @symbol_param<0>_type<0> = [Dc,42,24,26]; ]
+    function onUpdate(dc as Dc) as Void {
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start:
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 43 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %bg.1 = local;
+        symbol [ bg %bg.1 43 8 10 ];
+        %tmp.1 = self;
+        symbol [ getBackgroundColor %tmp.2 43 13 31 ];
+        %tmp.2 = getv function %tmp.1 :getBackgroundColor;
+        %tmp.3 = invoke %tmp.1 %tmp.2();
+        lputv %bg.1 %tmp.3;
+        symbol [ bg %bg.1 43 8 10 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 45 4 ]
+        %tmp.4 = lgetv %dc;
+        symbol [ dc %tmp.4 45 4 6 ];
+        symbol [ setColor %tmp.5 45 7 15 ];
+        %tmp.5 = getv function %tmp.4 :setColor;
+        symbol [ Graphics %tmp.6 45 16 24 ];
+        %tmp.6 = getm $.Toybox.Graphics;
+        symbol [ COLOR_TRANSPARENT %tmp.7 45 25 42 ];
+        %tmp.7 = getv %tmp.6 :COLOR_TRANSPARENT;
+        %tmp.8 = lgetv %bg.1;
+        symbol [ bg %tmp.8 45 44 46 ];
+        invoke %tmp.4 %tmp.5(%tmp.7, %tmp.8);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 46 4 ]
+        %tmp.9 = lgetv %dc;
+        symbol [ dc %tmp.9 46 4 6 ];
+        symbol [ clear %tmp.10 46 7 12 ];
+        %tmp.10 = getv function %tmp.9 :clear;
+        invoke %tmp.9 %tmp.10();
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 48 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %fg.2 = local;
+        symbol [ fg %fg.2 48 8 10 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_begin:
+        %tmp.11 = lgetv %bg.1;
+        symbol [ bg %tmp.11 48 13 15 ];
+        symbol [ Graphics %tmp.12 48 19 27 ];
+        %tmp.12 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.13 48 28 39 ];
+        %tmp.13 = getv %tmp.12 :COLOR_BLACK;
+        %tmp.14 = eq %tmp.11 %tmp.13;
+        bf %tmp.14 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_else_false;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_true:
+        symbol [ Graphics %tmp.15 49 10 18 ];
+        %tmp.15 = getm $.Toybox.Graphics;
+        symbol [ COLOR_WHITE %tmp.16 49 19 30 ];
+        %tmp.16 = getv %tmp.15 :COLOR_WHITE;
+        push %tmp.16;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_else_false:
+        symbol [ Graphics %tmp.17 50 10 18 ];
+        %tmp.17 = getm $.Toybox.Graphics;
+        symbol [ COLOR_BLACK %tmp.18 50 19 30 ];
+        %tmp.18 = getv %tmp.17 :COLOR_BLACK;
+        push %tmp.18;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_end:
+        %tmp.19 = phi [%tmp.14 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_begin] [%tmp.16 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_true] [%tmp.18 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_else_false] [%tmp.19 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_48_13_50_19_end];
+        lputv %fg.2 %tmp.19;
+        symbol [ fg %fg.2 48 8 10 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 52 4 ]
+        %tmp.20 = lgetv %dc;
+        symbol [ dc %tmp.20 52 4 6 ];
+        symbol [ setColor %tmp.21 52 7 15 ];
+        %tmp.21 = getv function %tmp.20 :setColor;
+        %tmp.22 = lgetv %fg.2;
+        symbol [ fg %tmp.22 52 16 18 ];
+        %tmp.23 = lgetv %bg.1;
+        symbol [ bg %tmp.23 52 20 22 ];
+        invoke %tmp.20 %tmp.21(%tmp.22, %tmp.23);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 54 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %w.3 = local;
+        symbol [ w %w.3 54 8 9 ];
+        %tmp.24 = lgetv %dc;
+        symbol [ dc %tmp.24 54 12 14 ];
+        symbol [ getWidth %tmp.25 54 15 23 ];
+        %tmp.25 = getv function %tmp.24 :getWidth;
+        %tmp.26 = invoke %tmp.24 %tmp.25();
+        lputv %w.3 %tmp.26;
+        symbol [ w %w.3 54 8 9 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 55 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %h.4 = local;
+        symbol [ h %h.4 55 8 9 ];
+        %tmp.27 = lgetv %dc;
+        symbol [ dc %tmp.27 55 12 14 ];
+        symbol [ getHeight %tmp.28 55 15 24 ];
+        %tmp.28 = getv function %tmp.27 :getHeight;
+        %tmp.29 = invoke %tmp.27 %tmp.28();
+        lputv %h.4 %tmp.29;
+        symbol [ h %h.4 55 8 9 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 58 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %batteryFont.5 = local;
+        symbol [ batteryFont %batteryFont.5 58 8 19 ];
+        symbol [ Graphics %tmp.30 58 22 30 ];
+        %tmp.30 = getm $.Toybox.Graphics;
+        symbol [ FONT_TINY %tmp.31 58 31 40 ];
+        %tmp.31 = getv %tmp.30 :FONT_TINY;
+        lputv %batteryFont.5 %tmp.31;
+        symbol [ batteryFont %batteryFont.5 58 8 19 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 60 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %valueFont.6 = local;
+        symbol [ valueFont %valueFont.6 60 8 17 ];
+        symbol [ Graphics %tmp.32 60 22 30 ];
+        %tmp.32 = getm $.Toybox.Graphics;
+        symbol [ FONT_LARGE %tmp.33 60 31 41 ];
+        %tmp.33 = getv %tmp.32 :FONT_LARGE;
+        lputv %valueFont.6 %tmp.33;
+        symbol [ valueFont %valueFont.6 60 8 17 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 61 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %labelFont.7 = local;
+        symbol [ labelFont %labelFont.7 61 8 17 ];
+        symbol [ Graphics %tmp.34 61 22 30 ];
+        %tmp.34 = getm $.Toybox.Graphics;
+        symbol [ FONT_XTINY %tmp.35 61 31 41 ];
+        %tmp.35 = getv %tmp.34 :FONT_XTINY;
+        lputv %labelFont.7 %tmp.35;
+        symbol [ labelFont %labelFont.7 61 8 17 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 63 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %batteryY.8 = local;
+        symbol [ batteryY %batteryY.8 63 8 16 ];
+        %tmp.36 = lgetv %h.4;
+        symbol [ h %tmp.36 63 19 20 ];
+        %tmp.37 = 0.05;
+        %tmp.38 = mul %tmp.36 %tmp.37;
+        lputv %batteryY.8 %tmp.38;
+        symbol [ batteryY %batteryY.8 63 8 16 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 64 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %valueY.9 = local;
+        symbol [ valueY %valueY.9 64 8 14 ];
+        %tmp.39 = lgetv %h.4;
+        symbol [ h %tmp.39 64 19 20 ];
+        %tmp.40 = 0.38;
+        %tmp.41 = mul %tmp.39 %tmp.40;
+        lputv %valueY.9 %tmp.41;
+        symbol [ valueY %valueY.9 64 8 14 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 65 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %labelY.10 = local;
+        symbol [ labelY %labelY.10 65 8 14 ];
+        %tmp.42 = lgetv %h.4;
+        symbol [ h %tmp.42 65 19 20 ];
+        %tmp.43 = 0.72;
+        %tmp.44 = mul %tmp.42 %tmp.43;
+        lputv %labelY.10 %tmp.44;
+        symbol [ labelY %labelY.10 65 8 14 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 68 4 ]
+        %tmp.45 = lgetv %dc;
+        symbol [ dc %tmp.45 68 4 6 ];
+        symbol [ drawText %tmp.46 68 7 15 ];
+        %tmp.46 = getv function %tmp.45 :drawText;
+        %tmp.47 = lgetv %w.3;
+        symbol [ w %tmp.47 69 8 9 ];
+        %tmp.48 = 2;
+        %tmp.49 = div %tmp.47 %tmp.48;
+        %tmp.50 = lgetv %batteryY.8;
+        symbol [ batteryY %tmp.50 70 8 16 ];
+        %tmp.51 = lgetv %batteryFont.5;
+        symbol [ batteryFont %tmp.51 71 8 19 ];
+        %tmp.52 = "Battery: ";
+        symbol [ mBattery %tmp.54 72 22 30 ];
+        %tmp.54 = getv ? :mBattery;
+        %tmp.55 = add %tmp.52 %tmp.54;
+        symbol [ Graphics %tmp.56 73 8 16 ];
+        %tmp.56 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.57 73 17 36 ];
+        %tmp.57 = getv %tmp.56 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.45 %tmp.46(%tmp.49, %tmp.50, %tmp.51, %tmp.55, %tmp.57);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 77 4 ]
+        %tmp.58 = lgetv %dc;
+        symbol [ dc %tmp.58 77 4 6 ];
+        symbol [ drawText %tmp.59 77 7 15 ];
+        %tmp.59 = getv function %tmp.58 :drawText;
+        %tmp.60 = lgetv %w.3;
+        symbol [ w %tmp.60 78 8 9 ];
+        %tmp.61 = 4;
+        %tmp.62 = div %tmp.60 %tmp.61;
+        %tmp.63 = lgetv %valueY.9;
+        symbol [ valueY %tmp.63 79 8 14 ];
+        %tmp.64 = lgetv %valueFont.6;
+        symbol [ valueFont %tmp.64 80 8 17 ];
+        symbol [ mRadar %tmp.66 81 8 14 ];
+        %tmp.66 = getv ? :mRadar;
+        symbol [ getVehicleCount %tmp.67 81 15 30 ];
+        %tmp.67 = getv function %tmp.66 :getVehicleCount;
+        %tmp.68 = invoke %tmp.66 %tmp.67();
+        symbol [ format %tmp.69 81 33 39 ];
+        %tmp.69 = getv function %tmp.68 :format;
+        %tmp.70 = "%d";
+        %tmp.71 = invoke %tmp.68 %tmp.69(%tmp.70);
+        symbol [ Graphics %tmp.72 82 8 16 ];
+        %tmp.72 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.73 82 17 36 ];
+        %tmp.73 = getv %tmp.72 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.58 %tmp.59(%tmp.62, %tmp.63, %tmp.64, %tmp.71, %tmp.73);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 85 4 ]
+        %tmp.74 = lgetv %dc;
+        symbol [ dc %tmp.74 85 4 6 ];
+        symbol [ drawText %tmp.75 85 7 15 ];
+        %tmp.75 = getv function %tmp.74 :drawText;
+        %tmp.76 = lgetv %w.3;
+        symbol [ w %tmp.76 86 8 9 ];
+        %tmp.77 = 4;
+        %tmp.78 = div %tmp.76 %tmp.77;
+        %tmp.79 = lgetv %labelY.10;
+        symbol [ labelY %tmp.79 87 8 14 ];
+        %tmp.80 = lgetv %labelFont.7;
+        symbol [ labelFont %tmp.80 88 8 17 ];
+        %tmp.81 = "Cars";
+        symbol [ Graphics %tmp.82 90 8 16 ];
+        %tmp.82 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.83 90 17 36 ];
+        %tmp.83 = getv %tmp.82 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.74 %tmp.75(%tmp.78, %tmp.79, %tmp.80, %tmp.81, %tmp.83);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 94 4 ]
+        [ "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_start" "F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop" ]
+        %speed.11 = local;
+        symbol [ speed %speed.11 94 8 13 ];
+        symbol [ mRadar %tmp.85 94 16 22 ];
+        %tmp.85 = getv ? :mRadar;
+        symbol [ getLastSpeed %tmp.86 94 23 35 ];
+        %tmp.86 = getv function %tmp.85 :getLastSpeed;
+        %tmp.87 = invoke %tmp.85 %tmp.86();
+        lputv %speed.11 %tmp.87;
+        symbol [ speed %speed.11 94 8 13 ];
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 96 4 ]
+        %tmp.88 = lgetv %dc;
+        symbol [ dc %tmp.88 96 4 6 ];
+        symbol [ drawText %tmp.89 96 7 15 ];
+        %tmp.89 = getv function %tmp.88 :drawText;
+        %tmp.90 = lgetv %w.3;
+        symbol [ w %tmp.90 97 9 10 ];
+        %tmp.91 = 3;
+        %tmp.92 = mul %tmp.90 %tmp.91;
+        %tmp.93 = 4;
+        %tmp.94 = div %tmp.92 %tmp.93;
+        %tmp.95 = lgetv %valueY.9;
+        symbol [ valueY %tmp.95 98 8 14 ];
+        %tmp.96 = lgetv %valueFont.6;
+        symbol [ valueFont %tmp.96 99 8 17 ];
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_begin:
+        %tmp.97 = lgetv %speed.11;
+        symbol [ speed %tmp.97 100 8 13 ];
+        %tmp.98 = null;
+        %tmp.99 = eq %tmp.97 %tmp.98;
+        bf %tmp.99 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_else_false;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_true:
+        %tmp.100 = "--";
+        push %tmp.100;
+        goto @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_end;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_else_false:
+        %tmp.101 = lgetv %speed.11;
+        symbol [ speed %tmp.101 100 31 36 ];
+        %tmp.102 = as %tmp.101 { (!Null) };
+        symbol [ format %tmp.103 100 37 43 ];
+        %tmp.103 = getv function %tmp.102 :format;
+        %tmp.104 = "%d";
+        %tmp.105 = invoke %tmp.102 %tmp.103(%tmp.104);
+        push %tmp.105;
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_end:
+        %tmp.106 = phi [%tmp.99 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_begin] [%tmp.100 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_true] [%tmp.105 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_else_false] [%tmp.106 @F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_100_8_100_48_end];
+        symbol [ Graphics %tmp.107 101 8 16 ];
+        %tmp.107 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.108 101 17 36 ];
+        %tmp.108 = getv %tmp.107 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.88 %tmp.89(%tmp.94, %tmp.95, %tmp.96, %tmp.106, %tmp.108);
+[ "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc" 104 4 ]
+        %tmp.109 = lgetv %dc;
+        symbol [ dc %tmp.109 104 4 6 ];
+        symbol [ drawText %tmp.110 104 7 15 ];
+        %tmp.110 = getv function %tmp.109 :drawText;
+        %tmp.111 = lgetv %w.3;
+        symbol [ w %tmp.111 105 9 10 ];
+        %tmp.112 = 3;
+        %tmp.113 = mul %tmp.111 %tmp.112;
+        %tmp.114 = 4;
+        %tmp.115 = div %tmp.113 %tmp.114;
+        %tmp.116 = lgetv %labelY.10;
+        symbol [ labelY %tmp.116 106 8 14 ];
+        %tmp.117 = lgetv %labelFont.7;
+        symbol [ labelFont %tmp.117 107 8 17 ];
+        %tmp.118 = "km/h";
+        symbol [ Graphics %tmp.119 109 8 16 ];
+        %tmp.119 = getm $.Toybox.Graphics;
+        symbol [ TEXT_JUSTIFY_CENTER %tmp.120 109 17 36 ];
+        %tmp.120 = getv %tmp.119 :TEXT_JUSTIFY_CENTER;
+        invoke %tmp.109 %tmp.110(%tmp.115, %tmp.116, %tmp.117, %tmp.118, %tmp.120);
+F___DEV_Garmin_Magene_Radar_Magene_Radar_source_Magene_RadarView_mc_42_36_111_0_stop:
+    }
+}
+[ @file = "F:\_DEV\Garmin\Magene_Radar\Magene_Radar\source\Magene_RadarView.mc"; @line = 1; ]
+<init> {
+}
