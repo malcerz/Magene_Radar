@@ -1,0 +1,34 @@
+<settings>
+    <setting propertyKey="@Properties.showBatteryStatus" title="@Strings.ShowBatteryStatusTitle">
+        <settingConfig type="boolean" />
+    </setting>
+
+    <setting propertyKey="@Properties.showCurrentCars" title="@Strings.ShowCurrentCarsTitle">
+        <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.showRelativeSpeed" title="@Strings.ShowRelativeSpeedTitle">
+        <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.showNearestDistance" title="@Strings.ShowNearestDistanceTitle">
+        <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.showThreatLevel" title="@Strings.ShowThreatLevelTitle">
+        <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.showThreatSide" title="@Strings.ShowThreatSideTitle">
+        <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.showSessionCounter" title="@Strings.ShowSessionCounterTitle">
+        <settingConfig type="boolean" />
+    </setting>
+    <setting propertyKey="@Properties.showEstimatedSpeed" title="@Strings.ShowEstimatedSpeedTitle">
+        <settingConfig type="boolean" />
+    </setting>
+
+    <setting propertyKey="@Properties.atDeviceId" title="@Strings.AtDeviceIdTitle" prompt="@Strings.DeviceIdPrompt">
+        <settingConfig type="numeric" />
+    </setting>
+    <setting propertyKey="@Properties.lrDeviceId" title="@Strings.LrDeviceIdTitle" prompt="@Strings.DeviceIdPrompt">
+        <settingConfig type="numeric" />
+    </setting>
+</settings>

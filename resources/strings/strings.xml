@@ -1,5 +1,16 @@
 <strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
     <string id="AppName">Magene_Radar</string>
+    <string id="label">Magene Radar</string>
+    <string id="ShowBatteryStatusTitle">Pokazuj baterie AT/LR</string>
+    <string id="AtDeviceIdTitle">ID Magene AT1600/AT1200</string>
+    <string id="LrDeviceIdTitle">ID Magene L508</string>
+    <string id="DeviceIdPrompt">0 = wykryj automatycznie</string>
 
-    <string id="label">L508 BAT</string>
+    <string id="ShowCurrentCarsTitle">Radar: pojazdy teraz</string>
+    <string id="ShowRelativeSpeedTitle">Radar: predkosc wzgledna</string>
+    <string id="ShowNearestDistanceTitle">Radar: najblizszy dystans</string>
+    <string id="ShowThreatLevelTitle">Radar: poziom zagrozenia</string>
+    <string id="ShowThreatSideTitle">Radar: strona zagrozenia</string>
+    <string id="ShowSessionCounterTitle">Radar: licznik aut aktywnosci</string>
+    <string id="ShowEstimatedSpeedTitle">Radar: szacowana predkosc auta</string>
 </strings>

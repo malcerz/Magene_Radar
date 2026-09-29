@@ -1,0 +1,13 @@
+<properties>
+    <property id="showBatteryStatus" type="boolean">true</property>
+    <property id="atDeviceId" type="number">0</property>
+    <property id="lrDeviceId" type="number">0</property>
+
+    <property id="showCurrentCars" type="boolean">true</property>
+    <property id="showRelativeSpeed" type="boolean">true</property>
+    <property id="showNearestDistance" type="boolean">true</property>
+    <property id="showThreatLevel" type="boolean">true</property>
+    <property id="showThreatSide" type="boolean">true</property>
+    <property id="showSessionCounter" type="boolean">true</property>
+    <property id="showEstimatedSpeed" type="boolean">true</property>
+</properties>
