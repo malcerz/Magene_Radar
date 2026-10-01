@@ -1,11 +1,12 @@
+import Toybox.Activity;
 import Toybox.Ant;
 import Toybox.AntPlus;
 import Toybox.Lang;
 import Toybox.System;
+import Toybox.Timer;
 
-//! Read-only observer of the Garmin ANT+ Bike Lights network.
-//! It learns the ANT device number directly from raw light messages and also
-//! captures the optional Bike Lights supplementary battery percentage page.
+//! Observer of the Garmin ANT+ Bike Lights network plus optional custom
+//! Solar-based control for Magene AT front light and L508 tail light.
 class MageneLightNetworkListener extends AntPlus.LightNetworkListener {
     private var mManager;
 
@@ -40,6 +41,17 @@ class MageneLightNetworkManager {
     private var mTailLightBatteryPercent as Lang.Number?;
     private var mBatteryByDevice as Lang.Dictionary;
 
+    private var mHeadlightCapableModes;
+    private var mLastTailOnMode as Lang.Number?;
+
+    private var mSolarControlEnabled as Boolean;
+    private var mBrightnessUnder20 as Lang.Number;
+    private var mBrightnessUnder40 as Lang.Number;
+    private var mBrightnessOver40 as Lang.Number;
+    private var mControlTimer as Timer.Timer?;
+    private var mLastCommandedHeadMode as Lang.Number?;
+    private var mLastCommandedTailMode as Lang.Number?;
+
     function initialize() {
         mHeadlightDeviceId = null;
         mTailLightDeviceId = null;
@@ -51,13 +63,184 @@ class MageneLightNetworkManager {
         mTailLightBatteryPercent = null;
         mBatteryByDevice = {};
 
+        mHeadlightCapableModes = null;
+        mLastTailOnMode = null;
+
+        mSolarControlEnabled = false;
+        mBrightnessUnder20 = 40;
+        mBrightnessUnder40 = 60;
+        mBrightnessOver40 = 100;
+        mControlTimer = null;
+        mLastCommandedHeadMode = null;
+        mLastCommandedTailMode = null;
+
         try {
             mListener = new MageneLightNetworkListener(self);
             mNetwork = new AntPlus.LightNetwork(mListener);
-            System.println("[LIGHT ANT] LightNetwork initialized (read-only)");
+            System.println("[LIGHT ANT] LightNetwork initialized");
         } catch (e) {
             mNetwork = null;
             System.println("[LIGHT ANT] init error=" + e);
+        }
+    }
+
+    function setSolarControl(
+        enabled as Boolean,
+        brightnessUnder20 as Lang.Number,
+        brightnessUnder40 as Lang.Number,
+        brightnessOver40 as Lang.Number
+    ) as Void {
+        mBrightnessUnder20 = brightnessUnder20;
+        mBrightnessUnder40 = brightnessUnder40;
+        mBrightnessOver40 = brightnessOver40;
+
+        if (mSolarControlEnabled == enabled) { return; }
+
+        mSolarControlEnabled = enabled;
+        mLastCommandedHeadMode = null;
+        mLastCommandedTailMode = null;
+
+        if (enabled) {
+            if (mControlTimer == null) { mControlTimer = new Timer.Timer(); }
+            try {
+                (mControlTimer as Timer.Timer).start(method(:onSolarControlTick), 1000, true);
+            } catch (e) {
+                System.println("[LIGHT CTRL] timer start error=" + e);
+            }
+        } else if (mControlTimer != null) {
+            try { (mControlTimer as Timer.Timer).stop(); } catch (e) {}
+        }
+
+        System.println("[LIGHT CTRL] solar control=" + enabled
+            + " <=20:" + mBrightnessUnder20
+            + " <=40:" + mBrightnessUnder40
+            + " >40:" + mBrightnessOver40);
+    }
+
+    function stop() as Void {
+        if (mControlTimer != null) {
+            try { (mControlTimer as Timer.Timer).stop(); } catch (e) {}
+        }
+    }
+
+    //! Runs once per second while Solar automation is enabled.
+    private function onSolarControlTick() as Void {
+        if (!mSolarControlEnabled || mNetwork == null) { return; }
+
+        var solar = getSolarIntensity();
+        if (solar == null || solar < 0) {
+            // null = not supported. Negative = device is not currently charging,
+            // which is not a reliable darkness indication.
+            return;
+        }
+
+        var speedMps = null;
+        try {
+            var info = Activity.getActivityInfo();
+            if (info != null) { speedMps = info.currentSpeed; }
+        } catch (e) {
+        }
+
+        applySolarState(solar, speedMps);
+    }
+
+    private function getSolarIntensity() as Lang.Number? {
+        try {
+            var stats = System.getSystemStats();
+            if (stats has :solarIntensity) {
+                var value = stats.solarIntensity;
+                if (value != null) { return value as Lang.Number; }
+            }
+        } catch (e) {
+        }
+        return null;
+    }
+
+    //! solar > 0  -> both lights OFF
+    //! solar == 0 -> AT steady intensity based on speed; LR restores its last ON mode.
+    private function applySolarState(solar as Lang.Number, speedMps) as Void {
+        var desiredHead = AntPlus.LIGHT_MODE_OFF;
+        var desiredTail = AntPlus.LIGHT_MODE_OFF;
+
+        if (solar == 0) {
+            var speedKph = 0.0;
+            if (speedMps != null) { speedKph = speedMps * 3.6; }
+
+            var brightness = mBrightnessOver40;
+            if (speedKph <= 20.0) {
+                brightness = mBrightnessUnder20;
+            } else if (speedKph <= 40.0) {
+                brightness = mBrightnessUnder40;
+            }
+
+            desiredHead = supportedHeadlightMode(brightnessToMode(brightness));
+
+            // Preserve the rider's existing L508 mode. If no ON mode has been
+            // observed yet, mode 4 is steady 21-40% in ANT+ and the known
+            // "Solid" mode reported by L508.
+            desiredTail = mLastTailOnMode;
+            if (desiredTail == null || desiredTail == AntPlus.LIGHT_MODE_OFF) {
+                desiredTail = AntPlus.LIGHT_MODE_ST_21_40;
+            }
+        }
+
+        commandHeadlight(desiredHead);
+        commandTaillight(desiredTail);
+    }
+
+    private function brightnessToMode(brightness as Lang.Number) as Lang.Number {
+        if (brightness <= 20) { return AntPlus.LIGHT_MODE_ST_0_20; }
+        if (brightness <= 40) { return AntPlus.LIGHT_MODE_ST_21_40; }
+        if (brightness <= 60) { return AntPlus.LIGHT_MODE_ST_41_60; }
+        if (brightness <= 80) { return AntPlus.LIGHT_MODE_ST_61_80; }
+        return AntPlus.LIGHT_MODE_ST_81_100;
+    }
+
+    private function supportedHeadlightMode(requested as Lang.Number) as Lang.Number {
+        if (mHeadlightCapableModes == null || mHeadlightCapableModes.size() == 0) {
+            return requested;
+        }
+
+        for (var i = 0; i < mHeadlightCapableModes.size(); i++) {
+            if (mHeadlightCapableModes[i] == requested) { return requested; }
+        }
+
+        // For standard steady intensity modes 1..5 choose the closest supported one.
+        var best = null;
+        var bestDistance = 999;
+        for (var j = 0; j < mHeadlightCapableModes.size(); j++) {
+            var mode = mHeadlightCapableModes[j];
+            if (mode >= AntPlus.LIGHT_MODE_ST_81_100 && mode <= AntPlus.LIGHT_MODE_ST_0_20) {
+                var distance = mode - requested;
+                if (distance < 0) { distance = -distance; }
+                if (distance < bestDistance) {
+                    bestDistance = distance;
+                    best = mode;
+                }
+            }
+        }
+        return best == null ? requested : best;
+    }
+
+    private function commandHeadlight(mode as Lang.Number) as Void {
+        if (mLastCommandedHeadMode != null && mLastCommandedHeadMode == mode) { return; }
+        try {
+            mNetwork.setHeadlightsMode(mode);
+            mLastCommandedHeadMode = mode;
+            System.println("[LIGHT CTRL] AT mode=" + mode);
+        } catch (e) {
+            System.println("[LIGHT CTRL] AT setMode error=" + e);
+        }
+    }
+
+    private function commandTaillight(mode as Lang.Number) as Void {
+        if (mLastCommandedTailMode != null && mLastCommandedTailMode == mode) { return; }
+        try {
+            mNetwork.setTaillightsMode(mode);
+            mLastCommandedTailMode = mode;
+            System.println("[LIGHT CTRL] LR mode=" + mode);
+        } catch (e) {
+            System.println("[LIGHT CTRL] LR setMode error=" + e);
         }
     }
 
@@ -127,9 +310,17 @@ class MageneLightNetworkManager {
         if (data.type == AntPlus.LIGHT_TYPE_HEADLIGHT) {
             mHeadlightMode = data.mode;
             mHeadlightBatteryStatus = batteryStatus;
+            try {
+                var modes = data.getCapableModes();
+                if (modes != null) { mHeadlightCapableModes = modes; }
+            } catch (e) {
+            }
         } else if (data.type == AntPlus.LIGHT_TYPE_TAILLIGHT) {
             mTailLightMode = data.mode;
             mTailLightBatteryStatus = batteryStatus;
+            if (data.mode != AntPlus.LIGHT_MODE_OFF) {
+                mLastTailOnMode = data.mode;
+            }
         }
     }
 
