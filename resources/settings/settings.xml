@@ -6,15 +6,6 @@
     <setting propertyKey="@Properties.solarLightControl" title="@Strings.SolarLightControlTitle">
         <settingConfig type="boolean" />
     </setting>
-    <setting propertyKey="@Properties.brightnessUnder20" title="@Strings.BrightnessUnder20Title">
-        <settingConfig type="list">
-            <listEntry value="20">@Strings.Brightness20</listEntry>
-            <listEntry value="40">@Strings.Brightness40</listEntry>
-            <listEntry value="60">@Strings.Brightness60</listEntry>
-            <listEntry value="80">@Strings.Brightness80</listEntry>
-            <listEntry value="100">@Strings.Brightness100</listEntry>
-        </settingConfig>
-    </setting>
     <setting propertyKey="@Properties.brightnessUnder40" title="@Strings.BrightnessUnder40Title">
         <settingConfig type="list">
             <listEntry value="20">@Strings.Brightness20</listEntry>
