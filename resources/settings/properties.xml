@@ -3,7 +3,8 @@
     <property id="atDeviceId" type="number">0</property>
     <property id="lrDeviceId" type="number">0</property>
 
-    <property id="solarLightControl" type="boolean">false</property>
+    <!-- 0=off, 1=Solar, 2=sunrise/sunset -->
+    <property id="lightControlMode" type="number">0</property>
     <!-- <=20 km/h is fixed to the lowest steady ANT+ headlight mode. -->
     <property id="brightnessUnder20" type="number">20</property>
     <property id="brightnessUnder40" type="number">60</property>
