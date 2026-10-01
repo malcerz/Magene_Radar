@@ -11,7 +11,8 @@ class Magene_RadarApp extends Application.AppBase {
     private var mAtDeviceId as Lang.Number?;
     private var mLrDeviceId as Lang.Number?;
 
-    private var mSolarLightControl as Boolean;
+    // Light automation: 0=off, 1=Solar, 2=sunrise/sunset.
+    private var mLightControlMode as Lang.Number;
     private var mBrightnessUnder20 as Lang.Number;
     private var mBrightnessUnder40 as Lang.Number;
     private var mBrightnessOver40 as Lang.Number;
@@ -34,7 +35,7 @@ class Magene_RadarApp extends Application.AppBase {
         mAtDeviceId = null;
         mLrDeviceId = null;
 
-        mSolarLightControl = false;
+        mLightControlMode = 0;
         // <=20 km/h is fixed to the lowest steady ANT+ headlight mode.
         mBrightnessUnder20 = 20;
         mBrightnessUnder40 = 60;
@@ -57,7 +58,7 @@ class Magene_RadarApp extends Application.AppBase {
             mBleManager.start();
         }
         System.println("[MAGENE] start showBattery=" + mShowBattery
-            + " solarControl=" + mSolarLightControl
+            + " lightControlMode=" + mLightControlMode
             + " AT=" + idText(mAtDeviceId)
             + " LR=" + idText(mLrDeviceId));
     }
@@ -83,7 +84,8 @@ class Magene_RadarApp extends Application.AppBase {
         mAtDeviceId = readIdProperty("atDeviceId");
         mLrDeviceId = readIdProperty("lrDeviceId");
 
-        mSolarLightControl = readBoolProperty("solarLightControl", false);
+        mLightControlMode = readNumberProperty("lightControlMode", 0);
+        if (mLightControlMode < 0 || mLightControlMode > 2) { mLightControlMode = 0; }
         // Always use the minimum steady-light bucket below/equal 20 km/h.
         mBrightnessUnder20 = 20;
         mBrightnessUnder40 = readNumberProperty("brightnessUnder40", 60);
@@ -136,9 +138,8 @@ class Magene_RadarApp extends Application.AppBase {
 
     private function applySettingsToLights() as Void {
         if (mLightNetwork == null) { return; }
-        mLightNetwork.setSolarControl(
-            mSolarLightControl,
-            mBrightnessUnder20,
+        mLightNetwork.setLightControl(
+            mLightControlMode,
             mBrightnessUnder40,
             mBrightnessOver40
         );
@@ -170,7 +171,7 @@ class Magene_RadarApp extends Application.AppBase {
     function getAtDeviceId() as Lang.Number? { return mAtDeviceId; }
     function getLrDeviceId() as Lang.Number? { return mLrDeviceId; }
 
-    function getSolarLightControl() as Boolean { return mSolarLightControl; }
+    function getLightControlMode() as Lang.Number { return mLightControlMode; }
     function getBrightnessUnder20() as Lang.Number { return mBrightnessUnder20; }
     function getBrightnessUnder40() as Lang.Number { return mBrightnessUnder40; }
     function getBrightnessOver40() as Lang.Number { return mBrightnessOver40; }
