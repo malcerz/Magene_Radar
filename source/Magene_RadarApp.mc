@@ -11,6 +11,11 @@ class Magene_RadarApp extends Application.AppBase {
     private var mAtDeviceId as Lang.Number?;
     private var mLrDeviceId as Lang.Number?;
 
+    private var mSolarLightControl as Boolean;
+    private var mBrightnessUnder20 as Lang.Number;
+    private var mBrightnessUnder40 as Lang.Number;
+    private var mBrightnessOver40 as Lang.Number;
+
     // Radar field switches. The view takes the first N enabled fields depending
     // on the physical slot size: 10-layout=2, 9-layout=5, 7-layout=5, 1-layout=all.
     private var mShowCurrentCars as Boolean;
@@ -29,6 +34,11 @@ class Magene_RadarApp extends Application.AppBase {
         mAtDeviceId = null;
         mLrDeviceId = null;
 
+        mSolarLightControl = false;
+        mBrightnessUnder20 = 40;
+        mBrightnessUnder40 = 60;
+        mBrightnessOver40 = 100;
+
         mShowCurrentCars = true;
         mShowRelativeSpeed = true;
         mShowNearestDistance = true;
@@ -41,19 +51,25 @@ class Magene_RadarApp extends Application.AppBase {
     function onStart(state as Dictionary?) as Void {
         loadSettings();
         applySettingsToBle();
+        applySettingsToLights();
         if (mBleManager != null && mShowBattery) {
             mBleManager.start();
         }
-        System.println("[MAGENE] start showBattery=" + mShowBattery + " AT=" + idText(mAtDeviceId) + " LR=" + idText(mLrDeviceId));
+        System.println("[MAGENE] start showBattery=" + mShowBattery
+            + " solarControl=" + mSolarLightControl
+            + " AT=" + idText(mAtDeviceId)
+            + " LR=" + idText(mLrDeviceId));
     }
 
     function onStop(state as Dictionary?) as Void {
         if (mBleManager != null) { mBleManager.stop(); }
+        if (mLightNetwork != null) { mLightNetwork.stop(); }
     }
 
     function onSettingsChanged() as Void {
         loadSettings();
         applySettingsToBle();
+        applySettingsToLights();
         if (mBleManager != null) {
             mBleManager.setEnabled(mShowBattery);
             if (mShowBattery) { mBleManager.start(); }
@@ -65,6 +81,11 @@ class Magene_RadarApp extends Application.AppBase {
         mShowBattery = readBoolProperty("showBatteryStatus", true);
         mAtDeviceId = readIdProperty("atDeviceId");
         mLrDeviceId = readIdProperty("lrDeviceId");
+
+        mSolarLightControl = readBoolProperty("solarLightControl", false);
+        mBrightnessUnder20 = readNumberProperty("brightnessUnder20", 40);
+        mBrightnessUnder40 = readNumberProperty("brightnessUnder40", 60);
+        mBrightnessOver40 = readNumberProperty("brightnessOver40", 100);
 
         mShowCurrentCars = readBoolProperty("showCurrentCars", true);
         mShowRelativeSpeed = readBoolProperty("showRelativeSpeed", true);
@@ -79,6 +100,15 @@ class Magene_RadarApp extends Application.AppBase {
         try {
             var value = Application.Properties.getValue(key);
             if (value != null) { return value as Boolean; }
+        } catch (e) {
+        }
+        return fallback;
+    }
+
+    private function readNumberProperty(key as String, fallback as Lang.Number) as Lang.Number {
+        try {
+            var value = Application.Properties.getValue(key);
+            if (value != null) { return value as Lang.Number; }
         } catch (e) {
         }
         return fallback;
@@ -100,6 +130,16 @@ class Magene_RadarApp extends Application.AppBase {
         if (mBleManager == null) { return; }
         mBleManager.setEnabled(mShowBattery);
         mBleManager.setDeviceIds(mAtDeviceId, mLrDeviceId);
+    }
+
+    private function applySettingsToLights() as Void {
+        if (mLightNetwork == null) { return; }
+        mLightNetwork.setSolarControl(
+            mSolarLightControl,
+            mBrightnessUnder20,
+            mBrightnessUnder40,
+            mBrightnessOver40
+        );
     }
 
     //! Store an automatically learned ANT id only when the setting is empty.
@@ -127,6 +167,11 @@ class Magene_RadarApp extends Application.AppBase {
     function getShowBatteryStatus() as Boolean { return mShowBattery; }
     function getAtDeviceId() as Lang.Number? { return mAtDeviceId; }
     function getLrDeviceId() as Lang.Number? { return mLrDeviceId; }
+
+    function getSolarLightControl() as Boolean { return mSolarLightControl; }
+    function getBrightnessUnder20() as Lang.Number { return mBrightnessUnder20; }
+    function getBrightnessUnder40() as Lang.Number { return mBrightnessUnder40; }
+    function getBrightnessOver40() as Lang.Number { return mBrightnessOver40; }
 
     function getShowCurrentCars() as Boolean { return mShowCurrentCars; }
     function getShowRelativeSpeed() as Boolean { return mShowRelativeSpeed; }
