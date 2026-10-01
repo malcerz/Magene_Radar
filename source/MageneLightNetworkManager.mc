@@ -6,7 +6,7 @@ import Toybox.System;
 import Toybox.Timer;
 
 //! Observer of the Garmin ANT+ Bike Lights network plus optional custom
-//! Solar-based control for Magene AT front light and L508 tail light.
+//! automatic control for Magene AT front light and L508 tail light.
 class MageneLightNetworkListener extends AntPlus.LightNetworkListener {
     private var mManager;
 
@@ -29,6 +29,10 @@ class MageneLightNetworkListener extends AntPlus.LightNetworkListener {
 }
 
 class MageneLightNetworkManager {
+    private const CONTROL_OFF = 0;
+    private const CONTROL_SOLAR = 1;
+    private const CONTROL_SUNRISE_SUNSET = 2;
+
     private var mNetwork;
     private var mListener;
     private var mHeadlightDeviceId as Lang.Number?;
@@ -44,13 +48,14 @@ class MageneLightNetworkManager {
     private var mHeadlightCapableModes;
     private var mLastTailOnMode as Lang.Number?;
 
-    private var mSolarControlEnabled as Boolean;
-    private var mBrightnessUnder20 as Lang.Number;
+    private var mLightControlMode as Lang.Number;
     private var mBrightnessUnder40 as Lang.Number;
     private var mBrightnessOver40 as Lang.Number;
     private var mControlTimer as Timer.Timer?;
     private var mLastCommandedHeadMode as Lang.Number?;
     private var mLastCommandedTailMode as Lang.Number?;
+    private var mSunTimes as SunTimes;
+    private var mSolarFallbackLogged as Boolean;
 
     function initialize() {
         mHeadlightDeviceId = null;
@@ -66,15 +71,14 @@ class MageneLightNetworkManager {
         mHeadlightCapableModes = null;
         mLastTailOnMode = null;
 
-        mSolarControlEnabled = false;
-        // ANT+ LIGHT_MODE_ST_0_20 is the lowest standard steady-light bucket.
-        // AT1600 may internally map it to its own minimum supported output.
-        mBrightnessUnder20 = 20;
+        mLightControlMode = CONTROL_OFF;
         mBrightnessUnder40 = 60;
         mBrightnessOver40 = 100;
         mControlTimer = null;
         mLastCommandedHeadMode = null;
         mLastCommandedTailMode = null;
+        mSunTimes = new SunTimes();
+        mSolarFallbackLogged = false;
 
         try {
             mListener = new MageneLightNetworkListener(self);
@@ -86,37 +90,43 @@ class MageneLightNetworkManager {
         }
     }
 
-    function setSolarControl(
-        enabled as Boolean,
-        brightnessUnder20 as Lang.Number,
+    //! mode: 0=off, 1=Solar, 2=sunrise/sunset.
+    //! <=20 km/h is always the lowest steady-light mode supported by AT.
+    function setLightControl(
+        mode as Lang.Number,
         brightnessUnder40 as Lang.Number,
         brightnessOver40 as Lang.Number
     ) as Void {
-        // <=20 km/h is intentionally fixed to the minimum steady-light bucket.
-        mBrightnessUnder20 = 20;
+        if (mode < CONTROL_OFF || mode > CONTROL_SUNRISE_SUNSET) { mode = CONTROL_OFF; }
+
         mBrightnessUnder40 = brightnessUnder40;
         mBrightnessOver40 = brightnessOver40;
 
-        if (mSolarControlEnabled == enabled) { return; }
+        var oldMode = mLightControlMode;
+        var wasActive = oldMode != CONTROL_OFF;
+        var willBeActive = mode != CONTROL_OFF;
+        mLightControlMode = mode;
 
-        mSolarControlEnabled = enabled;
-        mLastCommandedHeadMode = null;
-        mLastCommandedTailMode = null;
+        if (oldMode != mode) {
+            mLastCommandedHeadMode = null;
+            mLastCommandedTailMode = null;
+            mSolarFallbackLogged = false;
+        }
 
-        if (enabled) {
+        if (willBeActive && !wasActive) {
             if (mControlTimer == null) { mControlTimer = new Timer.Timer(); }
             try {
-                (mControlTimer as Timer.Timer).start(method(:onSolarControlTick), 1000, true);
+                (mControlTimer as Timer.Timer).start(method(:onLightControlTick), 1000, true);
             } catch (e) {
                 System.println("[LIGHT CTRL] timer start error=" + e);
             }
-        } else if (mControlTimer != null) {
+        } else if (!willBeActive && wasActive && mControlTimer != null) {
             try { (mControlTimer as Timer.Timer).stop(); } catch (e) {}
         }
 
-        System.println("[LIGHT CTRL] solar control=" + enabled
+        System.println("[LIGHT CTRL] mode=" + mLightControlMode
             + " <=20:MIN"
-            + " <=40:" + mBrightnessUnder40
+            + " 20-40:" + mBrightnessUnder40
             + " >40:" + mBrightnessOver40);
     }
 
@@ -126,25 +136,42 @@ class MageneLightNetworkManager {
         }
     }
 
-    //! Runs once per second while Solar automation is enabled.
-    private function onSolarControlTick() as Void {
-        if (!mSolarControlEnabled || mNetwork == null) { return; }
-
-        var solar = getSolarIntensity();
-        if (solar == null || solar < 0) {
-            // null = not supported. Negative = device is not currently charging,
-            // which is not a reliable darkness indication.
-            return;
-        }
+    //! Runs once per second while custom light automation is enabled.
+    private function onLightControlTick() as Void {
+        if (mLightControlMode == CONTROL_OFF || mNetwork == null) { return; }
 
         var speedMps = null;
+        var location = null;
         try {
             var info = Activity.getActivityInfo();
-            if (info != null) { speedMps = info.currentSpeed; }
+            if (info != null) {
+                speedMps = info.currentSpeed;
+                location = info.currentLocation;
+            }
         } catch (e) {
         }
 
-        applySolarState(solar, speedMps);
+        var lightsOn = null;
+
+        if (mLightControlMode == CONTROL_SOLAR) {
+            var solar = getSolarIntensity();
+            if (solar != null && solar >= 0) {
+                lightsOn = (solar == 0);
+            } else if (location != null) {
+                // Edge 1040 and 1040 Solar share the same Connect IQ product.
+                // If Solar data is unavailable, transparently use sunrise/sunset.
+                if (!mSolarFallbackLogged) {
+                    mSolarFallbackLogged = true;
+                    System.println("[LIGHT CTRL] Solar unavailable -> sunrise/sunset fallback");
+                }
+                lightsOn = mSunTimes.isNight(location);
+            }
+        } else if (mLightControlMode == CONTROL_SUNRISE_SUNSET && location != null) {
+            lightsOn = mSunTimes.isNight(location);
+        }
+
+        if (lightsOn == null) { return; }
+        applyLightState(lightsOn as Boolean, speedMps);
     }
 
     private function getSolarIntensity() as Lang.Number? {
@@ -159,28 +186,26 @@ class MageneLightNetworkManager {
         return null;
     }
 
-    //! solar > 0  -> both lights OFF
-    //! solar == 0 -> AT steady intensity based on speed; LR restores its last ON mode.
-    private function applySolarState(solar as Lang.Number, speedMps) as Void {
+    //! on=false -> both lights OFF.
+    //! on=true  -> AT steady intensity based on speed; LR restores last ON mode.
+    private function applyLightState(on as Boolean, speedMps) as Void {
         var desiredHead = AntPlus.LIGHT_MODE_OFF;
         var desiredTail = AntPlus.LIGHT_MODE_OFF;
 
-        if (solar == 0) {
+        if (on) {
             var speedKph = 0.0;
             if (speedMps != null) { speedKph = speedMps * 3.6; }
 
-            var brightness = mBrightnessOver40;
             if (speedKph <= 20.0) {
-                brightness = mBrightnessUnder20;
+                desiredHead = supportedHeadlightMode(AntPlus.LIGHT_MODE_ST_0_20);
             } else if (speedKph <= 40.0) {
-                brightness = mBrightnessUnder40;
+                desiredHead = supportedHeadlightMode(brightnessToMode(mBrightnessUnder40));
+            } else {
+                desiredHead = supportedHeadlightMode(brightnessToMode(mBrightnessOver40));
             }
 
-            desiredHead = supportedHeadlightMode(brightnessToMode(brightness));
-
             // Preserve the rider's existing L508 mode. If no ON mode has been
-            // observed yet, mode 4 is steady 21-40% in ANT+ and the known
-            // "Solid" mode reported by L508.
+            // observed yet, use the known L508 Solid mode bucket.
             desiredTail = mLastTailOnMode;
             if (desiredTail == null || desiredTail == AntPlus.LIGHT_MODE_OFF) {
                 desiredTail = AntPlus.LIGHT_MODE_ST_21_40;
