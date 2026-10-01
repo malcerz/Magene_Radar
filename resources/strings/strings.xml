@@ -6,6 +6,16 @@
     <string id="LrDeviceIdTitle">ID Magene L508</string>
     <string id="DeviceIdPrompt">0 = wykryj automatycznie</string>
 
+    <string id="SolarLightControlTitle">Sterowanie swiatlami wg Solar</string>
+    <string id="BrightnessUnder20Title">AT: jasnosc do 20 km/h</string>
+    <string id="BrightnessUnder40Title">AT: jasnosc 20-40 km/h</string>
+    <string id="BrightnessOver40Title">AT: jasnosc powyzej 40 km/h</string>
+    <string id="Brightness20">20%</string>
+    <string id="Brightness40">40%</string>
+    <string id="Brightness60">60%</string>
+    <string id="Brightness80">80%</string>
+    <string id="Brightness100">100%</string>
+
     <string id="ShowCurrentCarsTitle">Radar: pojazdy teraz</string>
     <string id="ShowRelativeSpeedTitle">Radar: predkosc wzgledna</string>
     <string id="ShowNearestDistanceTitle">Radar: najblizszy dystans</string>
