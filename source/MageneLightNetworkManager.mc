@@ -67,7 +67,9 @@ class MageneLightNetworkManager {
         mLastTailOnMode = null;
 
         mSolarControlEnabled = false;
-        mBrightnessUnder20 = 40;
+        // ANT+ LIGHT_MODE_ST_0_20 is the lowest standard steady-light bucket.
+        // AT1600 may internally map it to its own minimum supported output.
+        mBrightnessUnder20 = 20;
         mBrightnessUnder40 = 60;
         mBrightnessOver40 = 100;
         mControlTimer = null;
@@ -90,7 +92,8 @@ class MageneLightNetworkManager {
         brightnessUnder40 as Lang.Number,
         brightnessOver40 as Lang.Number
     ) as Void {
-        mBrightnessUnder20 = brightnessUnder20;
+        // <=20 km/h is intentionally fixed to the minimum steady-light bucket.
+        mBrightnessUnder20 = 20;
         mBrightnessUnder40 = brightnessUnder40;
         mBrightnessOver40 = brightnessOver40;
 
@@ -112,7 +115,7 @@ class MageneLightNetworkManager {
         }
 
         System.println("[LIGHT CTRL] solar control=" + enabled
-            + " <=20:" + mBrightnessUnder20
+            + " <=20:MIN"
             + " <=40:" + mBrightnessUnder40
             + " >40:" + mBrightnessOver40);
     }
@@ -205,7 +208,7 @@ class MageneLightNetworkManager {
             if (mHeadlightCapableModes[i] == requested) { return requested; }
         }
 
-        // For standard steady intensity modes 1..5 choose the closest supported one.
+        // For standard steady intensity modes choose the closest supported one.
         var best = null;
         var bestDistance = 999;
         for (var j = 0; j < mHeadlightCapableModes.size(); j++) {
