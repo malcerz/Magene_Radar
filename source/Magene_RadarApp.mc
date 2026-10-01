@@ -35,7 +35,8 @@ class Magene_RadarApp extends Application.AppBase {
         mLrDeviceId = null;
 
         mSolarLightControl = false;
-        mBrightnessUnder20 = 40;
+        // <=20 km/h is fixed to the lowest steady ANT+ headlight mode.
+        mBrightnessUnder20 = 20;
         mBrightnessUnder40 = 60;
         mBrightnessOver40 = 100;
 
@@ -83,7 +84,8 @@ class Magene_RadarApp extends Application.AppBase {
         mLrDeviceId = readIdProperty("lrDeviceId");
 
         mSolarLightControl = readBoolProperty("solarLightControl", false);
-        mBrightnessUnder20 = readNumberProperty("brightnessUnder20", 40);
+        // Always use the minimum steady-light bucket below/equal 20 km/h.
+        mBrightnessUnder20 = 20;
         mBrightnessUnder40 = readNumberProperty("brightnessUnder40", 60);
         mBrightnessOver40 = readNumberProperty("brightnessOver40", 100);
 
