@@ -1,0 +1,18 @@
+<properties>
+    <property id="showBatteryStatus" type="boolean">true</property>
+    <property id="atDeviceId" type="number">0</property>
+    <property id="lrDeviceId" type="number">0</property>
+
+    <property id="solarLightControl" type="boolean">false</property>
+    <property id="brightnessUnder20" type="number">40</property>
+    <property id="brightnessUnder40" type="number">60</property>
+    <property id="brightnessOver40" type="number">100</property>
+
+    <property id="showCurrentCars" type="boolean">true</property>
+    <property id="showRelativeSpeed" type="boolean">true</property>
+    <property id="showNearestDistance" type="boolean">true</property>
+    <property id="showThreatLevel" type="boolean">true</property>
+    <property id="showThreatSide" type="boolean">true</property>
+    <property id="showSessionCounter" type="boolean">true</property>
+    <property id="showEstimatedSpeed" type="boolean">true</property>
+</properties>
