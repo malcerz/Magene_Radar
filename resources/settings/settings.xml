@@ -3,8 +3,12 @@
         <settingConfig type="boolean" />
     </setting>
 
-    <setting propertyKey="@Properties.solarLightControl" title="@Strings.SolarLightControlTitle">
-        <settingConfig type="boolean" />
+    <setting propertyKey="@Properties.lightControlMode" title="@Strings.LightControlModeTitle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.LightControlOff</listEntry>
+            <listEntry value="1">@Strings.LightControlSolar</listEntry>
+            <listEntry value="2">@Strings.LightControlSunriseSunset</listEntry>
+        </settingConfig>
     </setting>
     <setting propertyKey="@Properties.brightnessUnder40" title="@Strings.BrightnessUnder40Title">
         <settingConfig type="list">
