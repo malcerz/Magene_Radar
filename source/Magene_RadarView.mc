@@ -16,7 +16,7 @@ class Magene_RadarView extends WatchUi.DataField {
         mAtBattery = "--%";
         mLrBattery = "--%";
         mRadar = new L508RadarManager();
-        System.println("[MAGENE] BUILD=RADAR-LIGHT-AUTO-SBL-V5");
+        System.println("[MAGENE] BUILD=RADAR-LIGHT-AUTO-COMPUTE");
     }
 
     function onLayout(dc as Dc) as Void {
@@ -32,10 +32,11 @@ class Magene_RadarView extends WatchUi.DataField {
             getApp().rememberLrDeviceId(lrAntId);
         }
 
-        // Front AT1600/AT1200: raw Bike Lights page identifies HEADLIGHT and
-        // carries the source Ant.Message.deviceNumber.
+        // Front AT1600/AT1200 and light automation use the normal data-field
+        // compute cadence. This avoids a separate Timer lifecycle on Edge.
         var lightManager = getApp().getLightNetworkManager();
         if (lightManager != null) {
+            lightManager.updateLightControl(info);
             var atAntId = lightManager.getHeadlightDeviceId();
             if (atAntId != null) { getApp().rememberAtDeviceId(atAntId); }
         }
