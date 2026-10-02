@@ -24,6 +24,7 @@
             <iq:uses-permission id="Ant"/>
             <iq:uses-permission id="BluetoothLowEnergy"/>
             <iq:uses-permission id="FitContributor"/>
+            <iq:uses-permission id="Positioning"/>
             <iq:uses-permission id="Sensor"/>
             <iq:uses-permission id="SensorHistory"/>
         </iq:permissions>
