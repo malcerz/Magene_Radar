@@ -39,6 +39,8 @@ class MageneLightNetworkManager {
     private const CONTROL_SOLAR = 1;
     private const CONTROL_SUNRISE_SUNSET = 2;
 
+    // Direct-mode command confirmation/retry timing. ANT+ itself retries lower
+    // level transfers, so we deliberately keep application retries conservative.
     private const COMMAND_RETRY_MS = 3000;
     private const COMMAND_BACKOFF_MS = 12000;
     private const MAX_FAST_RETRIES = 2;
@@ -46,6 +48,8 @@ class MageneLightNetworkManager {
     private var mNetwork;
     private var mListener;
 
+    // Latest concrete lights reported by Garmin LightNetwork. With the user's
+    // setup there is one AT headlight and one L508 taillight.
     private var mHeadlightLight as AntPlus.BikeLight?;
     private var mTailLightLight as AntPlus.BikeLight?;
 
@@ -70,6 +74,7 @@ class MageneLightNetworkManager {
     private var mSolarFallbackLogged as Boolean;
     private var mLastLocation;
 
+    // Requested modes and confirmation state.
     private var mDesiredHeadMode as Lang.Number?;
     private var mDesiredTailMode as Lang.Number?;
     private var mHeadPendingSince as Lang.Number?;
@@ -164,6 +169,7 @@ class MageneLightNetworkManager {
         resetCommandState();
     }
 
+    //! Runs once per second while custom light automation is enabled.
     private function onLightControlTick() as Void {
         if (mLightControlMode == CONTROL_OFF || mNetwork == null) { return; }
 
@@ -185,8 +191,13 @@ class MageneLightNetworkManager {
         if (mLightControlMode == CONTROL_SOLAR) {
             var solar = getSolarIntensity();
             if (solar != null && solar >= 0) {
+                // User rule: exactly zero means dark -> lights ON; any positive
+                // solar intensity means lights OFF.
                 lightsOn = (solar == 0);
             } else if (usableLocation != null) {
+                // Edge 1040 and 1040 Solar share the same Connect IQ target.
+                // On a non-Solar unit (or when Solar data is unavailable), use
+                // sunrise/sunset instead of leaving the lamps uncontrolled.
                 if (!mSolarFallbackLogged) {
                     mSolarFallbackLogged = true;
                     System.println("[LIGHT CTRL] Solar unavailable -> sunrise/sunset fallback");
@@ -213,6 +224,9 @@ class MageneLightNetworkManager {
         return null;
     }
 
+    //! on=false -> AT and LR OFF.
+    //! on=true  -> AT steady intensity based on speed; LR restores the last
+    //!             non-OFF L508 mode observed from the lamp.
     private function applyLightState(on as Boolean, speedMps) as Void {
         var desiredHead = AntPlus.LIGHT_MODE_OFF;
         var desiredTail = AntPlus.LIGHT_MODE_OFF;
@@ -222,6 +236,8 @@ class MageneLightNetworkManager {
             if (speedMps != null) { speedKph = speedMps * 3.6; }
 
             if (speedKph <= 20.0) {
+                // SmartBikeLights' Magene mapping confirms mode 5 is Low and is
+                // the standard ANT+ steady 0-20% bucket.
                 desiredHead = supportedHeadlightMode(AntPlus.LIGHT_MODE_ST_0_20);
             } else if (speedKph <= 40.0) {
                 desiredHead = supportedHeadlightMode(brightnessToMode(mBrightnessUnder40));
@@ -229,9 +245,11 @@ class MageneLightNetworkManager {
                 desiredHead = supportedHeadlightMode(brightnessToMode(mBrightnessOver40));
             }
 
+            // Preserve rider-selected L508 mode. Known L508 modes are 4 Solid,
+            // 5 Peloton, 6 Flash, 7 Quick Flash, 62 Pulse, 63 Rotation.
             desiredTail = mLastTailOnMode;
             if (desiredTail == null || desiredTail == AntPlus.LIGHT_MODE_OFF) {
-                desiredTail = AntPlus.LIGHT_MODE_ST_21_40;
+                desiredTail = AntPlus.LIGHT_MODE_ST_21_40; // L508 Solid = mode 4
             }
         }
 
@@ -256,6 +274,7 @@ class MageneLightNetworkManager {
             if (mHeadlightCapableModes[i] == requested) { return requested; }
         }
 
+        // For standard steady modes 1..5 choose the nearest supported one.
         var best = null;
         var bestDistance = 999;
         for (var j = 0; j < mHeadlightCapableModes.size(); j++) {
@@ -326,9 +345,9 @@ class MageneLightNetworkManager {
         }
     }
 
-    private function sendHeadlightMode(mode as Lang.Number, now as Lang.Number, retry as Boolean) as Void {
+    private function sendHeadlightMode(mode, now as Lang.Number, retry as Boolean) as Void {
         try {
-            (mHeadlightLight as AntPlus.BikeLight).setMode(mode as AntPlus.LightMode);
+            (mHeadlightLight as AntPlus.BikeLight).setMode(mode);
             mHeadPendingSince = now;
             if (retry && mHeadRetryCount < MAX_FAST_RETRIES + 1) { mHeadRetryCount += 1; }
             System.println("[LIGHT CTRL] AT request mode=" + mode + " retry=" + mHeadRetryCount);
@@ -338,9 +357,9 @@ class MageneLightNetworkManager {
         }
     }
 
-    private function sendTaillightMode(mode as Lang.Number, now as Lang.Number, retry as Boolean) as Void {
+    private function sendTaillightMode(mode, now as Lang.Number, retry as Boolean) as Void {
         try {
-            (mTailLightLight as AntPlus.BikeLight).setMode(mode as AntPlus.LightMode);
+            (mTailLightLight as AntPlus.BikeLight).setMode(mode);
             mTailPendingSince = now;
             if (retry && mTailRetryCount < MAX_FAST_RETRIES + 1) { mTailRetryCount += 1; }
             System.println("[LIGHT CTRL] LR request mode=" + mode + " retry=" + mTailRetryCount);
@@ -352,6 +371,7 @@ class MageneLightNetworkManager {
 
     private function elapsedMs(now as Lang.Number, then as Lang.Number) as Lang.Number {
         if (now >= then) { return now - then; }
+        // System timer wrapped; make the command immediately eligible for retry.
         return COMMAND_BACKOFF_MS;
     }
 
@@ -364,6 +384,7 @@ class MageneLightNetworkManager {
         mTailRetryCount = 0;
     }
 
+    //! Parse raw Bike Lights pages. Ant.Message.deviceNumber is the source ANT ID.
     function onRawMessage(msg as Ant.Message) as Void {
         var deviceId = msg.deviceNumber;
         if (deviceId == null || deviceId <= 0) { return; }
@@ -372,12 +393,15 @@ class MageneLightNetworkManager {
         try { payload = msg.getPayload(); } catch (e) { return; }
         if (payload == null || payload.size() < 8) { return; }
 
+        // Managed-network packets may use normal format (page in byte 0)
+        // or shared format (light index in byte 0, page in byte 1).
         var page = payload[0];
         if (page != 0x01 && page != 0x13 && payload[1] != null) {
             page = payload[1];
         }
 
         if (page == 0x01) {
+            // Data Page 1: bits 2..4 of byte 2 contain the light type.
             var lightType = (payload[2] >> 2) & 0x07;
             if (lightType == AntPlus.LIGHT_TYPE_HEADLIGHT) {
                 if (mHeadlightDeviceId != deviceId) {
@@ -393,6 +417,7 @@ class MageneLightNetworkManager {
                 applyStoredBattery(deviceId, false);
             }
         } else if (page == 0x13) {
+            // Data Page 19: byte 7 = remaining battery percentage; 0xFF = invalid.
             var percent = payload[7];
             if (percent >= 0 && percent <= 100) {
                 mBatteryByDevice[deviceId.format("%d")] = percent;
@@ -418,6 +443,7 @@ class MageneLightNetworkManager {
                 var bs = mNetwork.getBatteryStatus(data.identifier);
                 if (bs != null) { batteryStatus = bs.batteryStatus; }
             } catch (e) {
+                // Exact percent is read from page 19/BLE; this is only fallback status.
             }
         }
 
@@ -430,11 +456,9 @@ class MageneLightNetworkManager {
                 if (modes != null) { mHeadlightCapableModes = modes; }
             } catch (e) {
             }
-
             if (mDesiredHeadMode != null && data.mode == mDesiredHeadMode) {
                 mHeadPendingSince = null;
                 mHeadRetryCount = 0;
-                System.println("[LIGHT CTRL] AT confirmed mode=" + data.mode);
             }
         } else if (data.type == AntPlus.LIGHT_TYPE_TAILLIGHT) {
             mTailLightLight = data;
@@ -443,11 +467,9 @@ class MageneLightNetworkManager {
             if (data.mode != AntPlus.LIGHT_MODE_OFF) {
                 mLastTailOnMode = data.mode;
             }
-
             if (mDesiredTailMode != null && data.mode == mDesiredTailMode) {
                 mTailPendingSince = null;
                 mTailRetryCount = 0;
-                System.println("[LIGHT CTRL] LR confirmed mode=" + data.mode);
             }
         }
     }
