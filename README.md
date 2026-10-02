@@ -1,268 +1,230 @@
-# Magene L508 Radar — Garmin Edge 1040 Data Field
+# Magene Radar
 
-Pole danych Connect IQ dla **Garmin Edge 1040**, które łączy dane z radaru **Magene L508** z dwóch źródeł:
+Pole danych **Garmin Connect IQ** dla **Garmin Edge 1040**, łączące obsługę radaru **Magene L508** z przednią lampką **Magene AT1200/AT1600**.
 
-- **BLE** — dokładny procent baterii radaru,
-- **ANT+ Bike Radar** — liczba mijających pojazdów i prędkość ostatniego pojazdu.
+Aplikacja pokazuje dane radaru i stan baterii obu urządzeń, a dodatkowo może samodzielnie sterować oświetleniem na podstawie danych Solar albo czasu wschodu i zachodu słońca. Sterowanie lampami działa niezależnie od automatyki Garmin Light Network.
 
-Projekt jest obecnie rozwijany i testowany na fizycznym **Garmin Edge 1040** oraz **Magene L508**.
+## Najważniejsze funkcje
 
-## Funkcje
+### Radar Magene L508
 
-Pole wyświetla trzy informacje:
+Pole korzysta z `Toybox.AntPlus.BikeRadar` i może wyświetlać:
+
+- liczbę pojazdów wykrywanych aktualnie przez radar,
+- prędkość względną najbliższego pojazdu,
+- dystans do najbliższego pojazdu,
+- poziom zagrożenia,
+- stronę zagrożenia,
+- licznik pojazdów z bieżącej aktywności,
+- szacowaną prędkość pojazdu.
+
+Poszczególne informacje można włączać i wyłączać w ustawieniach Connect IQ.
+
+## Bateria AT i L508
+
+Aplikacja odczytuje procent baterii dla:
+
+- **Magene AT1200/AT1600**,
+- **Magene L508**.
+
+Podstawowym źródłem dokładnego procentu jest standardowy BLE Battery Service:
 
 ```text
-        Battery: 93%
-
-       12          76
-      Cars        km/h
+Battery Service: 0x180F
+Battery Level:   0x2A19
 ```
 
-- `Battery: 93%` — dokładny poziom baterii L508 odczytany przez Bluetooth Low Energy,
-- `Cars` — liczba pojazdów zaliczonych od uruchomienia pola,
-- `km/h` — oszacowana bezwzględna prędkość ostatniego zaliczonego pojazdu.
+Po znalezieniu urządzenia pierwszy odczyt wykonywany jest od razu, a kolejne okresowo, mniej więcej co 60 sekund.
 
-UI jest obecnie przygotowane specjalnie pod **10-polowy layout Edge 1040**.
+Jeżeli urządzenie udostępnia procent baterii również przez dodatkową stronę ANT+ Bike Lights, aplikacja może wykorzystać tę wartość jako źródło pomocnicze.
 
-## Jak to działa
+## Automatyczne sterowanie oświetleniem
 
-### Bateria przez BLE
+W ustawieniach dostępne są trzy tryby:
 
-L508 udostępnia standardowy Bluetooth Low Energy Battery Service:
+- **Wyłączone** — aplikacja nie steruje światłami,
+- **Solar** — sterowanie na podstawie `System.getSystemStats().solarIntensity`,
+- **Wschód / Zachód słońca** — sterowanie na podstawie pozycji GPS i lokalnie obliczanego czasu wschodu i zachodu.
+
+### Tryb Solar
+
+Zasada jest celowo prosta:
 
 ```text
-Battery Service:  0x180F
-Battery Level:    0x2A19
+Solar == 0  -> światła ON
+Solar > 0   -> światła OFF
 ```
 
-Aplikacja:
+Jeżeli urządzenie nie udostępnia danych Solar, aplikacja przechodzi na sterowanie według wschodu i zachodu słońca.
 
-1. rejestruje profil BLE Battery Service,
-2. wyszukuje radar,
-3. łączy się z urządzeniem,
-4. odczytuje `Battery Level`,
-5. aktualizuje odczyt okresowo co około 60 sekund.
+## Wschód i zachód słońca
 
-Wartość jest odczytywana bezpośrednio jako procent `0–100`.
+Czas wschodu i zachodu jest liczony lokalnie na Edge na podstawie:
 
-### Radar przez ANT+
+- aktualnej daty i czasu,
+- pozycji GPS,
+- lokalnej strefy czasowej.
 
-Dane o pojazdach są pobierane przez natywne API Garmin Connect IQ:
+Nie jest wymagane połączenie z telefonem ani internetem.
+
+Po zachodzie światła są włączane, a po wschodzie wyłączane.
+
+## Jasność przedniej lampki AT1200/AT1600
+
+Po włączeniu światła jasność zależy od prędkości roweru:
+
+```text
+<= 20 km/h   -> minimalny stały poziom lampki
+20-40 km/h   -> jasność ustawiana przez użytkownika
+> 40 km/h    -> jasność ustawiana przez użytkownika
+```
+
+Dla dwóch wyższych zakresów można wybrać:
+
+```text
+20 / 40 / 60 / 80 / 100%
+```
+
+Dla prędkości do 20 km/h aplikacja zawsze wybiera najniższy standardowy stały tryb obsługiwany przez Magene AT.
+
+Standardowe tryby stałego światła ANT+ są interpretowane jako:
+
+```text
+1 -> 81-100%
+2 -> 61-80%
+3 -> 41-60%
+4 -> 21-40%
+5 -> 0-20%
+```
+
+## Tylna lampka L508
+
+Dla L508 aplikacja nie próbuje przeliczać jasności na procenty.
+
+Gdy światła mają być wyłączone, ustawiany jest tryb `OFF`. Po ponownym włączeniu aplikacja przywraca ostatni zaobserwowany aktywny tryb L508. Jeżeli nie zna wcześniejszego trybu, używany jest `Solid`.
+
+Obsługiwane tryby L508 obejmują:
+
+```text
+0  -> Off
+4  -> Solid
+5  -> Peloton
+6  -> Flashing
+7  -> Quickly Flash
+62 -> Pulse
+63 -> Rotation
+```
+
+## Sterowanie ANT+
+
+Lampy są obsługiwane przez standardowe `Toybox.AntPlus.LightNetwork`.
+
+Po wykryciu konkretnego urządzenia aplikacja zapamiętuje odpowiadający mu obiekt `AntPlus.BikeLight` i zmienia tryb przez:
 
 ```monkeyc
-Toybox.AntPlus.BikeRadar
+BikeLight.setMode()
 ```
 
-oraz:
+Zmiana jest potwierdzana przez aktualizację stanu lampy. Jeżeli urządzenie nie zgłosi żądanego trybu, komenda jest ponawiana z ograniczoną częstotliwością.
 
-```monkeyc
-getRadarInfo()
-```
+Dzięki temu sterowanie dotyczy konkretnej przedniej i tylnej lampki, a nie globalnie wszystkich świateł danego typu.
 
-Dla aktywnych targetów wykorzystywane są m.in.:
+## Identyfikacja urządzeń
+
+W ustawieniach można podać ręcznie:
+
+- ID przedniej lampki AT,
+- ID L508.
+
+Wartość `0` oznacza automatyczne wykrywanie. Po wykryciu aplikacja może zapamiętać numer urządzenia, ale ręcznie wpisany niezerowy identyfikator nie jest automatycznie nadpisywany.
+
+## Układy ekranu
+
+Pole automatycznie dopasowuje liczbę informacji i wielkość fontów do dostępnego miejsca.
+
+Dla Edge 1040 przygotowane są profile odpowiadające przede wszystkim układom:
+
+- 10 pól — do 2 informacji radarowych,
+- 9 pól — do 5 informacji,
+- 7 pól — do 5 informacji,
+- 1 pole — wszystkie włączone informacje.
+
+Bateria AT i L508 jest pokazywana w osobnym wierszu nad danymi radarowymi.
+
+## Ustawienia
+
+Dostępne opcje obejmują:
+
+- pokazywanie baterii AT/LR,
+- wybór trybu automatycznego sterowania światłami,
+- jasność AT dla 20-40 km/h,
+- jasność AT powyżej 40 km/h,
+- włączanie i wyłączanie poszczególnych pól radaru,
+- ręczne ID AT,
+- ręczne ID L508.
+
+## Architektura
+
+Najważniejsze pliki projektu:
 
 ```text
-RadarTarget.range
-RadarTarget.speed
-RadarTarget.threat
+source/
+├── L508BleDelegate.mc
+├── L508BleManager.mc
+├── L508RadarManager.mc
+├── MageneLightNetworkManager.mc
+├── Magene_RadarApp.mc
+├── Magene_RadarBackground.mc
+├── Magene_RadarView.mc
+└── SunTimes.mc
 ```
 
-Nie jest otwierany własny surowy kanał ANT. Systemowy radar Edge może nadal działać równolegle.
+### `L508BleManager.mc`
 
-## Liczenie pojazdów
+Obsługuje BLE, wyszukiwanie urządzeń, połączenie oraz odczyt Battery Level.
 
-Nie jest liczona liczba próbek z radaru.
+### `L508RadarManager.mc`
 
-Każdy pojazd jest tymczasowo śledzony na podstawie jego odległości. Pojazd zostaje zaliczony po spełnieniu dwóch warunków:
+Obsługuje `AntPlus.BikeRadar`, targety radaru, licznik pojazdów oraz dane o najbliższym pojeździe.
 
-1. wcześniej znalazł się w odległości nie większej niż:
+### `MageneLightNetworkManager.mc`
 
-```text
-10 m
-```
+Obsługuje ANT+ Bike Lights, wykrywanie AT/L508, odczyt pomocniczych danych baterii oraz automatykę oświetlenia.
 
-2. następnie zniknął z listy aktywnych targetów.
+### `SunTimes.mc`
 
-Dzięki temu pojedynczy samochód obserwowany przez radar przez kilka sekund nie jest liczony wielokrotnie.
+Oblicza wschód i zachód słońca offline na podstawie pozycji GPS.
 
-Aktualne stałe śledzenia:
+### `Magene_RadarView.mc`
 
-```monkeyc
-PASS_DISTANCE_METERS  = 10.0;
-MATCH_DISTANCE_METERS = 20.0;
-```
+Odpowiada za adaptacyjny rendering pola danych.
 
-## Prędkość pojazdu
+## Uprawnienia Connect IQ
 
-Garmin BikeRadar udostępnia prędkość targetu względem rowerzysty.
-
-Prędkość bezwzględna jest obliczana jako:
-
-```text
-prędkość pojazdu = prędkość względna radaru + prędkość rowerzysty
-```
-
-a następnie konwertowana z `m/s` do `km/h`:
-
-```text
-km/h = m/s × 3.6
-```
-
-Wartość na ekranie jest zaokrąglana do pełnego `km/h`.
-
-Jeżeli prędkość rowerzysty nie jest dostępna, prędkość pojazdu nie jest aktualizowana na podstawie niepełnych danych.
-
-## Obsługiwane urządzenia
-
-Aktualny `manifest.xml` zawiera wyłącznie:
-
-```text
-Garmin Edge 1040
-```
-
-Minimalny poziom API:
-
-```text
-Connect IQ API 6.0.0
-```
-
-Projekt korzysta z uprawnień m.in.:
+Projekt wykorzystuje:
 
 ```text
 Ant
 BluetoothLowEnergy
 FitContributor
+Positioning
 Sensor
 SensorHistory
 ```
 
-> Projekt nie był jeszcze przygotowany jako uniwersalne pole dla wszystkich urządzeń Garmin.
-
-## Ważne — identyfikacja BLE
-
-Aktualna wersja jest nadal wersją rozwojową.
-
-W `source/L508BleManager.mc` znajduje się identyfikator testowanego egzemplarza L508:
-
-```monkeyc
-name.equals("19813-5")
-```
-
-`19813-5` jest nazwą BLE konkretnego egzemplarza radaru i **nie należy zakładać, że będzie taka sama w innym L508**.
-
-Kod dodatkowo rozpoznaje urządzenia, których nazwa zawiera:
-
-```text
-L508
-```
-
-Przed publikacją jako aplikacja dla innych użytkowników warto dodać:
-
-- skanowanie dostępnych radarów,
-- wybór urządzenia,
-- zapis wybranego identyfikatora w `Application.Storage`,
-- możliwość zmiany lub usunięcia zapamiętanego radaru.
-
-## Jednoczesne połączenie z telefonem
-
-Na testowanym egzemplarzu zaobserwowano, że kiedy Edge utrzymuje połączenie BLE z L508, aplikacja Magene na telefonie może nie widzieć radaru przez Bluetooth.
-
-Nie zostało jeszcze ostatecznie potwierdzone, czy L508 obsługuje tylko jedno aktywne połączenie BLE central w danym momencie.
-
-ANT+ i systemowa obsługa radaru przez Edge działają niezależnie od odczytu baterii BLE.
-
-## Układ pola
-
-Aktualny interfejs jest zoptymalizowany pod **10-polowy ekran danych Edge 1040**.
-
-Najważniejsze fonty:
-
-```monkeyc
-batteryFont = Graphics.FONT_SMALL;
-valueFont   = Graphics.FONT_NUMBER_MILD;
-labelFont   = Graphics.FONT_XTINY;
-```
-
-Wartości licznika i prędkości są celowo większe od etykiet.
-
-Pozycje elementów są wyliczane względem rozmiaru przydzielonego pola:
-
-```monkeyc
-batteryY = h * 0.05;
-valueY   = h * 0.38;
-labelY   = h * 0.72;
-```
-
-## Struktura projektu
-
-```text
-Magene_Radar/
-├── manifest.xml
-├── monkey.jungle
-├── resources/
-│   ├── drawables/
-│   ├── layouts/
-│   └── strings/
-└── source/
-    ├── L508BleDelegate.mc
-    ├── L508BleManager.mc
-    ├── L508RadarManager.mc
-    ├── Magene_RadarApp.mc
-    ├── Magene_RadarBackground.mc
-    └── Magene_RadarView.mc
-```
-
-Najważniejsze elementy:
-
-### `L508BleManager.mc`
-
-Obsługa:
-
-- rejestracji profilu BLE,
-- skanowania,
-- połączenia z L508,
-- Battery Service,
-- Battery Level,
-- okresowego odczytu procentu baterii.
-
-### `L508BleDelegate.mc`
-
-Przekazuje callbacki BLE do `L508BleManager`.
-
-### `L508RadarManager.mc`
-
-Obsługa:
-
-- `AntPlus.BikeRadar`,
-- pobierania `RadarTarget`,
-- śledzenia kilku pojazdów,
-- detekcji minięcia,
-- liczenia pojazdów,
-- obliczania bezwzględnej prędkości.
-
-### `Magene_RadarView.mc`
-
-Pole danych i rendering:
-
-- `Battery: xx%`,
-- liczba pojazdów,
-- prędkość ostatniego pojazdu.
-
-### `Magene_RadarApp.mc`
-
-Lifecycle aplikacji i inicjalizacja managera BLE.
+`Positioning` jest potrzebne do obliczania wschodu i zachodu słońca.
 
 ## Budowanie
 
-Projekt można budować z Visual Studio Code przy użyciu rozszerzenia **Monkey C** i Garmin Connect IQ SDK.
-
-Aktualnie używany target:
+Projekt jest przeznaczony dla targetu:
 
 ```text
 edge1040
 ```
 
-Przykładowe uruchomienie kompilatora z linii poleceń:
+Do kompilacji potrzebne są Garmin Connect IQ SDK oraz klucz deweloperski.
+
+Przykładowe wywołanie:
 
 ```powershell
 java -Xms1g -Dfile.encoding=UTF-8 `
@@ -274,92 +236,8 @@ java -Xms1g -Dfile.encoding=UTF-8 `
   -w -r
 ```
 
-Poprawny build kończy się komunikatem:
+## Uwagi
 
-```text
-BUILD SUCCESSFUL
-```
+Sterowanie światłami zostało zaprojektowane dla zestawu z jedną przednią lampką Magene AT1200/AT1600 i jednym radarem/lampką Magene L508 sparowanymi z Edge przez ANT+.
 
-## Emulator
-
-Do testów UI można użyć Connect IQ Simulator.
-
-Przykład:
-
-```powershell
-simulator.exe
-monkeydo.bat bin\Magene_Radar.prg edge1040
-```
-
-Emulator pozwala sprawdzić layout pola, ale nie zastępuje testu fizycznego L508 dla BLE i danych radarowych ANT+.
-
-## Logowanie
-
-Kod zawiera komunikaty diagnostyczne przez:
-
-```monkeyc
-System.println()
-```
-
-Przykłady:
-
-```text
-[L508 BLE] connected
-[L508 BLE] battery=93%
-[L508 BLE] periodic battery read
-
-[L508 ANT] BikeRadar initialized
-[L508 ANT] first radar data received
-[L508 ANT] target close range=8.2 speed=74
-[L508 ANT] vehicle passed count=12 speed=76
-```
-
-## Aktualny status
-
-Potwierdzone na sprzęcie:
-
-- połączenie BLE Edge 1040 → Magene L508,
-- odczyt standardowego Battery Level,
-- dokładny procent baterii, np. `93%`,
-- automatyczne pojawienie się radaru BLE po wybudzeniu urządzenia ruchem,
-- działanie pola jako Connect IQ Data Field.
-
-W toku dalszych testów:
-
-- dokładność liczenia wielu pojazdów,
-- zachowanie śledzenia przy chwilowym zaniku targetu,
-- dokładność i rozdzielczość prędkości pojazdów,
-- dłuższe testy odświeżania procentu baterii,
-- zachowanie BLE przy jednoczesnym użyciu aplikacji Magene na telefonie.
-
-## Ograniczenia
-
-To jest obecnie projekt eksperymentalny / rozwojowy.
-
-W szczególności:
-
-- targetem jest tylko Edge 1040,
-- UI jest dostrojone pod layout 10-polowy,
-- identyfikacja konkretnego L508 jest częściowo hardcodowana,
-- licznik nie jest zapisywany pomiędzy restartami,
-- dane pojazdów nie są jeszcze zapisywane do FIT,
-- nie ma konfiguracji użytkownika ani wyboru radaru,
-- algorytm śledzenia targetów nie korzysta z trwałego ID pojazdu.
-
-## Planowane możliwości
-
-Potencjalne kolejne etapy:
-
-- wybór L508 z poziomu ustawień,
-- zapis wybranego radaru,
-- poprawiona maszyna stanów reconnect BLE,
-- zapis liczby i prędkości pojazdów do FIT,
-- statystyki ruchu,
-- prędkość maksymalna / średnia,
-- obsługa kolejnych modeli Edge i innych layoutów.
-
-## Licencja
-
-Przed publiczną publikacją repozytorium warto dodać wybraną licencję, np. MIT, GPL-3.0 lub inną odpowiednią dla projektu.
-
-Jeżeli nie chcesz jeszcze zezwalać na kopiowanie i redystrybucję, nie dodawaj licencji do czasu podjęcia decyzji.
+Dane radaru, BLE i automatyka oświetlenia są od siebie rozdzielone, dzięki czemu utrata jednego kanału komunikacji nie powinna blokować pozostałych funkcji pola.
