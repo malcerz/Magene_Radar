@@ -16,7 +16,7 @@ class Magene_RadarView extends WatchUi.DataField {
         mAtBattery = "--%";
         mLrBattery = "--%";
         mRadar = new L508RadarManager();
-        System.println("[MAGENE] BUILD=RADAR-FIELDS-RESPONSIVE-V4");
+        System.println("[MAGENE] BUILD=RADAR-LIGHT-AUTO-SBL-V5");
     }
 
     function onLayout(dc as Dc) as Void {
@@ -229,22 +229,18 @@ class Magene_RadarView extends WatchUi.DataField {
         var columns = 2;
         var rows = 1;
 
-        // Layout 10: two large fields in one row.
         if (w <= 160 && h <= 115) {
             columns = 2;
             rows = 1;
         }
-        // Layout 9: five compact fields across the full-width 282x94 slot.
         else if (w >= 250 && h <= 115) {
             columns = count;
             rows = 1;
         }
-        // Layout 7: five fields as 3 + 2 in the 282x188 slot.
         else if (w >= 250 && h <= 230) {
             columns = 3;
             rows = 2;
         }
-        // Layout 1: all fields in a roomy 2-column grid.
         else if (w >= 250 && h >= 350) {
             columns = 2;
             rows = (count + 1) / 2;
@@ -263,7 +259,6 @@ class Magene_RadarView extends WatchUi.DataField {
             var row = i / columns;
             var col = i % columns;
 
-            // In a 3+2 layout center the final two items in the second row.
             var x0 = col * cellW;
             if (columns == 3 && rows == 2 && count == 5 && row == 1) {
                 x0 += cellW / 2;
