@@ -3,16 +3,14 @@ import Toybox.Ant;
 import Toybox.AntPlus;
 import Toybox.Lang;
 import Toybox.System;
-import Toybox.Timer;
 
 //! Observer of the Garmin ANT+ Bike Lights network plus custom automatic
 //! control for Magene AT1200/AT1600 and L508.
 //!
-//! The control path intentionally follows the proven SmartBikeLights approach:
-//! once a concrete AntPlus.BikeLight object is reported, commands are sent with
-//! BikeLight.setMode() instead of globally changing every headlight/taillight in
-//! the Garmin network. Commands are confirmed by onBikeLightUpdate() and retried
-//! when the light does not report the requested mode.
+//! Commands target the concrete AntPlus.BikeLight objects reported by Garmin's
+//! LightNetwork. Automation is evaluated from the normal DataField compute loop
+//! instead of a separate Timer, which keeps the implementation aligned with the
+//! Edge data-field lifecycle.
 class MageneLightNetworkListener extends AntPlus.LightNetworkListener {
     private var mManager;
 
@@ -40,7 +38,7 @@ class MageneLightNetworkManager {
     private const CONTROL_SUNRISE_SUNSET = 2;
 
     // Direct-mode command confirmation/retry timing. ANT+ itself retries lower
-    // level transfers, so we deliberately keep application retries conservative.
+    // level transfers, so application retries remain conservative.
     private const COMMAND_RETRY_MS = 3000;
     private const COMMAND_BACKOFF_MS = 12000;
     private const MAX_FAST_RETRIES = 2;
@@ -69,7 +67,6 @@ class MageneLightNetworkManager {
     private var mLightControlMode as Lang.Number;
     private var mBrightnessUnder40 as Lang.Number;
     private var mBrightnessOver40 as Lang.Number;
-    private var mControlTimer as Timer.Timer?;
     private var mSunTimes as SunTimes;
     private var mSolarFallbackLogged as Boolean;
     private var mLastLocation;
@@ -101,7 +98,6 @@ class MageneLightNetworkManager {
         mLightControlMode = CONTROL_OFF;
         mBrightnessUnder40 = 60;
         mBrightnessOver40 = 100;
-        mControlTimer = null;
         mSunTimes = new SunTimes();
         mSolarFallbackLogged = false;
         mLastLocation = null;
@@ -135,25 +131,17 @@ class MageneLightNetworkManager {
         mBrightnessUnder40 = brightnessUnder40;
         mBrightnessOver40 = brightnessOver40;
 
-        var oldMode = mLightControlMode;
-        var wasActive = oldMode != CONTROL_OFF;
-        var willBeActive = mode != CONTROL_OFF;
-        mLightControlMode = mode;
-
-        if (oldMode != mode) {
-            resetCommandState();
+        if (mLightControlMode != mode) {
+            mLightControlMode = mode;
+            mDesiredHeadMode = null;
+            mDesiredTailMode = null;
+            mHeadPendingSince = null;
+            mTailPendingSince = null;
+            mHeadRetryCount = 0;
+            mTailRetryCount = 0;
             mSolarFallbackLogged = false;
-        }
-
-        if (willBeActive && !wasActive) {
-            if (mControlTimer == null) { mControlTimer = new Timer.Timer(); }
-            try {
-                (mControlTimer as Timer.Timer).start(method(:onLightControlTick), 1000, true);
-            } catch (e) {
-                System.println("[LIGHT CTRL] timer start error=" + e);
-            }
-        } else if (!willBeActive && wasActive && mControlTimer != null) {
-            try { (mControlTimer as Timer.Timer).stop(); } catch (e) {}
+        } else {
+            mLightControlMode = mode;
         }
 
         System.println("[LIGHT CTRL] mode=" + mLightControlMode
@@ -163,24 +151,24 @@ class MageneLightNetworkManager {
     }
 
     function stop() as Void {
-        if (mControlTimer != null) {
-            try { (mControlTimer as Timer.Timer).stop(); } catch (e) {}
-        }
-        resetCommandState();
+        mDesiredHeadMode = null;
+        mDesiredTailMode = null;
+        mHeadPendingSince = null;
+        mTailPendingSince = null;
+        mHeadRetryCount = 0;
+        mTailRetryCount = 0;
     }
 
-    //! Runs once per second while custom light automation is enabled.
-    private function onLightControlTick() as Void {
+    //! Called from DataField.compute(), so it naturally runs at the field's
+    //! normal update cadence and does not create a second timer lifecycle.
+    function updateLightControl(info as Activity.Info) as Void {
         if (mLightControlMode == CONTROL_OFF || mNetwork == null) { return; }
 
         var speedMps = null;
         var location = null;
         try {
-            var info = Activity.getActivityInfo();
-            if (info != null) {
-                speedMps = info.currentSpeed;
-                location = info.currentLocation;
-            }
+            speedMps = info.currentSpeed;
+            location = info.currentLocation;
         } catch (e) {
         }
 
@@ -208,8 +196,11 @@ class MageneLightNetworkManager {
             lightsOn = mSunTimes.isNight(usableLocation);
         }
 
-        if (lightsOn == null) { return; }
-        applyLightState(lightsOn as Boolean, speedMps);
+        if (lightsOn == true) {
+            applyLightState(true, speedMps);
+        } else if (lightsOn == false) {
+            applyLightState(false, speedMps);
+        }
     }
 
     private function getSolarIntensity() as Lang.Number? {
@@ -373,15 +364,6 @@ class MageneLightNetworkManager {
         if (now >= then) { return now - then; }
         // System timer wrapped; make the command immediately eligible for retry.
         return COMMAND_BACKOFF_MS;
-    }
-
-    private function resetCommandState() as Void {
-        mDesiredHeadMode = null;
-        mDesiredTailMode = null;
-        mHeadPendingSince = null;
-        mTailPendingSince = null;
-        mHeadRetryCount = 0;
-        mTailRetryCount = 0;
     }
 
     //! Parse raw Bike Lights pages. Ant.Message.deviceNumber is the source ANT ID.
