@@ -5,8 +5,11 @@ import Toybox.System;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
 
-//! Small offline sunrise/sunset helper. It uses the current GPS location and
-//! Garmin's LocalMoment time-zone/DST conversion, so no phone or network is needed.
+//! Offline sunrise/sunset helper.
+//!
+//! The astronomical calculation follows the NOAA algorithm also used by
+//! SmartBikeLights' SunsetDataField. Everything is evaluated in UTC seconds of
+//! day, so no phone/network lookup or manual timezone handling is required.
 class SunTimes {
     private var mLastCheck as Lang.Number?;
     private var mCachedNight as Lang.Boolean?;
@@ -17,7 +20,8 @@ class SunTimes {
     }
 
     //! Returns true between sunset and the next sunrise, false during daytime.
-    //! Returns null until a usable location/time conversion is available.
+    //! Returns null until a usable GPS position is available or for polar dates
+    //! where there is no normal sunrise/sunset.
     function isNight(location as Position.Location) as Lang.Boolean? {
         var timer = System.getTimer();
         if (mCachedNight != null && mLastCheck != null) {
@@ -30,32 +34,20 @@ class SunTimes {
 
         try {
             var now = Time.now();
-            var local = Gregorian.localMoment(location, now);
-            if (local == null) { return null; }
-            var localMoment = local as Time.LocalMoment;
-            var info = Gregorian.info(localMoment, Time.FORMAT_SHORT);
-            var coords = location.toDegrees();
-            var latitude = coords[0];
-            var longitude = coords[1];
-            var dayNumber = dayOfYear(info.year, info.month, info.day);
+            var utc = Gregorian.utcInfo(now, Time.FORMAT_SHORT);
+            var position = location.toDegrees();
 
-            var sunriseUtc = sunUtcHour(latitude, longitude, dayNumber, true);
-            var sunsetUtc = sunUtcHour(latitude, longitude, dayNumber, false);
-            if (sunriseUtc == null || sunsetUtc == null) {
-                return null;
-            }
+            var sunrise = getSunriseSet(true, utc, position);
+            var sunset = getSunriseSet(false, utc, position);
+            if (sunrise == null || sunset == null) { return null; }
 
-            var offsetHours = localMoment.getOffset() / 3600.0;
-            var sunriseLocal = normalizeHours(sunriseUtc + offsetHours);
-            var sunsetLocal = normalizeHours(sunsetUtc + offsetHours);
-            var nowLocal = info.hour + (info.min / 60.0) + (info.sec / 3600.0);
-
+            var nowSeconds = (utc.hour * 3600) + (utc.min * 60) + utc.sec;
             var night;
-            if (sunriseLocal <= sunsetLocal) {
-                night = (nowLocal < sunriseLocal || nowLocal >= sunsetLocal);
+            if (sunrise <= sunset) {
+                night = (nowSeconds < sunrise || nowSeconds >= sunset);
             } else {
-                // Daylight interval crosses local midnight.
-                night = (nowLocal >= sunsetLocal && nowLocal < sunriseLocal);
+                // Rare case where the daylight interval crosses UTC midnight.
+                night = (nowSeconds >= sunset && nowSeconds < sunrise);
             }
 
             mCachedNight = night;
@@ -66,80 +58,91 @@ class SunTimes {
         }
     }
 
-    private function dayOfYear(year, month, day) {
-        var days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        if (isLeapYear(year)) { days[1] = 29; }
-        var result = day;
-        for (var i = 1; i < month; i++) {
-            result += days[i - 1];
-        }
-        return result;
-    }
-
-    private function isLeapYear(year) as Boolean {
-        if ((year % 400) == 0) { return true; }
-        if ((year % 100) == 0) { return false; }
-        return (year % 4) == 0;
-    }
-
-    //! NOAA-style sunrise/sunset approximation. Returned value is UTC hours.
-    private function sunUtcHour(latitude, longitude, dayNumber, sunrise) {
-        var lngHour = longitude / 15.0;
-        var approximateTime;
-        if (sunrise) {
-            approximateTime = dayNumber + ((6.0 - lngHour) / 24.0);
-        } else {
-            approximateTime = dayNumber + ((18.0 - lngHour) / 24.0);
+    //! NOAA Solar Calculator style calculation. Returns UTC seconds of day.
+    private function getSunriseSet(rise as Boolean, time, position) {
+        var month = time.month;
+        var year = time.year;
+        if (month <= 2) {
+            year -= 1;
+            month += 12;
         }
 
-        var meanAnomaly = (0.9856 * approximateTime) - 3.289;
-        var trueLongitude = meanAnomaly
-            + (1.916 * Math.sin(Math.toRadians(meanAnomaly)))
-            + (0.020 * Math.sin(Math.toRadians(2.0 * meanAnomaly)))
-            + 282.634;
-        trueLongitude = normalizeDegrees(trueLongitude);
+        var a = Math.floor(year / 100);
+        var b = 2 - a + Math.floor(a / 4);
+        var jd = Math.floor(365.25 * (year + 4716))
+            + Math.floor(30.6001 * (month + 1))
+            + time.day + b - 1524.5;
+        var t = (jd - 2451545.0) / 36525.0;
 
-        var rightAscension = Math.toDegrees(
-            Math.atan(0.91764 * Math.tan(Math.toRadians(trueLongitude)))
+        var omega = degToRad(125.04 - 1934.136 * t);
+        var l1 = 280.46646 + t * (36000.76983 + t * 0.0003032);
+        while (l1 > 360.0) { l1 -= 360.0; }
+        while (l1 < 0.0) { l1 += 360.0; }
+
+        var l0 = degToRad(l1);
+        var e = 0.016708634 - t * (0.000042037 + 0.0000001267 * t);
+        var mrad = degToRad(357.52911 + t * (35999.05029 - 0.0001537 * t));
+        var ec = degToRad(
+            (23.0 + (26.0 + ((21.448 - t * (46.8150 + t * (0.00059 - t * 0.001813))) / 60.0)) / 60.0)
+            + 0.00256 * Math.cos(omega)
         );
-        rightAscension = normalizeDegrees(rightAscension);
 
-        var longitudeQuadrant = Math.floor(trueLongitude / 90.0) * 90.0;
-        var raQuadrant = Math.floor(rightAscension / 90.0) * 90.0;
-        rightAscension = rightAscension + (longitudeQuadrant - raQuadrant);
-        rightAscension = rightAscension / 15.0;
+        var y = Math.tan(ec / 2.0);
+        y *= y;
+        var sinm = Math.sin(mrad);
+        var eqTime = (
+            180.0 * (
+                y * Math.sin(2.0 * l0)
+                - 2.0 * e * sinm
+                + 4.0 * e * y * sinm * Math.cos(2.0 * l0)
+                - 0.5 * y * y * Math.sin(4.0 * l0)
+                - 1.25 * e * e * Math.sin(2.0 * mrad)
+            ) / 3.141593
+        ) * 4.0;
 
-        var sinDeclination = 0.39782 * Math.sin(Math.toRadians(trueLongitude));
-        var cosDeclination = Math.cos(Math.asin(sinDeclination));
-        var zenith = 90.833;
-        var cosHourAngle = (
-            Math.cos(Math.toRadians(zenith))
-            - (sinDeclination * Math.sin(Math.toRadians(latitude)))
-        ) / (cosDeclination * Math.cos(Math.toRadians(latitude)));
+        var sunEq = sinm * (1.914602 - t * (0.004817 + 0.000014 * t))
+            + Math.sin(mrad + mrad) * (0.019993 - 0.000101 * t)
+            + Math.sin(mrad + mrad + mrad) * 0.000289;
+
+        var latitude = position[0].toFloat();
+        var longitude = position[1].toFloat();
+        var latRad = degToRad(latitude);
+        var sdRad = degToRad(
+            180.0 * Math.asin(
+                Math.sin(ec) * Math.sin(
+                    degToRad((l1 + sunEq) - 0.00569 - 0.00478 * Math.sin(omega))
+                )
+            ) / 3.141593
+        );
+
+        var cosHourAngle = Math.cos(degToRad(90.833))
+            / (Math.cos(latRad) * Math.cos(sdRad))
+            - Math.tan(latRad) * Math.tan(sdRad);
 
         if (cosHourAngle > 1.0 || cosHourAngle < -1.0) {
-            // Polar day/night: no normal sunrise or sunset on this date.
             return null;
         }
 
-        var hourAngle = Math.toDegrees(Math.acos(cosHourAngle));
-        if (sunrise) { hourAngle = 360.0 - hourAngle; }
-        hourAngle = hourAngle / 15.0;
+        var hourAngle = Math.acos(cosHourAngle);
+        if (!rise) { hourAngle = -hourAngle; }
 
-        var localMeanTime = hourAngle + rightAscension
-            - (0.06571 * approximateTime) - 6.622;
-        return normalizeHours(localMeanTime - lngHour);
+        var value = (
+            720
+            - (4.0 * (longitude + (180.0 * hourAngle / 3.141593)))
+            - eqTime
+        ) * 60;
+
+        return getSecondsOfDay(value);
     }
 
-    private function normalizeDegrees(value) {
-        while (value < 0.0) { value += 360.0; }
-        while (value >= 360.0) { value -= 360.0; }
-        return value;
+    private function getSecondsOfDay(value) {
+        var number = value.toNumber();
+        if (number == null) { return null; }
+        while (number < 0) { number += 86400; }
+        return number % 86400;
     }
 
-    private function normalizeHours(value) {
-        while (value < 0.0) { value += 24.0; }
-        while (value >= 24.0) { value -= 24.0; }
-        return value;
+    private function degToRad(angleDeg) {
+        return 3.141593 * angleDeg / 180.0;
     }
 }
