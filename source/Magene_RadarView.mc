@@ -73,6 +73,20 @@ class Magene_RadarView extends WatchUi.DataField {
         mLrBattery = formatBattery(lrPercent, lrStatus);
     }
 
+    function onTimerStart() as Void {
+        var lightManager = getApp().getLightNetworkManager();
+        if (lightManager != null) {
+            lightManager.onActivityTimerStart();
+        }
+    }
+
+    function onTimerStop() as Void {
+        var lightManager = getApp().getLightNetworkManager();
+        if (lightManager != null) {
+            lightManager.onActivityTimerStop(getApp().getTurnOffAtOnStop());
+        }
+    }
+
     function onTimerReset() as Void {
         mRadar.resetSession();
     }
