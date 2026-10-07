@@ -2,6 +2,7 @@
     <string id="AppName">Magene_Radar</string>
     <string id="label">Magene Radar</string>
     <string id="ShowBatteryStatusTitle">Pokazuj baterie AT/LR</string>
+    <string id="TurnOffAtOnStopTitle">Wylacz swiatlo AT po zatrzymaniu aktywnosci</string>
     <string id="AtDeviceIdTitle">ID Magene AT1600/AT1200</string>
     <string id="LrDeviceIdTitle">ID Magene L508</string>
     <string id="DeviceIdPrompt">0 = wykryj automatycznie</string>
