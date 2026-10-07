@@ -1,5 +1,6 @@
 <properties>
     <property id="showBatteryStatus" type="boolean">true</property>
+    <property id="turnOffAtOnStop" type="boolean">true</property>
     <property id="atDeviceId" type="number">0</property>
     <property id="lrDeviceId" type="number">0</property>
 
