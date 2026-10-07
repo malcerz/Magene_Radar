@@ -3,6 +3,10 @@
         <settingConfig type="boolean" />
     </setting>
 
+    <setting propertyKey="@Properties.turnOffAtOnStop" title="@Strings.TurnOffAtOnStopTitle">
+        <settingConfig type="boolean" />
+    </setting>
+
     <setting propertyKey="@Properties.lightControlMode" title="@Strings.LightControlModeTitle">
         <settingConfig type="list">
             <listEntry value="0">@Strings.LightControlOff</listEntry>
