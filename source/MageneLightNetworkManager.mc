@@ -70,6 +70,7 @@ class MageneLightNetworkManager {
     private var mSunTimes as SunTimes;
     private var mSolarFallbackLogged as Boolean;
     private var mLastLocation;
+    private var mHeadlightSuppressedByTimerStop as Boolean;
 
     // Requested modes and confirmation state.
     private var mDesiredHeadMode as Lang.Number?;
@@ -101,6 +102,7 @@ class MageneLightNetworkManager {
         mSunTimes = new SunTimes();
         mSolarFallbackLogged = false;
         mLastLocation = null;
+        mHeadlightSuppressedByTimerStop = false;
 
         mDesiredHeadMode = null;
         mDesiredTailMode = null;
@@ -159,10 +161,49 @@ class MageneLightNetworkManager {
         mTailRetryCount = 0;
     }
 
+    //! Called when the Edge activity timer starts again after a manual stop.
+    //! This only releases the temporary headlight OFF latch; normal Solar/time
+    //! automation decides the next light mode on the following compute() update.
+    function onActivityTimerStart() as Void {
+        if (!mHeadlightSuppressedByTimerStop) { return; }
+        mHeadlightSuppressedByTimerStop = false;
+        mDesiredHeadMode = null;
+        mHeadPendingSince = null;
+        mHeadRetryCount = 0;
+        System.println("[LIGHT CTRL] activity started -> AT light control resumed");
+    }
+
+    //! Turn only the emitted AT light OFF when the activity timer is stopped.
+    //! LIGHT_MODE_OFF changes the light mode only; the lamp remains present in
+    //! the Garmin ANT+ light network and can continue receiving commands.
+    function onActivityTimerStop(turnOffHeadlight as Boolean) as Void {
+        if (!turnOffHeadlight) {
+            mHeadlightSuppressedByTimerStop = false;
+            return;
+        }
+
+        mHeadlightSuppressedByTimerStop = true;
+        mDesiredHeadMode = null;
+        mHeadPendingSince = null;
+        mHeadRetryCount = 0;
+        commandHeadlight(AntPlus.LIGHT_MODE_OFF);
+        System.println("[LIGHT CTRL] activity stopped -> AT light OFF");
+    }
+
     //! Called from DataField.compute(), so it naturally runs at the field's
     //! normal update cadence and does not create a second timer lifecycle.
     function updateLightControl(info as Activity.Info) as Void {
-        if (mLightControlMode == CONTROL_OFF || mNetwork == null) { return; }
+        if (mNetwork == null) { return; }
+
+        // After the activity timer is stopped, keep only the AT light output OFF.
+        // The L508 is intentionally left unchanged. Once OFF is confirmed,
+        // commandHeadlight() stops retransmitting the command.
+        if (mHeadlightSuppressedByTimerStop) {
+            commandHeadlight(AntPlus.LIGHT_MODE_OFF);
+            return;
+        }
+
+        if (mLightControlMode == CONTROL_OFF) { return; }
 
         var speedMps = null;
         var location = null;
