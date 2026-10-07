@@ -8,6 +8,7 @@ class Magene_RadarApp extends Application.AppBase {
     private var mBleManager as L508BleManager?;
     private var mLightNetwork as MageneLightNetworkManager?;
     private var mShowBattery as Boolean;
+    private var mTurnOffAtOnStop as Boolean;
     private var mAtDeviceId as Lang.Number?;
     private var mLrDeviceId as Lang.Number?;
 
@@ -32,6 +33,7 @@ class Magene_RadarApp extends Application.AppBase {
         mBleManager = new L508BleManager();
         mLightNetwork = new MageneLightNetworkManager();
         mShowBattery = true;
+        mTurnOffAtOnStop = true;
         mAtDeviceId = null;
         mLrDeviceId = null;
 
@@ -81,6 +83,7 @@ class Magene_RadarApp extends Application.AppBase {
 
     private function loadSettings() as Void {
         mShowBattery = readBoolProperty("showBatteryStatus", true);
+        mTurnOffAtOnStop = readBoolProperty("turnOffAtOnStop", true);
         mAtDeviceId = readIdProperty("atDeviceId");
         mLrDeviceId = readIdProperty("lrDeviceId");
 
@@ -168,6 +171,7 @@ class Magene_RadarApp extends Application.AppBase {
     function getL508BleManager() as L508BleManager? { return mBleManager; }
     function getLightNetworkManager() as MageneLightNetworkManager? { return mLightNetwork; }
     function getShowBatteryStatus() as Boolean { return mShowBattery; }
+    function getTurnOffAtOnStop() as Boolean { return mTurnOffAtOnStop; }
     function getAtDeviceId() as Lang.Number? { return mAtDeviceId; }
     function getLrDeviceId() as Lang.Number? { return mLrDeviceId; }
 
