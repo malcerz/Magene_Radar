@@ -1,8 +1,18 @@
 # Magene Radar
 
-Pole danych **Garmin Connect IQ** dla **Garmin Edge 1040**, łączące obsługę radaru **Magene L508** z przednią lampką **Magene AT1200/AT1600**.
+**Magene Radar** is a Connect IQ data field for Garmin Edge 1040 designed for use with compatible Magene ANT+ and Bluetooth devices, including the L508 radar/tail light and AT1200/AT1600 front lights.
 
-Aplikacja pokazuje dane radaru i stan baterii obu urządzeń, a dodatkowo może samodzielnie sterować oświetleniem na podstawie danych Solar albo czasu wschodu i zachodu słońca. Sterowanie lampami działa niezależnie od automatyki Garmin Light Network.
+The data field can display radar telemetry such as detected vehicle count, relative speed, distance, side, session total and estimated vehicle speed.
+
+Battery information for compatible Magene lights can also be displayed, including battery percentage when available.
+
+The application includes configurable light control for compatible ANT+ lights. Light operation can be based on solar intensity or calculated sunrise and sunset times, while front light output can be adjusted according to cycling speed.
+
+Displayed radar metrics can be configured in the application settings to match different Edge 1040 data screen layouts.
+
+Main features include radar telemetry display, Magene light battery information, configurable radar metrics, automatic ANT+ light control and support for Magene L508 and AT1200/AT1600 devices.
+
+A Garmin Edge 1040 and compatible paired sensors are required. Available data depends on the information provided by the connected devices.
 
 ## Najważniejsze funkcje
 
@@ -97,6 +107,14 @@ Standardowe tryby stałego światła ANT+ są interpretowane jako:
 5 -> 0-20%
 ```
 
+## Wyłączenie światła AT po zatrzymaniu aktywności
+
+Opcjonalne ustawienie **Wylacz swiatlo AT po zatrzymaniu aktywnosci** powoduje wysłanie do przedniej lampki trybu ANT+ `LIGHT_MODE_OFF` po zatrzymaniu timera aktywności.
+
+Wyłączany jest tylko tryb świecenia. Lampka pozostaje urządzeniem w sieci ANT+ i może nadal odbierać kolejne komendy. Po ponownym uruchomieniu aktywności normalne sterowanie Solar / Wschód-Zachód zostaje wznowione.
+
+L508 nie jest zmieniany przez tę opcję.
+
 ## Tylna lampka L508
 
 Dla L508 aplikacja nie próbuje przeliczać jasności na procenty.
@@ -156,6 +174,7 @@ Bateria AT i L508 jest pokazywana w osobnym wierszu nad danymi radarowymi.
 Dostępne opcje obejmują:
 
 - pokazywanie baterii AT/LR,
+- wyłączanie światła AT po zatrzymaniu aktywności,
 - wybór trybu automatycznego sterowania światłami,
 - jasność AT dla 20-40 km/h,
 - jasność AT powyżej 40 km/h,
